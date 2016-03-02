@@ -1,0 +1,2 @@
+# FinTrendr
+Thesis Project
