@@ -111,7 +111,7 @@ let deleteKeyword = (keyword) => {
  */
 let deleteItem = (item) => {
   return new Promise((resolve, reject) => {
-    db.delete(node, function(err) {
+    db.delete(node, (err) => {
       if(err) return reject(err);
       return resolve();
     })
