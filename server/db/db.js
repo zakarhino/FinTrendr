@@ -7,8 +7,8 @@ const db = require("seraph")({
 
 /**
  * Saves stock to DB and passes saved object to callback
- * @param  {Object}   stock Stock object
- * @return {Function}       Callback function
+ * @param  {Object}   stock  Stock object
+ * @return {Function}        Callback function
  */
 let saveStock = (stock) => {
   return new Promise((resolve, reject) => {
@@ -21,8 +21,8 @@ let saveStock = (stock) => {
 
 /**
  * Saves keyword to DB and passes saved object to callback
- * @param  {Object}   keyword Keyword object
- * @return {Object}           Promise object
+ * @param  {Object}   keyword  Keyword object
+ * @return {Object}            Promise object
  */
 let saveKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
@@ -65,8 +65,8 @@ let getKeyword = (keyword) => {
 
 /**
  * Deletes stock from DB
- * @param  {Object} stock Stock object
- * @return {Object}       Promise object
+ * @param  {Object}  stock  Stock object
+ * @return {Object}         Promise object
  */
 let deleteStock = (stock) => {
   return new Promise((resolve, reject) => {
@@ -87,8 +87,8 @@ let deleteStock = (stock) => {
 
 /**
  * Deletes keyword from DB
- * @param  {Object} keyword Keyword object
- * @return {Object}         Promise object
+ * @param  {Object}  keyword  Keyword object
+ * @return {Object}           Promise object
  */
 let deleteKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
@@ -119,7 +119,15 @@ let deleteItem = (item) => {
 }
 
 let addRelationship = (keyword, stock, correlation) => {
-
+  return new Promise((resolve, reject) => {
+    Promise.all([getStock(stock), getKeyword(keyword)])
+    .then(function(results) {
+      db.relate(keyword, 'relates', stock, { correlation }, (err, rel) => {
+        if (err) reject(err);
+        resolve(rel);
+      });
+    });
+  })
 };
 
 module.exports = {

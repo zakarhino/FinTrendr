@@ -1,10 +1,11 @@
 "use strict"
 const request = require('request');
 const Correlation = require('node-correlation');
+const qs = require('querystring');
 
 module.exports  = {
   getResult:function(req,res) {
-    console.log('yo');
+    console.log("req keyword url:", req.query.keyword);
     let tempObject = {
       companyName: 'google',
       tempArray: [ 100,
@@ -34,6 +35,8 @@ module.exports  = {
       };
     let keyword = req.query.keyword;
     let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q='+keyword+'&cid=TIMESERIES_GRAPH_0&export=3';
+
+    return res.send({companyName: tempObject.companyName, corr: tempObject.tempArray});
 
     request.get(url, function(err,response,body) {
       if(err) {
