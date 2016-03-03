@@ -33,7 +33,7 @@ module.exports  = {
       };
     let keyword = req.body;
     let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q='+keyword+'&cid=TIMESERIES_GRAPH_0&export=3';
-    
+
     request.get(url, function(err,response,body) {
       if(err) {
         res.send('Error making a get request to google trends');
@@ -53,4 +53,5 @@ module.exports  = {
     });
 
   }
+
 }
