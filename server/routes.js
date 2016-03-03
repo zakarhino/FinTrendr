@@ -7,6 +7,7 @@ var KeywordController = require('./controller.js');
 
 module.exports = function(app) {
 
+
   /**
    * log all incoming request URL.
    */
@@ -16,10 +17,11 @@ module.exports = function(app) {
   });
 
   app.use(bodyParser.json());
-  app.use(express.static(__dirname + '../public'));
+  app.use(express.static(__dirname + '/../public'));
+ 
 
   /**
    * Keyword API get Request
    */
-  app.get('/api/:keyword', KeywordController.getResult);
+  app.get('/api/', KeywordController.getResult);
 }
