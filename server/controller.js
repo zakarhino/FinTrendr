@@ -36,7 +36,7 @@ module.exports  = {
     
     request.get(url, function(err,response,body) {
       if(err) {
-        res.send('Error making get request to google trends');
+        res.send('Error making a get request to google trends');
       } else {
         let info = eval(body.slice(61));
         let results = [];
