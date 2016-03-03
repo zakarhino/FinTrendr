@@ -81,6 +81,10 @@ let deleteStock = (stock) => {
             console.log("Error deleting stock:");
             reject(err);
           });
+      })
+      .catch((err) => {
+        console.log("Error getting stock:");
+        console.log(err);
       });
   });
 };
@@ -93,9 +97,16 @@ let deleteStock = (stock) => {
 let deleteKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
     getKeyword(keyword)
-      .then(() => {
-        console.log("Deleted keyword.");
-        resolve();
+      .then((node) => {
+        deleteItem(node)
+          .then(() => {
+            console.log("Deleted keyword.");
+            resolve();
+          })
+          .catch((err) => {
+            console.log("Error deleting keyword:");
+            reject(err);
+          });
       })
       .catch((err) => {
         console.log("Error deleting keyword:");
@@ -106,8 +117,8 @@ let deleteKeyword = (keyword) => {
 
 /**
  * Deletes item from DB
- * @param  {Object} item Seraph node object
- * @return {Function}    Resolve/reject function
+ * @param  {Object}    item  Seraph node object
+ * @return {Function}        Resolve/reject function
  */
 let deleteItem = (item) => {
   return new Promise((resolve, reject) => {
@@ -130,6 +141,22 @@ let addRelationship = (keyword, stock, correlation) => {
   });
 };
 
+let testDbConnection = () => {
+  return new Promise((resolve, reject) => {
+    db.save({ test: "Object!" }, (err, node) => {
+      if(err) return reject(err);
+      else {
+        console.log("Saved test object!");
+        db.delete(node, (err) => {
+          if(err) return reject(err);
+          console.log("Deleted test object!");
+          resolve(true);
+        });
+      }
+    });
+  });
+};
+
 module.exports = {
   saveStock: saveStock,
   saveKeyword: saveKeyword,
@@ -137,5 +164,6 @@ module.exports = {
   getKeyword: getKeyword,
   deleteStock: deleteStock,
   deleteKeyword: deleteKeyword,
-  addRelationship: addRelationship
+  addRelationship: addRelationship,
+  testDbConnection: testDbConnection
 };
