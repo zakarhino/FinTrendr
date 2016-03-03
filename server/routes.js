@@ -9,7 +9,6 @@ module.exports = function(app) {
   /**
    * log all incoming request URL.
    */
-  console.log(__dirname)
   app.all('*', function(req, res, next) {
     console.log(req.method, 'Request for URL ', req.url)
     next();
