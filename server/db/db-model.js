@@ -81,7 +81,7 @@ let deleteStock = (stock) => {
             console.log("Error deleting stock:");
             reject(err);
           });
-      })
+      });
   });
 };
 
@@ -98,10 +98,10 @@ let deleteKeyword = (keyword) => {
         resolve();
       })
       .catch((err) => {
-        console.log("Error deleting keyword:")
+        console.log("Error deleting keyword:");
         reject(err);
       });
-  })
+  });
 };
 
 /**
@@ -114,9 +114,9 @@ let deleteItem = (item) => {
     db.delete(node, (err) => {
       if (err) return reject(err);
       return resolve();
-    })
+    });
   });
-}
+};
 
 let addRelationship = (keyword, stock, correlation) => {
   return new Promise((resolve, reject) => {
@@ -127,7 +127,7 @@ let addRelationship = (keyword, stock, correlation) => {
           resolve(rel);
         });
       });
-  })
+  });
 };
 
 module.exports = {
@@ -138,4 +138,4 @@ module.exports = {
   deleteStock: deleteStock,
   deleteKeyword: deleteKeyword,
   addRelationship: addRelationship
-}
+};

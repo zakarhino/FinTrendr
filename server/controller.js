@@ -1,4 +1,5 @@
-"use strict"
+"use strict";
+
 const request = require('request');
 const Correlation = require('node-correlation');
 const qs = require('querystring');
@@ -60,4 +61,4 @@ module.exports = {
 
   }
 
-}
+};

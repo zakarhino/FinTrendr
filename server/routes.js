@@ -12,7 +12,7 @@ module.exports = function(app) {
    */
 
   app.all('*', function(req, res, next) {
-    console.log(req.method, 'Request for URL ', req.url)
+    console.log(req.method, 'Request for URL ', req.url);
     next();
   });
 
@@ -23,4 +23,4 @@ module.exports = function(app) {
    * Keyword API get Request
    */
   app.get('/api/', KeywordController.getResult);
-}
+};
