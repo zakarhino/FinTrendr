@@ -13,7 +13,7 @@
                     $('#info').html('<p>An error has occurred:'+status+'-'+err+'</p>');
                 },
                 success:function(data) {
-                    $('#stage').html(data);
+                    $('#stage').text(document.getElementById('keyword').value+" correlation with "+data.companyName+' is: '+data.corr);
                     console.log(data);
                 }
             });
