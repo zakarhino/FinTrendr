@@ -71,17 +71,17 @@ let getKeyword = (keyword) => {
 let deleteStock = (stock) => {
   return new Promise((resolve, reject) => {
     getStock(stock)
-    .then((node) => {
-      deleteItem(node)
-      .then(() => {
-        console.log("Deleted stock.");
-        resolve();
+      .then((node) => {
+        deleteItem(node)
+          .then(() => {
+            console.log("Deleted stock.");
+            resolve();
+          })
+          .catch((err) => {
+            console.log("Error deleting stock:");
+            reject(err);
+          });
       })
-      .catch((err) => {
-        console.log("Error deleting stock:");
-        reject(err);
-      });
-    })
   });
 };
 
@@ -93,14 +93,14 @@ let deleteStock = (stock) => {
 let deleteKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
     getKeyword(keyword)
-    .then(() => {
-      console.log("Deleted keyword.");
-      resolve();
-    })
-    .catch((err) => {
-      console.log("Error deleting keyword:")
-      reject(err);
-    });
+      .then(() => {
+        console.log("Deleted keyword.");
+        resolve();
+      })
+      .catch((err) => {
+        console.log("Error deleting keyword:")
+        reject(err);
+      });
   })
 };
 
@@ -112,7 +112,7 @@ let deleteKeyword = (keyword) => {
 let deleteItem = (item) => {
   return new Promise((resolve, reject) => {
     db.delete(node, (err) => {
-      if(err) return reject(err);
+      if (err) return reject(err);
       return resolve();
     })
   });
@@ -121,12 +121,12 @@ let deleteItem = (item) => {
 let addRelationship = (keyword, stock, correlation) => {
   return new Promise((resolve, reject) => {
     Promise.all([getStock(stock), getKeyword(keyword)])
-    .then(function(results) {
-      db.relate(keyword, 'relates', stock, { correlation }, (err, rel) => {
-        if (err) reject(err);
-        resolve(rel);
+      .then(function(results) {
+        db.relate(keyword, 'relates', stock, { correlation }, (err, rel) => {
+          if (err) reject(err);
+          resolve(rel);
+        });
       });
-    });
   })
 };
 
