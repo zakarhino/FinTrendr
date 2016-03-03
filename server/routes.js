@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var KeywordController = require('./controller.js');
 
 module.exports = function(app) {
+
   /**
    * log all incoming request URL.
    */
@@ -20,5 +21,5 @@ module.exports = function(app) {
   /**
    * Keyword API get Request
    */
-  app.get('/api/:keyword', KeywordController.getResult);
+  app.get('/api/', KeywordController.getResult);
 }

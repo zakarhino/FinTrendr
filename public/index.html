@@ -5,37 +5,22 @@
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="./index.js"></script>  
+ <!--  // <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script> -->
 </head>
 
 <body>
-    <form>
+
     <br>
     Keyword:
     <input type="text" id="keyword" placeholder="input a keyword"><br>
-    </form>
+    <button id='buttonSubmit'>Submit</button>
+
     <div id="info"></div>
     <div id="stage"></div>
     <script type = "text/javascript" language = "javascript">
-        $(document).ready(function() {
-            $.ajax( {
-                type: 'POST',
+ 
 
-                url:'result.html',
-                data: {
-                    keyword: document.getElementById('keyword');
-                    format: 'json'
-                },
-                dataType: 'jsonp',
-
-                error: function(req,status, err) {
-                    $('#info').html('<p>An error has occurred:'+status+'-'+err+'</p>');
-                },
-                success:function(data) {
-                    $('#stage').html(data);
-                }
-            });
-         });
 
     </script>
 
