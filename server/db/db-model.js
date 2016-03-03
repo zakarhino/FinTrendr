@@ -7,8 +7,8 @@ const db = require("seraph")({
 
 /**
  * Saves stock to DB and passes saved object to callback
- * @param  {Object}   stock Stock object
- * @return {Function}       Callback function
+ * @param  {Object}   stock  Stock object
+ * @return {Function}        Callback function
  */
 let saveStock = (stock) => {
   return new Promise((resolve, reject) => {
@@ -21,8 +21,8 @@ let saveStock = (stock) => {
 
 /**
  * Saves keyword to DB and passes saved object to callback
- * @param  {Object}   keyword Keyword object
- * @return {Object}           Promise object
+ * @param  {Object}   keyword  Keyword object
+ * @return {Object}            Promise object
  */
 let saveKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
@@ -65,43 +65,43 @@ let getKeyword = (keyword) => {
 
 /**
  * Deletes stock from DB
- * @param  {Object} stock Stock object
- * @return {Object}       Promise object
+ * @param  {Object}  stock  Stock object
+ * @return {Object}         Promise object
  */
 let deleteStock = (stock) => {
   return new Promise((resolve, reject) => {
     getStock(stock)
-    .then((node) => {
-      deleteItem(node)
-      .then(() => {
-        console.log("Deleted stock.");
-        resolve();
-      })
-      .catch((err) => {
-        console.log("Error deleting stock:");
-        reject(err);
+      .then((node) => {
+        deleteItem(node)
+          .then(() => {
+            console.log("Deleted stock.");
+            resolve();
+          })
+          .catch((err) => {
+            console.log("Error deleting stock:");
+            reject(err);
+          });
       });
-    })
   });
 };
 
 /**
  * Deletes keyword from DB
- * @param  {Object} keyword Keyword object
- * @return {Object}         Promise object
+ * @param  {Object}  keyword  Keyword object
+ * @return {Object}           Promise object
  */
 let deleteKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
     getKeyword(keyword)
-    .then(() => {
-      console.log("Deleted keyword.");
-      resolve();
-    })
-    .catch((err) => {
-      console.log("Error deleting keyword:")
-      reject(err);
-    });
-  })
+      .then(() => {
+        console.log("Deleted keyword.");
+        resolve();
+      })
+      .catch((err) => {
+        console.log("Error deleting keyword:");
+        reject(err);
+      });
+  });
 };
 
 /**
@@ -112,14 +112,22 @@ let deleteKeyword = (keyword) => {
 let deleteItem = (item) => {
   return new Promise((resolve, reject) => {
     db.delete(node, (err) => {
-      if(err) return reject(err);
+      if (err) return reject(err);
       return resolve();
-    })
+    });
   });
-}
+};
 
 let addRelationship = (keyword, stock, correlation) => {
-
+  return new Promise((resolve, reject) => {
+    Promise.all([getStock(stock), getKeyword(keyword)])
+      .then(function(results) {
+        db.relate(keyword, 'relates', stock, { correlation }, (err, rel) => {
+          if (err) reject(err);
+          resolve(rel);
+        });
+      });
+  });
 };
 
 module.exports = {
@@ -130,4 +138,4 @@ module.exports = {
   deleteStock: deleteStock,
   deleteKeyword: deleteKeyword,
   addRelationship: addRelationship
-}
+};
