@@ -15,12 +15,12 @@ const db = require("seraph")({
 let saveStock = (stock) => {
   return new Promise((resolve, reject) => {
     saveItem(stock, 'Stock')
-    .then((node) => {
-      return resolve(node);
-    })
-    .catch((err) => {
-      return reject(err);
-    });
+      .then((node) => {
+        return resolve(node);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
   });
 };
 
@@ -32,12 +32,12 @@ let saveStock = (stock) => {
 let saveKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
     saveItem(keyword, 'Keyword')
-    .then((node) => {
-      return resolve(node);
-    })
-    .catch((err) => {
-      return reject(err);
-    });
+      .then((node) => {
+        return resolve(node);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
   });
 };
 
@@ -49,12 +49,12 @@ let saveKeyword = (keyword) => {
 let saveTerm = (term) => {
   return new Promise((resolve, reject) => {
     saveItem(term, 'Term')
-    .then((node) => {
-      return resolve(node);
-    })
-    .catch((err) => {
-      return reject(err);
-    });
+      .then((node) => {
+        return resolve(node);
+      })
+      .catch((err) => {
+        return reject(err);
+      });
   });
 };
 
@@ -67,7 +67,7 @@ let saveTerm = (term) => {
 let saveItem = (item, type) => {
   return new Promise((resolve, reject) => {
     db.save(item, type, (err, node) => {
-      if(err) return reject(err);
+      if (err) return reject(err);
       return resolve(node);
     });
   });
@@ -217,8 +217,8 @@ let addKeywordToKeyword = (first, second, correlation) => {
   return new Promise((resolve, reject) => {
     Promise.all([getKeyword(first), getKeyword(second)])
       .then(function(results) {
-        for(var result in results) {
-          if(results[result].length === 0) return reject("Keyword does not exist!");
+        for (var result in results) {
+          if (results[result].length === 0) return reject("Keyword does not exist!");
         }
         db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation }, (err, rel) => {
           if (err) return reject(err);
@@ -231,11 +231,11 @@ let addKeywordToKeyword = (first, second, correlation) => {
 let testDbConnection = () => {
   return new Promise((resolve, reject) => {
     db.save({ test: "Object!" }, (err, node) => {
-      if(err) return reject(err);
+      if (err) return reject(err);
       else {
         console.log("Saved test object!");
         db.delete(node, (err) => {
-          if(err) return reject(err);
+          if (err) return reject(err);
           console.log("Deleted test object!");
           return resolve(true);
         });

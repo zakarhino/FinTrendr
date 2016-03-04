@@ -12,11 +12,11 @@ gulp.task('lint', () => {
 
 gulp.task('test', () => {
   gulp.src('test/*.test.js')
-    .pipe(mocha({reporter: 'list'}))
+    .pipe(mocha({ reporter: 'list' }))
     .on('error', notify.onError({
       title: "Mocha Test Failed.",
       message: "One of more tests failed."
-     }));
+    }));
 });
 
 gulp.task('watch', () => {
