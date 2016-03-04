@@ -3,42 +3,22 @@
 const request = require('request');
 const Correlation = require('node-correlation');
 const qs = require('querystring');
+const db = require('./db/db-model');
 
 module.exports = {
   getResult: function(req, res) {
-    console.log("req keyword url:", req.query.keyword);
-    let tempObject = {
-      companyName: 'google',
-      tempArray: [100,
-        100,
-        100,
-        100,
-        81.62162162162161,
-        81.62162162162161,
-        100,
-        100,
-        100,
-        100,
-        100,
-        100,
-        81.62162162162161,
-        100,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161,
-        81.62162162162161
-      ]
-    };
     let keyword = req.query.keyword;
-    let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
 
-    return res.send({ companyName: tempObject.companyName, corr: tempObject.tempArray });
+    db.getKeyword({keyword: keyword}).then( (data) => {
+        //handle response if it already exists
+        console.log('a result was found');
+        console.log("the data is:", data);
+        console.log("the length of data is: ", data.length);
+    if(data.length === 0) {
+        db.getKeyword({}).then( (data) => {
+            // console.log(data)
+
+    let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
 
     request.get(url, function(err, response, body) {
       if (err) {
@@ -54,11 +34,41 @@ module.exports = {
         let scaledArray = results.map(function(result) {
           return result * max;
         });
-        let corr = Correlation.calc(tempObject.tempArray, scaledArray);
-        res.send({ companyName: tempObject.companyName, corr: corr });
-      }
-    });
 
-  }
+        let updated = {};
+
+        data.forEach(function(node) {
+            // console.log(data.node);
+            // console.log(node.date)
+            let numberArray = []
+            node.date.forEach(function(dateObj) {
+                let parsedObj = JSON.parse(dateObj);
+                for(var key in parsedObj) {
+                    numberArray.push(parsedObj[key])
+                }
+            });
+            let max = Math.max.apply(Math,numberArray);
+            updated[node.Keyword] = [];
+            for(var i = 0; i < numberArray.length; i++) {
+                if(Number.isNaN(numberArray[i]/max*100)) {
+                   updated[node.Keyword].push(.01) 
+                } else {
+                updated[node.Keyword].push(numberArray[i]/max*100);
+                }
+            }   
+        });
+
+        var corrObj = {};
+        for(var keyword in updated) {
+            corrObj[keyword] = Correlation.calc(updated[keyword], scaledArray);
+        }
+        res.send({ corr: corrObj } );
+        }
+    })
+    });
+    }
+
+  });
+}
 
 };

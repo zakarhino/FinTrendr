@@ -12,7 +12,7 @@ $(function() {
         $('#info').html('<p>An error has occurred:' + status + '-' + err + '</p>');
       },
       success: function(data) {
-        $('#stage').text(document.getElementById('keyword').value + " correlation with " + data.companyName + ' is: ' + data.corr);
+        $('#stage').text(document.getElementById('keyword').value + " correlations are: " + data.corr);
         console.log(data);
       }
     });
