@@ -9,11 +9,14 @@ module.exports = {
   getResult: function(req, res) {
     let keyword = req.query.keyword;
 
-    db.getKeyword({keyword: keyword}).then((data) => {
+    db.getKeyword({keyword: keyword}).then( (data) => {
         //handle response if it already exists
-    }).catch((err) => {
-        console.log('no result found', err);
+        console.log('a result was found');
+        console.log("the data is:", data);
+        console.log("the length of data is: ", data.length);
+    if(data.length === 0) {
         db.getKeyword({}).then( (data) => {
+            // console.log(data)
 
     let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
 
@@ -35,20 +38,22 @@ module.exports = {
         let updated = {};
 
         data.forEach(function(node) {
+            // console.log(data.node);
+            // console.log(node.date)
             let numberArray = []
-            node.data.forEach(function(dateObj) {
+            node.date.forEach(function(dateObj) {
                 let parsedObj = JSON.parse(dateObj);
                 for(var key in parsedObj) {
                     numberArray.push(parsedObj[key])
                 }
             });
             let max = Math.max.apply(Math,numberArray);
-            updated[node.keyword] = [];
+            updated[node.Keyword] = [];
             for(var i = 0; i < numberArray.length; i++) {
                 if(Number.isNaN(numberArray[i]/max*100)) {
-                   updated[node.keyword].push(.01) 
+                   updated[node.Keyword].push(.01) 
                 } else {
-                updated[node.keyword].push(numberArray[i]/max*100);
+                updated[node.Keyword].push(numberArray[i]/max*100);
                 }
             }   
         });
@@ -57,11 +62,13 @@ module.exports = {
         for(var keyword in updated) {
             corrObj[keyword] = Correlation.calc(updated[keyword], scaledArray);
         }
-        res.send({ corr: corrObj });
+        res.send({ corr: corrObj } );
         }
     })
     });
-    });
-  }
+    }
+
+  });
+}
 
 };
