@@ -9,6 +9,4 @@ db.addKeywordToKeyword({ Keyword: "handbags" }, { Keyword: "catering" }, 0.34166
     console.log("Saved:", saved);
   });
 
-db.getCorrelations({ Keyword: "handbags" })
-
 // dbModel.save
