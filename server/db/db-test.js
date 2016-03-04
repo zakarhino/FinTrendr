@@ -1,11 +1,14 @@
 "use strict";
 
-const dbModel = require('./db-model.js');
+const db = require('./db-model.js');
 
 console.log("Running db-test.js...");
 
-let Keyword = {
-  name: "electric cars",
-};
+db.addKeywordToKeyword({Keyword: "handbags"}, {Keyword: "catering"}, 0.341665)
+.then((saved) => {
+  console.log("Saved:", saved);
+});
+
+db.getCorrelations({Keyword: "handbags"})
 
 // dbModel.save

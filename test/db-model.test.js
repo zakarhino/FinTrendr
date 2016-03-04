@@ -1,3 +1,5 @@
+"use strict";
+
 const should = require('should');
 const db = require('../server/db/db-model.js');
 // const request = require("supertest-as-promised");

@@ -41,7 +41,7 @@ module.exports = {
             // console.log(data.node);
             // console.log(node.date)
             let numberArray = []
-            node.date.forEach(function(dateObj) {
+            node.data.forEach(function(dateObj) {
                 let parsedObj = JSON.parse(dateObj);
                 for(var key in parsedObj) {
                     numberArray.push(parsedObj[key])
@@ -51,11 +51,11 @@ module.exports = {
             updated[node.Keyword] = [];
             for(var i = 0; i < numberArray.length; i++) {
                 if(Number.isNaN(numberArray[i]/max*100)) {
-                   updated[node.Keyword].push(.01) 
+                   updated[node.Keyword].push(.01)
                 } else {
                 updated[node.Keyword].push(numberArray[i]/max*100);
                 }
-            }   
+            }
         });
 
         var corrObj = {};
