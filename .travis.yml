@@ -1,9 +1,7 @@
 language: node_js
 node_js: "5.6.0"
-git:
-  depth: 10
-branches:
-  only:
-    - master
+before_script:
+  - npm install -g gulp
+script: gulp
 notifications:
   slack: mks31:h1vgoaaSxeZ6OoHSlEdT0QA2
