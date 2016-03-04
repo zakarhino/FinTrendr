@@ -56,6 +56,12 @@ let saveTerm = (term) => {
   });
 };
 
+/**
+ * Saves item to DB and passes saved object back to caller function
+ * @param  {Object} item Item to add
+ * @param  {String} type Label of item you're adding
+ * @return {Function}    Resolve function
+ */
 let saveItem = (item, type) => {
   return new Promise((resolve, reject) => {
     db.save(item, type, (err, node) => {
