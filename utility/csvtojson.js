@@ -79,7 +79,7 @@ function csvtojson(csv) {
         var key = array[0][k];
         //keyword attribute
         if (k === 0) {
-          objArray[i - 1][key] = array[i][k];
+          objArray[i - 1][key] = array[i][k].toLowerCase();
         } else {
           //the date object;
           var temp = {};
@@ -88,7 +88,7 @@ function csvtojson(csv) {
           dateObj.push(temp);
         }
       }
-      objArray[i - 1].date = dateObj;
+      objArray[i - 1].data = dateObj;
     }
   }
   return objArray;
@@ -102,7 +102,6 @@ function csvtojson(csv) {
 function loadCSV(filename) {
   return new Promise((resolve, reject) => {
     console.log('Promise is being called');
-    console.log(path.join(filename));
     fs.open(filename, 'r', (error, file) => {
       console.log('file is being called');
       if (error) return reject();
