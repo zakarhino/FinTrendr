@@ -9,14 +9,13 @@ routes(app);
 
 // loadcsv('goldenticket.csv')
 //   .then((data) => {
-//     for(var i =0; i<data.length;i++)
-//     {
-//       db.saveKeyword(data[i]).then((node)=> {console.log('done')}).catch((err)=> {console.log(err)});
+//     for(var i =0; i<data.length; i++) {
+//       db.saveKeyword(data[i]).then((node)=> {console.log('done');}).catch((err)=> {console.log(err);});
 //     }
 //   })
 //   .catch(() => {
-//     console.log('failed to parse data')
-//   });;
+//     console.log('failed to parse data');
+//   });
 
 const port = process.env.PORT || 3000;
 

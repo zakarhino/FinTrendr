@@ -2,7 +2,7 @@
 
 const db = require("seraph")({
   user: 'neo4j',
-  pass: 'fintrendr'
+  pass: 'cool'
 });
 
 /**

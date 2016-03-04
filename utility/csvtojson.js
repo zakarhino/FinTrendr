@@ -69,7 +69,7 @@ function csvtojson(csv) {
   var array = CSVToArray(csv);
   var objArray = [];
   for (var h = 0; h < array[0].length; h++) {
-    array[0][h] = array[0][h].replace('Searches: ', '')
+    array[0][h] = array[0][h].replace('Searches: ', '');
   }
   for (var i = 1; i < array.length; i++) {
     if (array[i][0] !== '') {
@@ -79,13 +79,13 @@ function csvtojson(csv) {
         var key = array[0][k];
         //keyword attribute
         if (k === 0) {
-          objArray[i - 1][key] = array[i][k]
+          objArray[i - 1][key] = array[i][k];
         } else {
           //the date object;
-          var temp = {}
+          var temp = {};
           temp[key] = array[i][k];
           temp = JSON.stringify(temp);
-          dateObj.push(temp)
+          dateObj.push(temp);
         }
       }
       objArray[i - 1].date = dateObj;
@@ -112,8 +112,8 @@ function loadCSV(filename) {
           return resolve(csvtojson(data));
         });
       }
-    })
-  })
+    });
+  });
 }
 
 module.exports = loadCSV;
