@@ -88,7 +88,7 @@ function csvtojson(csv) {
           dateObj.push(temp);
         }
       }
-      objArray[i - 1].date = dateObj;
+      objArray[i - 1].data = dateObj;
     }
   }
   return objArray;
