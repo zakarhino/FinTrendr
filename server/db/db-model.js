@@ -3,13 +3,8 @@
 const config = require('../../utility/common').config();
 
 const db = require("seraph")({
-<<<<<<< HEAD
-  user: 'neo4j',
-  pass: 'cool'
-=======
   user: config.neo4j.user,
   pass: config.neo4j.password
->>>>>>> [Config] added: configuration for application
 });
 
 /**
