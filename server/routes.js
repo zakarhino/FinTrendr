@@ -7,10 +7,7 @@ var KeywordController = require('./controller.js');
 
 module.exports = function(app) {
 
-  /**
-   * log all incoming request URL.
-   */
-
+  // Log all incoming requests
   app.all('*', function(req, res, next) {
     console.log(req.method, 'Request for URL ', req.url);
     next();
@@ -19,8 +16,6 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(express.static(path.join(__dirname, '../public')));
 
-  /**
-   * Keyword API get Request
-   */
+  // Keyword API route
   app.get('/api/', KeywordController.getResult);
 };

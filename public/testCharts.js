@@ -1,39 +1,41 @@
-var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+var randomScalingFactor = function() {
+  return Math.round(Math.random() * 100);
+};
 
 var testVals = makeTestVals();
 var testVals2 = makeTestVals();
-var testLabels = generateDateLabels(3,2016);
+var testLabels = generateDateLabels(3, 2016);
 
 function makeTestVals() {
   var output = [];
-  for ( var i = 0; i < 24; i++ ) {
+  for (var i = 0; i < 24; i++) {
     output.push(randomScalingFactor());
   }
   return output;
 }
 
-function generateDateLabels(startMonth,startYear) {
+function generateDateLabels(startMonth, startYear) {
   var output = [];
   var curMonth = startMonth;
 
   var months = {
-    1 : "Jan",
-    2 : "Feb",
-    3 : "Mar",
-    4 : "Apr",
-    5 : "May",
-    6 : "June",
-    7 : "July",
-    8 : "Aug",
-    9 : "Sept",
-    10 : "Oct",
-    11 : "Nov",
-    12 : "Dec"
-  }
+    1: "Jan",
+    2: "Feb",
+    3: "Mar",
+    4: "Apr",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "Aug",
+    9: "Sept",
+    10: "Oct",
+    11: "Nov",
+    12: "Dec"
+  };
 
-  for ( var i = 0; i < 24; i ++ ) {
+  for (var i = 0; i < 24; i++) {
     output.unshift(months[curMonth] + " " + startYear);
-    if ( curMonth > 1 ) {
+    if (curMonth > 1) {
       curMonth--;
     } else {
       curMonth = 12;
@@ -44,25 +46,22 @@ function generateDateLabels(startMonth,startYear) {
   return output;
 }
 
-function newBarChart (labels, setOne, setTwo){
+function newBarChart(labels, setOne, setTwo) {
   var chartData = barChartData = {
-  labels : labels,
-  datasets : [
-    {
-      fillColor : "rgba(220,220,220,0.5)",
-      strokeColor : "rgba(220,220,220,0.8)",
+    labels: labels,
+    datasets: [{
+      fillColor: "rgba(220,220,220,0.5)",
+      strokeColor: "rgba(220,220,220,0.8)",
       highlightFill: "rgba(220,220,220,0.75)",
       highlightStroke: "rgba(220,220,220,1)",
-      data : setOne
-    },
-    {
-      fillColor : "rgba(151,187,205,0.5)",
-      strokeColor : "rgba(151,187,205,0.8)",
-      highlightFill : "rgba(151,187,205,0.75)",
-      highlightStroke : "rgba(151,187,205,1)",
-      data : setTwo
-    }
-  ]
+      data: setOne
+    }, {
+      fillColor: "rgba(151,187,205,0.5)",
+      strokeColor: "rgba(151,187,205,0.8)",
+      highlightFill: "rgba(151,187,205,0.75)",
+      highlightStroke: "rgba(151,187,205,1)",
+      data: setTwo
+    }]
   };
   return chartData;
 }
@@ -92,11 +91,11 @@ barShowStroke : true,
   legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 */
 
-var barChartData = newBarChart(testLabels, testVals,testVals2);
+var barChartData = newBarChart(testLabels, testVals, testVals2);
 
-window.onload = function(){
+window.onload = function() {
   var ctx_bar = document.getElementById("barChartOne").getContext("2d");
   window.myBar = new Chart(ctx_bar).Bar(barChartData, {
-    responsive : true
+    responsive: true
   });
-}
+};

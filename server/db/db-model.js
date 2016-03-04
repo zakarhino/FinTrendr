@@ -2,19 +2,22 @@
 
 const db = require("seraph")({
   user: 'neo4j',
-  pass: 'fintrendr'
+  pass: 'cool'
 });
 
 /**
  * Saves stock to DB and passes saved object to callback
  * @param  {Object}   stock  Stock object
- * @return {Function}        Callback function
+ * @return {Function}        Promise object
  */
 let saveStock = (stock) => {
   return new Promise((resolve, reject) => {
-    db.save(stock, 'Stock', (err, node) => {
-      if (err) reject(err);
-      resolve(node);
+    saveItem(stock, 'Stock')
+    .then((node) => {
+      return resolve(node);
+    })
+    .catch((err) => {
+      return reject(err);
     });
   });
 };
@@ -26,10 +29,38 @@ let saveStock = (stock) => {
  */
 let saveKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
-    console.log(keyword);
-    db.save(keyword, 'Keyword', (err, node) => {
-      if (err) reject(err);
-      resolve(node);
+    saveItem(keyword, 'Keyword')
+    .then((node) => {
+      return resolve(node);
+    })
+    .catch((err) => {
+      return reject(err);
+    });
+  });
+};
+
+/**
+ * Saves term to DB and passes saved object to callback
+ * @param  {Object} term Term object
+ * @return {Object}      Promise object
+ */
+let saveTerm = (term) => {
+  return new Promise((resolve, reject) => {
+    saveItem(term, 'Term')
+    .then((node) => {
+      return resolve(node);
+    })
+    .catch((err) => {
+      return reject(err);
+    });
+  });
+};
+
+let saveItem = (item, type) => {
+  return new Promise((resolve, reject) => {
+    db.save(item, type, (err, node) => {
+      if(err) return reject(err);
+      return resolve(node);
     });
   });
 };
@@ -37,14 +68,13 @@ let saveKeyword = (keyword) => {
 /**
  * Gets stock from DB and passes it into callback
  * @param  {Object}   stock  Name of the stock
- * @param  {Function} cb     Callback function
- * @return {Function}        Callback function
+ * @return {Object}        Promise object
  */
 let getStock = (stock) => {
   return new Promise((resolve, reject) => {
     db.find(stock, 'Stock', (err, node) => {
-      if (err) reject(err);
-      resolve(node);
+      if (err) return reject(err);
+      return resolve(node);
     });
   });
 };
@@ -52,14 +82,36 @@ let getStock = (stock) => {
 /**
  * Gets keyword from DB and passes it into callback
  * @param  {Object}    keyword  Keyword object
- * @param  {Function}  cb       Callback function
- * @return {Function}           Callback function
+ * @return {Object}           Promise object
  */
 let getKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
     db.find(keyword, 'Keyword', (err, node) => {
-      if (err) reject(err);
-      resolve(node);
+      if (err) return reject(err);
+      return resolve(node);
+    });
+  });
+};
+
+/**
+ * Gets term from DB and passes it into callback
+ * @param  {Object} term String object
+ * @return {Object}      Promise object
+ */
+let getTerm = (term) => {
+  return new Promise((resolve, reject) => {
+    db.find(term, 'Term', (err, node) => {
+      if (err) return reject(err);
+      return resolve(node);
+    });
+  });
+};
+
+let getItem = (item, term) => {
+  return new Promise((resolve, reject) => {
+    db.find(item, term, (err, node) => {
+      if (err) return reject(err);
+      return resolve(node);
     });
   });
 };
@@ -75,13 +127,19 @@ let deleteStock = (stock) => {
       .then((node) => {
         deleteItem(node)
           .then(() => {
-            console.log("Deleted stock.");
-            resolve();
+            return resolve();
           })
           .catch((err) => {
-            console.log("Error deleting stock:");
-            reject(err);
+            return reject(err);
           });
+      })
+      .catch((err) => {
+<<<<<<< HEAD
+        return reject(err);
+=======
+        console.log("Error getting stock:");
+        console.log(err);
+>>>>>>> 5c5ae7e2876f24c847ad47d71a61ab28ab1ebb03
       });
   });
 };
@@ -94,21 +152,48 @@ let deleteStock = (stock) => {
 let deleteKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
     getKeyword(keyword)
-      .then(() => {
-        console.log("Deleted keyword.");
-        resolve();
+      .then((node) => {
+        deleteItem(node)
+          .then(() => {
+            return resolve();
+          })
+          .catch((err) => {
+            return reject(err);
+          });
       })
       .catch((err) => {
-        console.log("Error deleting keyword:");
-        reject(err);
+        return reject(err);
+      });
+  });
+};
+
+/**
+ * Deletes term fromm DB
+ * @param  {Object} term Term object
+ * @return {Object}      Promise object
+ */
+let deleteTerm = (term) => {
+  return new Promise((resolve, reject) => {
+    getTerm(term)
+      .then((node) => {
+        deleteItem(node)
+          .then(() => {
+            return resolve();
+          })
+          .catch((err) => {
+            return reject(err);
+          });
+      })
+      .catch((err) => {
+        return reject(err);
       });
   });
 };
 
 /**
  * Deletes item from DB
- * @param  {Object} item Seraph node object
- * @return {Function}    Resolve/reject function
+ * @param  {Object}    item  Seraph node object
+ * @return {Function}        Resolve/reject function
  */
 let deleteItem = (item) => {
   return new Promise((resolve, reject) => {
@@ -119,15 +204,31 @@ let deleteItem = (item) => {
   });
 };
 
-let addRelationship = (keyword, stock, correlation) => {
+let addRelationship = (correlation, keyword, stock) => {
   return new Promise((resolve, reject) => {
     Promise.all([getStock(stock), getKeyword(keyword)])
       .then(function(results) {
         db.relate(keyword, 'relates', stock, { correlation }, (err, rel) => {
-          if (err) reject(err);
-          resolve(rel);
+          if (err) return reject(err);
+          return resolve(rel);
         });
       });
+  });
+};
+
+let testDbConnection = () => {
+  return new Promise((resolve, reject) => {
+    db.save({ test: "Object!" }, (err, node) => {
+      if(err) return reject(err);
+      else {
+        console.log("Saved test object!");
+        db.delete(node, (err) => {
+          if(err) return reject(err);
+          console.log("Deleted test object!");
+          return resolve(true);
+        });
+      }
+    });
   });
 };
 
@@ -138,5 +239,7 @@ module.exports = {
   getKeyword: getKeyword,
   deleteStock: deleteStock,
   deleteKeyword: deleteKeyword,
-  addRelationship: addRelationship
+  addRelationship: addRelationship,
+  testDbConnection: testDbConnection,
+  db: db
 };
