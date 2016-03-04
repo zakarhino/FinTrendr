@@ -2,7 +2,7 @@
 
 const db = require("seraph")({
   user: 'neo4j',
-  pass: 'cool'
+  pass: 'fintrendr'
 });
 
 /**
@@ -26,6 +26,7 @@ let saveStock = (stock) => {
  */
 let saveKeyword = (keyword) => {
   return new Promise((resolve, reject) => {
+    console.log(keyword);
     db.save(keyword, 'Keyword', (err, node) => {
       if (err) reject(err);
       resolve(node);
