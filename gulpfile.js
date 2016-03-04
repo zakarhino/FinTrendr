@@ -4,7 +4,11 @@ const gulp = require('gulp'),
   mocha = require('gulp-mocha'),
   watch = require('gulp-watch');
 
+<<<<<<< HEAD
 gulp.task('lint', () => {
+=======
+gulp.task('eslint', () => {
+>>>>>>> 5c5ae7e2876f24c847ad47d71a61ab28ab1ebb03
   gulp.src(['**/*.js', '**/*.test.js', '!node_modules/**', '!graph-db/**'])
     .pipe(eslint())
     .pipe(eslint.format());

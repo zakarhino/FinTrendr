@@ -22,7 +22,11 @@ describe('DB Model', function() {
     db.testDbConnection().should.be.fulfilledWith(true);
   });
 
-  xit("should fulfill a promise", function(done) {
-    return (Promise.resolve(10)).should.be.finally.equal(10);
+  xit("should fulfill a promise", (done) => {
+    return (new Promise((resolve, reject) => { resolve(10); }))
+      .then((val) => {
+        (val).should.be.equal(11);
+      })
+      .call(done);
   });
 });

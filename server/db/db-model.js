@@ -134,7 +134,12 @@ let deleteStock = (stock) => {
           });
       })
       .catch((err) => {
+<<<<<<< HEAD
         return reject(err);
+=======
+        console.log("Error getting stock:");
+        console.log(err);
+>>>>>>> 5c5ae7e2876f24c847ad47d71a61ab28ab1ebb03
       });
   });
 };
