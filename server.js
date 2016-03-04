@@ -5,6 +5,7 @@ const app = express();
 const routes = require('./server/routes');
 const loadcsv = require('./utility/csvtojson');
 const db = require('./server/db/db-model');
+// const dbtest = require('./server/db/db-test');
 routes(app);
 
 // loadcsv('goldenticket.csv')

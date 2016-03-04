@@ -2,7 +2,7 @@
 
 const db = require("seraph")({
   user: 'neo4j',
-  pass: 'saric999'
+  pass: 'cool'
 });
 
 /**
@@ -113,6 +113,12 @@ let getTerm = (term) => {
   });
 };
 
+/**
+ * Generic get item from DB function
+ * @param  {[type]} item Raw item to get
+ * @param  {[type]} term Label of item to get
+ * @return {[type]}      [description]
+ */
 let getItem = (item, term) => {
   return new Promise((resolve, reject) => {
     db.find(item, term, (err, node) => {
@@ -205,11 +211,14 @@ let deleteItem = (item) => {
   });
 };
 
-let addRelationship = (correlation, keyword, stock) => {
+let addKeywordToKeyword = (first, second, correlation) => {
   return new Promise((resolve, reject) => {
-    Promise.all([getStock(stock), getKeyword(keyword)])
+    Promise.all([getKeyword(first), getKeyword(second)])
       .then(function(results) {
-        db.relate(keyword, 'relates', stock, { correlation }, (err, rel) => {
+        for(var result in results) {
+          if(results[result].length === 0) return reject("Keyword does not exist!");
+        }
+        db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation }, (err, rel) => {
           if (err) return reject(err);
           return resolve(rel);
         });
@@ -240,7 +249,7 @@ module.exports = {
   getKeyword: getKeyword,
   deleteStock: deleteStock,
   deleteKeyword: deleteKeyword,
-  addRelationship: addRelationship,
+  addKeywordToKeyword: addKeywordToKeyword,
   testDbConnection: testDbConnection,
   db: db
 };
