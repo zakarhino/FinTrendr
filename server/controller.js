@@ -162,5 +162,9 @@ module.exports = {
         });
       }
     });
-  }
+  },
+  queryGtrends: queryGtrends,
+  convertGtrends: convertGtrends,
+  createResultsObject: createResultsObject,
+  sortObject: sortObject
 };
