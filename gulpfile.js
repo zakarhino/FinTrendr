@@ -28,7 +28,7 @@ gulp.task('test', () => {
     })
     .once('end', () => {
       process.exit();
-    });;
+    });
 });
 
 gulp.task('watch', () => {
