@@ -14,7 +14,7 @@ gulp.task('lint', () => {
 gulp.task('test', () => {
   env({
     vars: {
-      NODE_ENV: "testing",
+      NODE_ENV: "testing"
     }
   });
   gulp.src('test/*.test.js')
@@ -24,7 +24,7 @@ gulp.task('test', () => {
       notify.onError({
         title: "Mocha Test Failed.",
         message: "One of more tests failed."
-      })
+      });
     })
     .once('end', () => {
       process.exit();
