@@ -19,10 +19,16 @@ gulp.task('test', () => {
   });
   gulp.src('test/*.test.js')
     .pipe(mocha({ reporter: 'spec' }))
-    .on('error', notify.onError({
-      title: "Mocha Test Failed.",
-      message: "One of more tests failed."
-    }));
+    .once('error', () => {
+      process.exit(1);
+      notify.onError({
+        title: "Mocha Test Failed.",
+        message: "One of more tests failed."
+      })
+    })
+    .once('end', () => {
+      process.exit();
+    });;
 });
 
 gulp.task('watch', () => {
