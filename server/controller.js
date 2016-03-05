@@ -5,70 +5,139 @@ const Correlation = require('node-correlation');
 const qs = require('querystring');
 const db = require('./db/db-model');
 
+
+
+
+
+let queryGtrends = (keyword, res) => {
+  return new Promise((resolve, reject) => {
+    let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
+    request.get(url, (err, response, body) => {
+      if (err) {
+        res.send(new Error('Error making a get request to google trends'));
+        return reject(err);
+      } else {
+        let info = convertGtrends(eval(body.slice(61)));
+        return resolve(info);
+      }
+    });
+  });
+};
+
+let convertGtrends = (info) => {
+  let results = [];
+  for (var i = 26; i > 2; i--) {
+    results.push(info.table.rows[info.table.rows.length - i].c[1].v);
+  }
+  let max = 100 / Math.max.apply(Math, results);
+  let scaledArray = results.map(function(result) {
+    return result * max;
+  });
+  return scaledArray;
+};
+
+let createResultsObject = (nodeList) => {
+  let updated = {};
+  nodeList.forEach(function(node) {
+
+    let numberArray = [];
+    // console.log('node date is '+ node.date + node.Keyword);
+    // console.log('node date is '+ node.date + typeof node.Keyword);
+    node.date.forEach(function(dateObj) {
+      let parsedObj = JSON.parse(dateObj);
+      for (var key in parsedObj) {
+        numberArray.push(parsedObj[key]);
+      }
+    });
+    let max = Math.max.apply(Math, numberArray);
+    updated[node.Keyword] = [];
+    for (var i = 0; i < numberArray.length; i++) {
+      if (Number.isNaN(numberArray[i] / max * 100)) {
+        updated[node.Keyword].push(.01);
+      } else {
+        updated[node.Keyword].push(numberArray[i] / max * 100);
+      }
+    }
+
+
+  });
+  console.log('the updated obj is', updated);
+  return updated;
+};
+
+let sortObject = (obj) => {
+  let arr = [];
+  for (var prop in obj) {
+    if (obj.hasOwnProperty(prop)) {
+      arr.push({
+        'key': prop,
+        'value': obj[prop]
+      });
+    }
+  }
+  arr.sort(function(a, b) {
+    return b.value - a.value;
+  });
+
+  return arr;
+};
+
 module.exports = {
   getResult: function(req, res) {
     let keyword = req.query.keyword;
 
-    db.getKeyword({keyword: keyword}).then( (data) => {
-        //handle response if it already exists
-        console.log('a result was found');
-        console.log("the data is:", data);
-        console.log("the length of data is: ", data.length);
-    if(data.length === 0) {
-        db.getKeyword({}).then( (data) => {
-            // console.log(data)
-
-    let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
-
-    request.get(url, function(err, response, body) {
-      if (err) {
-        res.send('Error making a get request to google trends');
-      } else {
-        console.log('the request return with', body.slice(61));
-        let info = eval(body.slice(61));
-        let results = [];
-        for (var i = 26; i > 2; i--) {
-          results.push(info.table.rows[info.table.rows.length - i].c[1].v);
-        }
-        let max = 100 / Math.max.apply(Math, results);
-        let scaledArray = results.map(function(result) {
-          return result * max;
+    db.getKeyword({ Keyword: keyword }).then((data) => {
+      //handle response if it already exists
+      //important function that still needs to be written to handle cases where keyword already has been searched for/saved
+      if (data.length > 0) {
+        console.log(data[0]);
+        db.getNamesOfRelationships({ Keyword: data[0].Keyword }).then((results) => {
+          console.log("results are: " + results);
+          res.send({ corr: results });
         });
-
-        let updated = {};
-
-        data.forEach(function(node) {
-            // console.log(data.node);
-            // console.log(node.date)
-            let numberArray = [];
-            node.data.forEach(function(dateObj) {
-                let parsedObj = JSON.parse(dateObj);
-                for(var key in parsedObj) {
-                    numberArray.push(parsedObj[key]);
-                }
-            });
-            let max = Math.max.apply(Math,numberArray);
-            updated[node.Keyword] = [];
-            for(var i = 0; i < numberArray.length; i++) {
-                if(Number.isNaN(numberArray[i]/max*100)) {
-                   updated[node.Keyword].push(.01);
-                } else {
-                updated[node.Keyword].push(numberArray[i]/max*100);
-                }
+      }
+      if (data.length === 0) {
+        db.getKeyword({}).then((data) => {
+          queryGtrends(keyword, res).then((scaledArray) => {
+            console.log(scaledArray);
+            let updated = createResultsObject(data);
+            console.log(updated.length, "the updated length is");
+            let corrObj = {};
+            for (var keywords in updated) {
+              corrObj[keywords] = Correlation.calc(updated[keywords], scaledArray);
+              //1 to -1 correlation
             }
+            console.log('the corrObj is: ', corrObj);
+            let sortedCorrelationsArray = sortObject(corrObj);
+            let scaledArrayOfObjects = [];
+
+            scaledArray.forEach(function(data, i) {
+              scaledArrayOfObjects.push(JSON.stringify({
+                i: data
+              }));
+            });
+            scaledArrayOfObjects;
+            db.saveKeyword({
+                Keyword: keyword,
+                date: scaledArrayOfObjects
+              })
+              .then((data) => {
+                console.log("keyword is" + keyword);
+                console.log('we saved' + data.Keyword);
+
+                let topTen = [];
+                for (var i = 0; i < 10; i++) {
+                  console.log('the sorted correlation array is', sortedCorrelationsArray[i]);
+                  topTen.push({ keyword: sortedCorrelationsArray[i]['key'], correlation: sortedCorrelationsArray[i]['value'] });
+                  db.addKeywordToKeyword({ Keyword: keyword }, { Keyword: sortedCorrelationsArray[i]['key'] }, sortedCorrelationsArray[i]['value']).then((data) => {
+                    console.log('relationship added ' + data);
+                  });
+                }
+                res.send({ corr: topTen });
+              });
+          });
         });
-
-        var corrObj = {};
-        for(var keyword in updated) {
-            corrObj[keyword] = Correlation.calc(updated[keyword], scaledArray);
-        }
-        res.send({ corr: corrObj } );
-        }
+      }
     });
-    });
-    }
-
-  });
-}
-
+  }
 };
