@@ -21,7 +21,7 @@ function wipeDB() {
 // General DB model testing
 describe('DB Model', function() {
   // Define the slow time to be 1 second to account for DB delays
-  this.slow(1000);
+  this.slow(2000);
   this.timeout(8000);
   // The Db model should import correctly
   it("should contain db object", function() {
@@ -29,15 +29,15 @@ describe('DB Model', function() {
   });
 
   // Verify all functions are actually functions
-  it("should contain all DB utility Promise functions", function() {
-    db.saveStock.should.be.a.Function();
-    db.saveKeyword.should.be.a.Function();
-    db.getStock.should.be.a.Function();
-    db.getKeyword.should.be.a.Function();
-    db.deleteStock.should.be.a.Function();
-    db.deleteKeyword.should.be.a.Function();
-    db.addKeywordToKeyword.should.be.a.Function();
-    db.testDbConnection.should.be.a.Function();
+  it("should contain all DB utility functions", function() {
+    db.saveStock.should.be.an.instanceOf(Function);
+    db.saveKeyword.should.be.an.instanceOf(Function);
+    db.getStock.should.be.an.instanceOf(Function);
+    db.getKeyword.should.be.an.instanceOf(Function);
+    db.deleteStock.should.be.an.instanceOf(Function);
+    db.deleteKeyword.should.be.an.instanceOf(Function);
+    db.addKeywordToKeyword.should.be.an.instanceOf(Function);
+    db.testDbConnection.should.be.an.instanceOf(Function);
   });
 
   // Test connecting to database
