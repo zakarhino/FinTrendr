@@ -12,14 +12,15 @@ const seraph = require("seraph")({
 });
 
 // Wipe the DB after every test
-function wipeDB() {
+function wipeDB(done) {
   seraph.query("MATCH (n) DETACH DELETE n", function(err, result) {
     if (err) throw err;
+    done();
   });
 }
 
 // General DB model testing
-xdescribe('DB Model', function() {
+describe('DB Model', function() {
   // Define the slow time to be 1 second to account for DB delays
   this.slow(2000);
   this.timeout(8000);
