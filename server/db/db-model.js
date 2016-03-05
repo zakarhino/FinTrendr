@@ -103,48 +103,51 @@ let getKeyword = (keyword) => {
   });
 };
 
+/**
+ * Get both the relationship correlation data and the name of that correlation
+ * @param  {Object} keyword Keyword to get relationships from
+ * @return {Array}         Array of objects containing correlation number and name of correlation
+ */
 let getNamesOfRelationships = (keyword) => {
-  console.log("getnamesofrelationships have been invoked with: ", keyword);
-    return new Promise((resolve, reject) => {
-     db.find(keyword, 'Keyword', (err, node) => {
-      console.log('the node is: ', node);
-     let cypher = "MATCH (n:Keyword { Keyword: '" + keyword.Keyword +"' })-[r:correlates]->(node) RETURN node, r ORDER BY r.correlation DESC";
-     db.query(cypher, (err, res) => {
+  return new Promise((resolve, reject) => {
+    db.find(keyword, 'Keyword', (err, node) => {
+      let cypher = "MATCH (n:Keyword { Keyword: '" + keyword.Keyword + "' })-[r:correlates]->(node) RETURN node, r ORDER BY r.correlation DESC";
+      db.query(cypher, (err, res) => {
         if (err) return reject(err);
-       
-       var out = [];
-       for(var x = 0; x < res.length; x++) {
-         out.push({
-           "keyword": res[x].node.Keyword,
-           "correlation": res[x].r.properties.correlation
-         });
-       }
-       return resolve(out);
+        var out = [];
+        for (var x = 0; x < res.length; x++) {
+          out.push({
+            "keyword": res[x].node.Keyword,
+            "correlation": res[x].r.properties.correlation
+          });
+        }
+        return resolve(out);
       });
     });
   });
 };
+
 /**
  * Gets term from DB and passes it into callback
  * @param  {Object} term String object
  * @return {Object}      Promise object
  */
-let getTerm = (term) => {
-  return new Promise((resolve, reject) => {
-    let cypher = "MATCH (n:Keyword { Keyword: '" + keyword.Keyword +"' })-[r:correlates]->(node) RETURN node, r ORDER BY r.correlation DESC";
-    db.query(cypher, (err, res) => {
-      if (err) return reject(err);
-      var out = [];
-      for(var x = 0; x < res.length; x++) {
-        out.push({
-          "keyword": res[x].node.Keyword,
-          "correlation": res[x].r.properties.correlation
-        });
-      }
-      return resolve(out);
-    });
-  });
-};
+// let getTerm = (term) => {
+//   return new Promise((resolve, reject) => {
+//     let cypher = "MATCH (n:Keyword { Keyword: '" + keyword.Keyword + "' })-[r:correlates]->(node) RETURN node, r ORDER BY r.correlation DESC";
+//     db.query(cypher, (err, res) => {
+//       if (err) return reject(err);
+//       var out = [];
+//       for (var x = 0; x < res.length; x++) {
+//         out.push({
+//           "keyword": res[x].node.Keyword,
+//           "correlation": res[x].r.properties.correlation
+//         });
+//       }
+//       return resolve(out);
+//     });
+//   });
+// };
 
 // /**
 //  * Gets term from DB and passes it into callback
@@ -258,11 +261,17 @@ let deleteItem = (item) => {
   });
 };
 
+/**
+ * Adds a relationship from one keyword to another
+ * @param  {Object} first       Keyword to add connection from
+ * @param  {Object} second      Keyword to add connection to
+ * @param  {Object} correlation Correlation property data
+ * @return {Object}             Relationship object
+ */
 let addKeywordToKeyword = (first, second, correlation) => {
   return new Promise((resolve, reject) => {
     Promise.all([getKeyword(first), getKeyword(second)])
       .then(function(results) {
-        console.log(results);
         db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation }, (err, rel) => {
           if (err) return reject(err);
           return resolve(rel);
@@ -274,21 +283,29 @@ let addKeywordToKeyword = (first, second, correlation) => {
   });
 };
 
+/**
+ * Return the relationships of a keyword in the database
+ * @param  {Object} first Keyword to get relationships from
+ * @return {Object}       All outbound relationships of this node
+ */
 let getRelationships = (first) => {
-    return new Promise((resolve, reject) => {
-     Promise.all([getKeyword({Keyword: first.Keyword})])
-        .then(function(results) {
-          console.log('results are: ', results);
-         db.relationships(results, 'out', 'correlates', (err, rel) => {
-            if (err) return reject(err);
-            console.log('rel is: ', rel);
-            return resolve(rel);
-          });
+  return new Promise((resolve, reject) => {
+    Promise.all([getKeyword({ Keyword: first.Keyword })])
+      .then(function(results) {
+        console.log('results are: ', results);
+        db.relationships(results, 'out', 'correlates', (err, rel) => {
+          if (err) return reject(err);
+          console.log('rel is: ', rel);
+          return resolve(rel);
         });
       });
-    };
+  });
+};
 
-
+/**
+ * Test connection to database
+ * @return {Boolean} Fulfills true if successful connection, rejects if connection error
+ */
 let testDbConnection = () => {
   return new Promise((resolve, reject) => {
     db.save({ test: "Object!" }, (err, node) => {
@@ -311,6 +328,7 @@ let testDbConnection = () => {
 module.exports = {
   saveStock: saveStock,
   saveKeyword: saveKeyword,
+  saveItem: saveItem,
   getStock: getStock,
   getKeyword: getKeyword,
   getNamesOfRelationships: getNamesOfRelationships,

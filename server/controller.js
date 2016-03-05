@@ -5,10 +5,12 @@ const Correlation = require('node-correlation');
 const qs = require('querystring');
 const db = require('./db/db-model');
 
-
-
-
-
+/**
+ * Query google trends data
+ * @param  {String} keyword Keyword to search on Google Trends
+ * @param  {Object} res     Response object
+ * @return {Object}         JSON object returned from Google Trends
+ */
 let queryGtrends = (keyword, res) => {
   return new Promise((resolve, reject) => {
     let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
@@ -24,6 +26,11 @@ let queryGtrends = (keyword, res) => {
   });
 };
 
+/**
+ * Convert Google Trends data to array
+ * @param  {Object} info Data returned from queryGtrends function
+ * @return {Array}       Array of converted information
+ */
 let convertGtrends = (info) => {
   let results = [];
   for (var i = 26; i > 2; i--) {
@@ -36,6 +43,11 @@ let convertGtrends = (info) => {
   return scaledArray;
 };
 
+/**
+ * Convert list of nodes to results object
+ * @param  {Array} nodeList  List of noes
+ * @return {Object}          Results object
+ */
 let createResultsObject = (nodeList) => {
   let updated = {};
   nodeList.forEach(function(node) {
@@ -65,6 +77,11 @@ let createResultsObject = (nodeList) => {
   return updated;
 };
 
+/**
+ * Function to sort object into an array
+ * @param  {Object} obj Input object to sort
+ * @return {Array}      Array of sorted properties
+ */
 let sortObject = (obj) => {
   let arr = [];
   for (var prop in obj) {
@@ -83,6 +100,12 @@ let sortObject = (obj) => {
 };
 
 module.exports = {
+  /**
+   * To fill in
+   * @param  {[type]} req [description]
+   * @param  {[type]} res [description]
+   * @return {[type]}     [description]
+   */
   getResult: function(req, res) {
     let keyword = req.query.keyword;
 
