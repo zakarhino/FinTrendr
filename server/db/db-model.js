@@ -3,6 +3,7 @@
 const config = require('../../utility/common').config();
 
 const db = require("seraph")({
+  server: config.neo4j.server,
   user: config.neo4j.user,
   pass: config.neo4j.password
 });
@@ -19,6 +20,7 @@ let saveStock = (stock) => {
         return resolve(node);
       })
       .catch((err) => {
+        console.log("Error with saveStock:", err);
         return reject(err);
       });
   });
@@ -41,22 +43,22 @@ let saveKeyword = (keyword) => {
   });
 };
 
-/**
- * Saves term to DB and passes saved object to callback
- * @param  {Object} term Term object
- * @return {Object}      Promise object
- */
-let saveTerm = (term) => {
-  return new Promise((resolve, reject) => {
-    saveItem(term, 'Term')
-      .then((node) => {
-        return resolve(node);
-      })
-      .catch((err) => {
-        return reject(err);
-      });
-  });
-};
+// /**
+//  * Saves term to DB and passes saved object to callback
+//  * @param  {Object} term Term object
+//  * @return {Object}      Promise object
+//  */
+// let saveTerm = (term) => {
+//   return new Promise((resolve, reject) => {
+//     saveItem(term, 'Term')
+//       .then((node) => {
+//         return resolve(node);
+//       })
+//       .catch((err) => {
+//         return reject(err);
+//       });
+//   });
+// };
 
 /**
  * Saves item to DB and passes saved object back to caller function
@@ -101,19 +103,36 @@ let getKeyword = (keyword) => {
   });
 };
 
-/**
- * Gets term from DB and passes it into callback
- * @param  {Object} term String object
- * @return {Object}      Promise object
- */
-let getTerm = (term) => {
+let getNamesOfRelationships = (keyword) => {
   return new Promise((resolve, reject) => {
-    db.find(term, 'Term', (err, node) => {
+    let cypher = "MATCH (n:Keyword { Keyword: '" + keyword.Keyword +"' })-[r:correlates]->(node) RETURN node, r ORDER BY r.correlation DESC";
+    db.query(cypher, (err, res) => {
       if (err) return reject(err);
-      return resolve(node);
+      var out = [];
+      for(var x = 0; x < res.length; x++) {
+        out.push({
+          "keyword": res[x].node.Keyword,
+          "correlation": res[x].r.properties.correlation
+        });
+      }
+      return resolve(out);
     });
   });
 };
+
+// /**
+//  * Gets term from DB and passes it into callback
+//  * @param  {Object} term String object
+//  * @return {Object}      Promise object
+//  */
+// let getTerm = (term) => {
+//   return new Promise((resolve, reject) => {
+//     db.find(term, 'Term', (err, node) => {
+//       if (err) return reject(err);
+//       return resolve(node);
+//     });
+//   });
+// };
 
 /**
  * Generic get item from DB function
@@ -176,28 +195,28 @@ let deleteKeyword = (keyword) => {
   });
 };
 
-/**
- * Deletes term fromm DB
- * @param  {Object} term Term object
- * @return {Object}      Promise object
- */
-let deleteTerm = (term) => {
-  return new Promise((resolve, reject) => {
-    getTerm(term)
-      .then((node) => {
-        deleteItem(node)
-          .then(() => {
-            return resolve();
-          })
-          .catch((err) => {
-            return reject(err);
-          });
-      })
-      .catch((err) => {
-        return reject(err);
-      });
-  });
-};
+// /**
+//  * Deletes term fromm DB
+//  * @param  {Object} term Term object
+//  * @return {Object}      Promise object
+//  */
+// let deleteTerm = (term) => {
+//   return new Promise((resolve, reject) => {
+//     getTerm(term)
+//       .then((node) => {
+//         deleteItem(node)
+//           .then(() => {
+//             return resolve();
+//           })
+//           .catch((err) => {
+//             return reject(err);
+//           });
+//       })
+//       .catch((err) => {
+//         return reject(err);
+//       });
+//   });
+// };
 
 /**
  * Deletes item from DB
@@ -217,13 +236,14 @@ let addKeywordToKeyword = (first, second, correlation) => {
   return new Promise((resolve, reject) => {
     Promise.all([getKeyword(first), getKeyword(second)])
       .then(function(results) {
-        for (var result in results) {
-          if (results[result].length === 0) return reject("Keyword does not exist!");
-        }
+        console.log(results);
         db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation }, (err, rel) => {
           if (err) return reject(err);
           return resolve(rel);
         });
+      })
+      .catch((err) => {
+        console.log("ERROR:", err);
       });
   });
 };
@@ -231,12 +251,15 @@ let addKeywordToKeyword = (first, second, correlation) => {
 let testDbConnection = () => {
   return new Promise((resolve, reject) => {
     db.save({ test: "Object!" }, (err, node) => {
-      if (err) return reject(err);
-      else {
-        console.log("Saved test object!");
+      if (err) {
+        console.log("Connection Error:", err);
+        return reject(err);
+      } else {
         db.delete(node, (err) => {
-          if (err) return reject(err);
-          console.log("Deleted test object!");
+          if (err) {
+            console.log("Connection Error:", err);
+            return reject(err);
+          }
           return resolve(true);
         });
       }
@@ -249,6 +272,7 @@ module.exports = {
   saveKeyword: saveKeyword,
   getStock: getStock,
   getKeyword: getKeyword,
+  getNamesOfRelationships: getNamesOfRelationships,
   deleteStock: deleteStock,
   deleteKeyword: deleteKeyword,
   addKeywordToKeyword: addKeywordToKeyword,
