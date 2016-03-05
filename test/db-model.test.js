@@ -22,6 +22,7 @@ function wipeDB() {
 describe('DB Model', function() {
   // Define the slow time to be 1 second to account for DB delays
   this.slow(1000);
+  this.timeout(8000);
   // The Db model should import correctly
   it("should contain db object", function() {
     should.exist(db);
