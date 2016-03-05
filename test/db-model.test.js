@@ -41,6 +41,7 @@ describe('DB Model', function() {
 
   // Test connecting to database
   it("should connect to database", function(done) {
+    this.timeout(10000);
     return db.testDbConnection()
     .should.be.fulfilled()
     .then(function(res) {
