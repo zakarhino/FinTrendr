@@ -12,8 +12,9 @@ $(function() {
         $('#info').html('<p>An error has occurred:' + status + '-' + err + '</p>');
       },
       success: function(data) {
-        $('#stage').text(document.getElementById('keyword').value + " correlations are: " + data.corr);
-        console.log(data);
+        data.corr.forEach((dataObj) => {
+          $('#stage').append('<div>' + document.getElementById('keyword').value + ' correlations are: ' + dataObj.keyword + ': ' + dataObj.correlation + '</div>');
+        });
       }
     });
   });
