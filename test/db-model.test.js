@@ -12,9 +12,10 @@ const seraph = require("seraph")({
 });
 
 // Wipe the DB after every test
-function wipeDB() {
+function wipeDB(done) {
   seraph.query("MATCH (n) DETACH DELETE n", function(err, result) {
     if (err) throw err;
+    done();
   });
 }
 
@@ -140,10 +141,12 @@ describe('DB Model', function() {
   describe('Should save and retrieve Keyword relationships', function() {
     // Wipe DB after testing
     after(wipeDB);
+
+    // Variables to test against
     var wolfId  = 0,
-        batId   = 0,
-        catId   = 0,
-        sheepId = 0;
+        batId   = 1,
+        catId   = 2,
+        sheepId = 3;
 
     // Initialize database with keywords
     before(function(done) {
@@ -164,6 +167,7 @@ describe('DB Model', function() {
 
     it('should add relationships between nodes', function(done) {
       return db.addKeywordToKeyword({Keyword: "Wolf"}, {Keyword: "Sheep"}, 67)
+      .should.be.fulfilled()
       .then(function(relationship) {
         relationship.start.should.equal(wolfId);
         relationship.end.should.equal(sheepId);
@@ -175,6 +179,7 @@ describe('DB Model', function() {
       })
       .then(function() {
         db.addKeywordToKeyword({Keyword: "Wolf"}, {Keyword: "Bat"}, 34)
+        .should.be.fulfilled()
         .then(function(relationship) {
           relationship.start.should.equal(wolfId);
           relationship.end.should.equal(batId);
@@ -190,6 +195,7 @@ describe('DB Model', function() {
 
     it("should retrieve a node's relationships", function(done) {
       return db.getNamesOfRelationships({Keyword: "Wolf"})
+      .should.be.fulfilled()
       .then(function(results) {
         results.should.be.an.instanceOf(Array).and.have.lengthOf(2);
         results[0].should.have.properties(['keyword', 'correlation']);
