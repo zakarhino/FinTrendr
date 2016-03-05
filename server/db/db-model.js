@@ -274,22 +274,6 @@ let addKeywordToKeyword = (first, second, correlation) => {
   });
 };
 
-let addKeywordToKeyword = (first, second, correlation) => {
-    return new Promise((resolve, reject) => {
-     Promise.all([getKeyword(first), getKeyword(second)])
-        .then(function(results) {
-          console.log('promsie has returned');
-        
-         db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation }, (err, rel) => {
-            if (err) return reject(err);
-            console.log('relationship established yo');
-            return resolve(rel);
-          });
-     
-      });
-    });
-  };
-
 let getRelationships = (first) => {
     return new Promise((resolve, reject) => {
      Promise.all([getKeyword({Keyword: first.Keyword})])
@@ -332,7 +316,6 @@ module.exports = {
   getNamesOfRelationships: getNamesOfRelationships,
   deleteStock: deleteStock,
   deleteKeyword: deleteKeyword,
-  addRelationship: addRelationship,
   addKeywordToKeyword: addKeywordToKeyword,
   getRelationships: getRelationships,
   testDbConnection: testDbConnection,
