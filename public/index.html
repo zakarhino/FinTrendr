@@ -18,7 +18,7 @@
 
 <body>
   <!--Nav Bar -->
-  <nav class='navbar navbar-default navbar-fixed-top'>
+  <nav class='navbar navbar-inverse navbar-fixed-top'>
     <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" href='#'>Trendr</a>
@@ -42,14 +42,16 @@
   </nav>
   <!--end of Nav Bar-->
   <div class="container">
-    <br> Keyword:
-    <input type="text" id="keyword" placeholder="input a keyword">
-    <br>
-    <button id='buttonSubmit'>Submit</button>
+      <div class="jumbotron vertical-center">
+      <div class="searchbox">
+        <br> Keyword:
+        <input type="text" id="keyword" placeholder="input a keyword">
+        <button type="button" class="btn btn-primary" id='buttonSubmit'><a href="result.html">Submit</a></button>
+      </div>
+      </div>
     <div id="info"></div>
-    <div id="stage"></div>
   </div>
-
+  </div>
 </body>
 
 </html>

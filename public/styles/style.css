@@ -1,3 +1,83 @@
 body {
   padding-top: 70px;
 }
+
+.jumbotron {
+  background-color: gray !important;
+  height: 400px !important;
+}
+
+.stockresult .keywordresult {
+  height: 200px;
+  margin-left: 10px;
+
+}
+
+.detailpanel{
+  max-height: 500px;
+}
+
+.newspanel {
+  font-size: 20px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-style: italic;
+    font-family: "nyt-cheltenham",georgia,"times new roman",times,serif;
+    letter-spacing: .01em;
+    word-spacing: -0.1em;
+}
+
+.grapharea{
+  background-color: white !important;
+  border-width: 1px;
+  border-style : solid;
+  border-color: #C0C0C0;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0,0,0,.075);
+
+  height: 400px !important;
+  margin-bottom: 10px;
+}
+
+.resultheader{
+  font-size: 23px;
+}
+
+.btn-primary a {
+  color :white !important;
+}
+
+.newresult{
+  height: 460px;
+  border-width: 1px;
+  border-style : solid;
+  border-color: #C0C0C0;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0,0,0,.075);
+}
+.caption {
+  font-size :20px;
+  font-weight: bold;
+
+}
+
+.news{
+ margin-top :10px !important;
+  margin-bottom: 10px;
+}
+
+.hvr-fade:hover{
+  background-color: #F0F0F0;
+  color:black;
+}
+
+.searchbox{
+  height:100%;
+  width:100%;
+
+  text-align: center;  /* align the inline(-block) elements horizontally */
+}
+
+.plusicon{
+  margin-top: 7px;
+}
