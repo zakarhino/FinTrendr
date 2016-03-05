@@ -3,6 +3,7 @@
 const config = require('../../utility/common').config();
 
 const db = require("seraph")({
+  server: config.neo4j.server,
   user: config.neo4j.user,
   pass: config.neo4j.password
 });
@@ -19,6 +20,7 @@ let saveStock = (stock) => {
         return resolve(node);
       })
       .catch((err) => {
+        console.log("Error with saveStock:", err);
         return reject(err);
       });
   });
@@ -111,7 +113,7 @@ let getNamesOfRelationships = (keyword) => {
         out.push({
           "keyword": res[x].node.Keyword,
           "correlation": res[x].r.properties.correlation
-        })
+        });
       }
       return resolve(out);
     });
@@ -249,12 +251,15 @@ let addKeywordToKeyword = (first, second, correlation) => {
 let testDbConnection = () => {
   return new Promise((resolve, reject) => {
     db.save({ test: "Object!" }, (err, node) => {
-      if (err) return reject(err);
-      else {
-        console.log("Saved test object!");
+      if (err) {
+        console.log("Connection Error:", err);
+        return reject(err);
+      } else {
         db.delete(node, (err) => {
-          if (err) return reject(err);
-          console.log("Deleted test object!");
+          if (err) {
+            console.log("Connection Error:", err);
+            return reject(err);
+          }
           return resolve(true);
         });
       }

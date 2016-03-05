@@ -23,6 +23,6 @@ db.getNamesOfRelationships({Keyword: "handbags"})
 })
 .catch((err) => {
   console.log("ERR:", err);
-})
+});
 
 // dbModel.save
