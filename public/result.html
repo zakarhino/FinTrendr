@@ -7,6 +7,7 @@
   <meta charset="utf-8">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="./index.js"></script>
+  <link rel="stylesheet" href='styles/hover-min.css'>
   <link rel="stylesheet" href='styles/style.css'>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -21,12 +22,12 @@
   <nav class='navbar navbar-inverse navbar-fixed-top'>
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href='#'>Trendr</a>
+        <a class="navbar-brand" href='index.html'>Trendr</a>
       </div>
       <div class="collpase navbar-collpase">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Keyword <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Stock</a></li>
+          <li class="active"><a href="result.html">Keyword <span class="sr-only">(current)</span></a></li>
+          <li><a href="result.html">Stock</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -41,17 +42,6 @@
     </div>
   </nav>
   <!--end of Nav Bar-->
-  <div class="container">
-      <div class="jumbotron vertical-center">
-      <div class="searchbox">
-        <br> Keyword:
-        <input type="text" id="keyword" placeholder="input a keyword">
-        <button type="button" class="btn btn-primary" id='buttonSubmit'>submit</button>
-      </div>
-      </div>
-    <div id="info"></div>
-  </div>
-
   <div class="container">
     <div class="grapharea row"></div>
     <div class="detailpanel">
@@ -69,10 +59,10 @@
             </div>
             <div class="list-group row" id="stage">
               <li class="list-group-item hvr-fade" id="keyword1">keyword a</li>
-              <li class="list-group-item hvr-fade" id="keyword2">keyword b</li>
-              <li class="list-group-item hvr-fade" id="keyword3">keyword c</li>
-              <li class="list-group-item hvr-fade" id="keyword4">keyword d</li>
-              <li class="list-group-item hvr-fade" id="keyword5">keyword e</li>
+              <li class="list-group-item hvr-fade" id="keyword1">keyword b</li>
+              <li class="list-group-item hvr-fade" id="keyword1">keyword c</li>
+              <li class="list-group-item hvr-fade" id="keyword1">keyword d</li>
+              <li class="list-group-item hvr-fade" id="keyword1">keyword e</li>
             </div>
           </div>
         </div>
@@ -122,6 +112,7 @@
       </div>
     </div>
   </div>
+  </body>
 </body>
 
 </html>

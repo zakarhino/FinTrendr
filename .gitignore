@@ -1,5 +1,7 @@
 node_modules
 .DS_Store
 graph-db
-.csv
-env.json
+*.csv
+*.pem
+*.log
+*.gz
