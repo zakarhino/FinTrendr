@@ -13,7 +13,8 @@ $(function() {
       },
       success: function(data) {
         data.corr.forEach((dataObj,i) => {
-           var id = "#keyword"+(i+1)
+           var id = "#keyword"+(i+1);
+           console.log(id);
           $(id).html('<div> correlations are: ' + dataObj.keyword + ': ' + dataObj.correlation + '</div>');
         });
       }
