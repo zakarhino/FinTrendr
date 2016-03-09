@@ -38,16 +38,16 @@ describe('Server Controller', function() {
     });
   });
 
-  describe('createResultsObject', function() {
-    it('should return an object', function() {
-      // return db.getKeyword({}).should.be.fulfilled().then(function(data) {
-      //   console.log(data);
-      var tempData = [{Keyword: 'bobbert', 
-      date:['{"a":100}','{"b":100}','{"c":100}','{"d":100}','{"e":100}','{"f":100}','{"g":100}','{"h":100}','{"i":100}','{"j":100}','{"k":100}','{"l":100}']}];
-      console.log(typeof tempData);
-      var x = controller.createResultsObject(tempData);
+  // describe('createResultsObject', function() {
+  //   it('should return an object', function() {
+  //     // return db.getKeyword({}).should.be.fulfilled().then(function(data) {
+  //     //   console.log(data);
+  //     var tempData = [{Keyword: 'bobbert', 
+  //     date:['{"a":100}','{"b":100}','{"c":100}','{"d":100}','{"e":100}','{"f":100}','{"g":100}','{"h":100}','{"i":100}','{"j":100}','{"k":100}','{"l":100}']}];
+  //     console.log(typeof tempData);
+  //     var x = controller.createResultsObject(tempData);
 
-      x.should.be.an.instanceOf(Object);
-    });
-  });
+  //     x.should.be.an.instanceOf(Object);
+  //   });
+  // });
 });
