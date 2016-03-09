@@ -1,10 +1,11 @@
 "use strict";
 
-const express = require('express');
+import express from 'express';
+import routes from './server/routes';
+import loadcsv from './utility/csvtojson';
+import db from './server/db/db-model';
+
 const app = express();
-const routes = require('./server/routes');
-const loadcsv = require('./utility/csvtojson');
-const db = require('./server/db/db-model');
 // const dbtest = require('./server/db/db-test');
 routes(app);
 
@@ -21,6 +22,6 @@ routes(app);
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function() {
-  console.log('Server Established. Running on port ' + port);
+app.listen(port, () => {
+  console.log(`Server Established. Running on port ${port}.`);
 });
