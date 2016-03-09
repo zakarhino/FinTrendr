@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "Thesis Project",
   "main": "server.js",
-  "author": "",
+  "author": {
+    "Eric Mustin": "musin.eric@gmail.com",
+    "Zak Golding": "zak@0x7cf.com",
+    "Jason Cheung": "jasoncheungcf@gmail.com",
+    "Arlen Neylon": "fill_in_your_email"
+  },
   "license": "MIT",
   "dependencies": {
     "babel": "^6.3.13",
