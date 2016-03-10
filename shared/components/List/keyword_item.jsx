@@ -4,7 +4,7 @@ import { Component } from 'react';
 export default class KeywordItem extends Component {
   render(){
     return (
-      <li onClick={() => onKeywordSelect(keyword)} className="">
+      <li onClick={() => onKeywordSelect(keyword)} className="list-group-item">
         <div>
           { keyword }
         </div>
