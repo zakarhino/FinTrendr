@@ -10,7 +10,7 @@
     "Arlen Neylon": "fill_in_your_email"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon --ignore public/dist/ --exec 'webpack'",
     "test": "mocha"
   },
   "license": "MIT",
