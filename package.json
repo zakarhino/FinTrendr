@@ -36,6 +36,7 @@
     "react-redux": "^4.4.0",
     "react-router": "^2.0.0",
     "redux": "^3.3.1",
+    "redux-promise": "^0.5.1",
     "request": "^2.69.0",
     "seraph": "^0.14.2",
     "webpack": "^1.12.9"
