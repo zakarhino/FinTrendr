@@ -1,0 +1,1 @@
+export { default as keywords } from './reducer_keyword';

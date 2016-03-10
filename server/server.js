@@ -1,27 +1,19 @@
 "use strict";
 
 import express from 'express';
-import routes from './server/routes';
-import loadcsv from './utility/csvtojson';
-import db from './server/db/db-model';
+import path from 'path';
+import routes from './routes';
+import loadcsv from '../utility/csvtojson';
+import bodyParser from 'body-parser';
+import db from './db/db-model';
 
 const app = express();
-// const dbtest = require('./server/db/db-test');
+
+// Apply middleware
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.json());
+
+//Apply routes
 routes(app);
 
-// loadcsv('goldenticket.csv')
-//   .then((data) => {
-//     for(var i =0; i<data.length; i++) {
-//       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
-//     }
-//   })
-//   .catch(() => {
-//     console.log('failed to parse data');
-//   });
-
-
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server Established. Running on port ${port}.`);
-});
+export default app;
