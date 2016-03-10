@@ -53,7 +53,7 @@ function mapStatesToProps(state) {
   return { cool: state};
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { getKeyword }, dispatch);
+  return bindActionCreators({ getKeyword }, dispatch);
 }
 
 export default connect(mapStatesToProps,mapDispatchToProps)(SearchBar);

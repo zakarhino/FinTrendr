@@ -40,7 +40,8 @@
     "redux-promise": "^0.5.1",
     "request": "^2.69.0",
     "seraph": "^0.14.2",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.9",
+    "xml2js": "^0.4.16"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0",

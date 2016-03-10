@@ -4,6 +4,7 @@ import SearchBar from './search_bar';
 import Graph from './graph';
 import  { getKeyword } from '../actions/keyword';
 import KeywordList from './List/keyword_list';
+import NewsList from './news/news_list';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
 
@@ -18,16 +19,17 @@ class KeywordPage extends Component {
 
   render() {
     return (
-     <div>
-    Welcome to the keyword page of Trendr. Search for a term.
-     {this.props.params.keyword}
-     {this.props.currentKeyword}
-      
-      <SearchBar /> 
-      <Graph />
-      <KeywordList />
-     </div> 
-    );  
+      <div>
+        Welcome to the keyword page of Trendr. Search for a term.
+        {this.props.params.keyword}
+        {this.props.currentKeyword}
+
+        <SearchBar />
+        <Graph />
+        <KeywordList />
+        <NewsList />
+     </div>
+    );
   }
 }
 
@@ -38,4 +40,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators( { getKeyword }, dispatch);
 }
 
-export default connect(mapStatesToProps,mapDispatchToProps)(KeywordPage);
+export default connect(mapStatesToProps, mapDispatchToProps)(KeywordPage);
