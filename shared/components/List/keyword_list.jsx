@@ -19,20 +19,3 @@ class KeywordList extends Component {
       return <div>Loading...</div>;
     }
     const list = this.props.list;
-    return (
-      <div>
-        Some thing
-      </div>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  console.log('state is',state);
-  return {
-    list: state.list,
-    keyword: state.keyword
-  };
-}
-
-export default connect(mapStateToProps, {getCorrelationInfo})(KeywordList);
