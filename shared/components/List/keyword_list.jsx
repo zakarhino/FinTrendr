@@ -14,8 +14,6 @@ class KeywordList extends Component {
     this.props.getCorrelationInfo(tempData);
   }
 
-
-
   render() {
      if(!this.props.list[0]) {
       return <div>Loading...</div>;
