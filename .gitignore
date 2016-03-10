@@ -5,3 +5,6 @@ graph-db
 *.pem
 *.log
 *.gz
+.jshintrc
+.eslintrc
+.vscode/
