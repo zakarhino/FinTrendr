@@ -8,3 +8,7 @@ graph-db
 .jshintrc
 .eslintrc
 .vscode/
+/typings
+.jsconfig
+.eslintrc.json
+npm-debug.log.*
