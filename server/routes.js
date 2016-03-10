@@ -1,4 +1,4 @@
-import express from 'express';
+  import express from 'express';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -7,7 +7,13 @@ import createLocation from 'history/lib/createLocation';
 import routes from '../shared/routes';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+<<<<<<< HEAD
 import reducer from '../shared/reducers';
+=======
+import reducers from '../shared/reducers/index';
+
+console.log("reducers looks like", reducers);
+>>>>>>> (react) update to keyword list
 
 // Import Controller for api functions
 import KeywordController from './controller.js';
