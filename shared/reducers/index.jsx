@@ -1,1 +1,6 @@
-export { default as keywords } from './reducer_keyword';
+import {combineReducers} from 'redux'
+import keyword from './reducer_keyword';
+
+export default combineReducers({
+  keyword
+})

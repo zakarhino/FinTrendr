@@ -14,12 +14,14 @@ export class SearchBar extends Component {
   }
 
   onInputChange(event) {
+    console.log('ya bro i got someshit');
     this.setState({term: event.target.value});
   }
 
   onFormSubmit(event) {
     event.preventDefault();
 
+    console.log('ya bro i got someshit from button click');
     this.props.getKeyword(this.state.term);
   }
 
@@ -31,11 +33,11 @@ export class SearchBar extends Component {
         id="keyword"
         placeholder = "input a keyword"
         value={this.state.term}
-        onInputChange={this.onInputChange} />
+        onChange={this.onInputChange} />
       <button
         type="button"
         className ="btn btn-primary"
-        onSubmit={this.onFormSubmit}
+        onClick={this.onFormSubmit}
         id='buttonSubmit'>
           submit
       </button>

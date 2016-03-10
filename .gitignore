@@ -5,3 +5,10 @@ graph-db
 *.pem
 *.log
 *.gz
+.jshintrc
+.eslintrc
+.vscode/
+/typings
+.jsconfig
+.eslintrc.json
+npm-debug.log.*
