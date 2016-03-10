@@ -139,7 +139,7 @@ module.exports = {
           queryGtrends(keyword, res).then((scaledArray) => {
             // console.log('scaled array is', scaledArray);
             let updated = createResultsObject(data);
-            
+
             let corrObj = {};
             for (var keywords in updated) {
               // console.log('inside for loop', updated[keywords]);
@@ -147,7 +147,7 @@ module.exports = {
               corrObj[keywords] = Correlation.calc(updated[keywords], scaledArray);
               //1 to -1 correlation
               // console.log(corrObj[keywords]);
-          
+
             }
             // console.log('the corrObj is: ', corrObj);
             let sortedCorrelationsArray = sortObject(corrObj);
