@@ -6,8 +6,8 @@ import LandingPage from './components/landing_page';
 import KeywordPage from './components/keyword_page';
 
 export default (
-  <Route name="app" path="/" component={App}>
+  <Route path="/" component={App}>
     <IndexRoute component={LandingPage} />
-    <Route path='keywordPage' component={KeywordPage} />
+    <Route path='keyword' component={KeywordPage} />
   </Route>
 );
