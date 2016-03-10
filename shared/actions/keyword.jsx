@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const GET_KEYWORD = 'GET_KEYWORD';
 
 export function getKeyword(keyword) {

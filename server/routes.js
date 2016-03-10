@@ -2,14 +2,12 @@ import express from 'express';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { RoutingContext, match, browserHistory } from 'react-router';
+import { RouterContext, match, browserHistory } from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import routes from '../shared/routes';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import reducers from '../shared/reducers';
-
-console.log("reducers", reducers);
+import * as reducers from '../shared/reducers';
 
 // Import Controller for api functions
 import KeywordController from './controller.js';
@@ -22,10 +20,10 @@ export default (app) => {
   app.get('/api/', KeywordController.getResult);
 
   app.use((req, res) => {
-    const location = createLocation();
+    const reducer = combineReducers(reducers);
+    const location = createLocation(req.url);
     // Create redux store with middleware attached
-    const storeCreator = applyMiddleware(promise)(createStore);
-    
+    const storeWithMiddleware = createStore(reducer, applyMiddleware(promise));
     match({ routes, location }, (err, redirection, props) => {
       if(err) {
         console.error(err);
@@ -34,14 +32,12 @@ export default (app) => {
       if(!props) {
         return res.status(404).end('Not found');
       }
-
       const InitComp = (
-        <Provider store={storeCreator(reducers)}>
-          <RoutingContext {...props} />
+        <Provider store={storeWithMiddleware}>
+          <RouterContext {...props} />
         </Provider>
       );
       const componentHTML = renderToString(InitComp);
-      console.log(componentHTML);
       const HTML = `
       <!DOCTYPE html>
       <html>
@@ -56,5 +52,5 @@ export default (app) => {
       `;
       res.end(HTML);
     });
-  });
+  });  
 };
