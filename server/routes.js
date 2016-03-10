@@ -7,7 +7,7 @@ import createLocation from 'history/lib/createLocation';
 import routes from '../shared/routes';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import * as reducers from '../shared/reducers';
+import reducer from '../shared/reducers';
 
 // Import Controller for api functions
 import KeywordController from './controller.js';
@@ -20,7 +20,6 @@ export default (app) => {
   app.get('/api/', KeywordController.getResult);
 
   app.use((req, res) => {
-    const reducer = combineReducers(reducers);
     const location = createLocation(req.url);
     // Create redux store with middleware attached
     const storeWithMiddleware = createStore(reducer, applyMiddleware(promise));
@@ -38,6 +37,8 @@ export default (app) => {
         </Provider>
       );
       const componentHTML = renderToString(InitComp);
+      const initialState = storeWithMiddleware.getState();
+
       const HTML = `
       <!DOCTYPE html>
       <html>
@@ -46,11 +47,16 @@ export default (app) => {
           <title>Isomorphic Redux Demo</title>
         </head>
         <body>
-          <div id="react-view">${componentHTML}</div>
+          <div id="container">${componentHTML}</div>
+          <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+    </script>
+          <script src="/dist/bundle.js"> </script>
         </body>
       </html>
       `;
-      res.end(HTML);
+
+
+      res.send(HTML);
     });
-  });  
+  });
 };
