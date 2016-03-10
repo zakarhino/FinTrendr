@@ -11,7 +11,7 @@
     "Elva Chao": "odekyc@gmail.com"
   },
   "scripts": {
-    "start": "nodemon --ignore public/dist/ --exec 'webpack'",
+    "start": "nodemon --ignore public/dist/ ",
     "test": "mocha"
   },
   "license": "MIT",
