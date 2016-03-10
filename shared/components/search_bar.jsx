@@ -40,11 +40,13 @@ export class SearchBar extends Component {
         onClick={this.onFormSubmit}
         id='buttonSubmit'>
           submit
+        }
       </button>
     </div>
     );
   }
 }
+
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators( { getKeyword }, dispatch);
