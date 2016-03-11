@@ -7,6 +7,7 @@ import KeywordList from './List/keyword_list';
 import NewsList from './news/news_list';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
+import NavBar from './nav_bar';
 
 class KeywordPage extends Component {
   constructor(props) {
