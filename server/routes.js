@@ -7,13 +7,7 @@ import createLocation from 'history/lib/createLocation';
 import routes from '../shared/routes';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-<<<<<<< fe1a33a4c6dd326bc18845d8d43d68e44866ddfb
 import reducer from '../shared/reducers';
-=======
-import {reducers} from '../shared/reducers';
-
-// console.log("reducers", reducers);
->>>>>>> (react) clean up spelling errors
 
 // Import Controller for api functions
 import KeywordController from './controller.js';
@@ -45,12 +39,8 @@ export default (app) => {
         </Provider>
       );
       const componentHTML = renderToString(InitComp);
-<<<<<<< fe1a33a4c6dd326bc18845d8d43d68e44866ddfb
       const initialState = storeWithMiddleware.getState();
 
-=======
-      // console.log(componentHTML);
->>>>>>> (react) clean up spelling errors
       const HTML = `
       <!DOCTYPE html>
       <html>
