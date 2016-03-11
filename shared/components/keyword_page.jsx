@@ -1,37 +1,41 @@
 import React from 'react';
 import { Component } from 'react';
 import SearchBar from './search_bar';
-<<<<<<< HEAD
-// import Graph from './graph';
-// import NavBar from './nav_bar';
-// import KeywordList from './List/keyword_list';
-// import NewsList from './news/news_list';
-=======
 import Graph from './graph';
-import NavBar from './nav_bar';
+import  { getKeyword } from '../actions/keyword';
 import KeywordList from './List/keyword_list';
-import NewsList from './news/news_list';
+import { connect } from 'react-redux';
+import { bindActionCreators} from 'redux';
 
-export default class KeywordPage extends Component {
-  
->>>>>>> (react) update to keyword list
+class KeywordPage extends Component {
+  constructor(props)
+   {
+    super(props);
+    console.log('in keywordpage', this.props.params.keyword);
 
-export default class KeywordPage extends Component {
+    this.props.getKeyword(this.props.params.keyword)
+  }
+
   render() {
     return (
      <div>
-<<<<<<< HEAD
-        Welcome to the Keyword page of Trendr. Search for a term.
-        <SearchBar />
-=======
-     Welcome to the keyword page of Trendr. Search for a term.
-      <NavBar />
-      <SearchBar />
+    Welcome to the keyword page of Trendr. Search for a term.
+     {this.props.params.keyword}
+     {this.props.currentKeyword}
+      
+      <SearchBar /> 
       <Graph />
       <KeywordList />
-      <NewsList />
->>>>>>> (react) update to keyword list
      </div> 
     );  
   }
 }
+
+function mapStatesToProps(state) {
+  return { currentKeyword: state.keyword};
+}
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( { getKeyword }, dispatch);
+}
+
+export default connect(mapStatesToProps,mapDispatchToProps)(KeywordPage);
