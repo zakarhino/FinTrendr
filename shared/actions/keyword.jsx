@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const GET_KEYWORD = 'GET_KEYWORD';
 export const GET_CORRELATIONINFO = 'GET_CORRELATIONINFO';
+// export const SET_KEYWORD = 'SET_KEYWORD';
 
 export function getKeyword(keyword) {
   //add in the logic for getting  the return
@@ -34,3 +35,11 @@ return {
     payload: tempData
   };
 }
+
+// export function setKeyword(keyword) {
+//   console.log("Setting keyword");
+//   return {
+//     type: SET_KEYWORD,
+//     payload: keyword
+//   }
+// }
