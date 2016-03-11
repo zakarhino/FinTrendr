@@ -9,20 +9,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
 
 class KeywordPage extends Component {
-  constructor(props)
-   {
+  constructor(props) {
     super(props);
-    console.log('in keywordpage', this.props.params.keyword);
 
-    this.props.getKeyword(this.props.params.keyword)
+    this.props.getKeyword(this.props.params.keyword);
   }
 
   render() {
     return (
       <div>
         Welcome to the keyword page of Trendr. Search for a term.
-        {this.props.params.keyword}
-        {this.props.currentKeyword}
+        <div>this.props.params.keyword: {this.props.params.keyword}</div>
+        <div>this.props.currentKeyword: {this.props.currentKeyword}</div>
 
         <SearchBar />
         <Graph />
@@ -34,10 +32,10 @@ class KeywordPage extends Component {
 }
 
 function mapStatesToProps(state) {
-  return { currentKeyword: state.keyword};
+  return { currentKeyword: state.keyword.current };
 }
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { getKeyword }, dispatch);
+  return bindActionCreators({ getKeyword }, dispatch);
 }
 
 export default connect(mapStatesToProps, mapDispatchToProps)(KeywordPage);

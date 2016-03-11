@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { parseString } from 'xml2js';
 
 export const FETCH_NEWS = "FETCH_NEWS";
 

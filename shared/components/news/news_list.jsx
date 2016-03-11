@@ -6,7 +6,7 @@ import { getNews } from '../../actions/news';
 
 class NewsList extends Component {
   componentWillMount() {
-    this.props.getNews("Clinton");
+    this.props.getNews(this.props.term);
   }
 
   renderArticles() {
@@ -37,7 +37,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-  return { news: state.news.all };
+  return { news: state.news.all, term: state.keyword.current };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewsList);

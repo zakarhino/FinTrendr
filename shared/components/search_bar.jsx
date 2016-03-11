@@ -8,28 +8,21 @@ import { Link } from 'react-router';
 export class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = { term: ''};
+    this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   onInputChange(event) {
-    // console.log('ya bro i got someshit');
     this.setState({term: event.target.value});
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-    console.log('ya bro i got someshit from button click');
-    // this.props.getKeyword(this.state.term);
-    
-         
-          
+    this.props.getKeyword(this.state.term);
   }
 
   render(){
-    const { cool } = this.props;
-    console.log({cool});
     return (
     <form onSubmit={this.onFormSubmit}>
       <input
@@ -41,7 +34,7 @@ export class SearchBar extends Component {
         type="submit"
         className ="btn btn-primary"
         id='buttonSubmit'>
-          submit
+        submit
       </button>
       </Link>
     </form>
@@ -49,11 +42,8 @@ export class SearchBar extends Component {
   }
 }
 
-function mapStatesToProps(state) {
-  return { cool: state};
-}
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getKeyword }, dispatch);
 }
 
-export default connect(mapStatesToProps,mapDispatchToProps)(SearchBar);
+export default connect(null,mapDispatchToProps)(SearchBar);
