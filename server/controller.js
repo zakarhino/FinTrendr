@@ -121,15 +121,16 @@ module.exports = {
    * @return {[type]}     [description]
    */
   getKeywordInfo: function(req,res) {
-    let keyword = req.query.keyword;
+    console.log("CALLED GET KEYWORD INFO");
+    let keyword = req.params.keyword;
     db.getKeyword({Keyword: keyword }).then((data) => {
       if(data.length>0) {
         let responseObj = data[0];
-        res.send({ corr: responseObj });
+        res.send(responseObj);
       }
       else if(data.length===0) {
         queryGtrends(keyword, res).then((scaledArray) => {
-          res.send({keyword: keyword,
+          res.send({Keyword: keyword,
                     data: scaledArray
                   });
         });
@@ -137,6 +138,7 @@ module.exports = {
     });
   },
   getCorrelationInfo: function(req,res) {
+    console.log("CALLED CORRELATION INFO");
     let scaledArray = req.body.data;
     let keyword = req.body.Keyword;
 
@@ -155,7 +157,7 @@ module.exports = {
         db.getKeyword({}).then((data) => {
           // console.log('scaled array is', scaledArray);
           let updated = createResultsObject(data);
-          
+
           let corrObj = {};
           for (var keywords in updated) {
             // console.log('inside for loop', updated[keywords]);
@@ -163,7 +165,7 @@ module.exports = {
             corrObj[keywords] = Correlation.calc(updated[keywords], scaledArray);
             //1 to -1 correlation
             // console.log(corrObj[keywords]);
-        
+
           }
           // console.log('the corrObj is: ', corrObj);
           let sortedCorrelationsArray = sortObject(corrObj);
@@ -198,7 +200,7 @@ module.exports = {
       });
   },
   getResult: function(req, res) {
-
+    console.log("CALLED GET RESULT");
     let keyword = req.query.keyword;
 
     db.getKeyword({ Keyword: keyword }).then((data) => {

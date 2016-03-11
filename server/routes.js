@@ -22,9 +22,9 @@ import KeywordController from './controller.js';
 import promise from 'redux-promise';
 
 export default (app) => {
-  app.get('/api/keywordInfo', KeywordController.getKeywordInfo);
-  app.get('/api/correlationInfo', KeywordController.getCorrelationInfo);
-  app.get('/api/', KeywordController.getResult);
+  app.get('/api/keywordInfo/:keyword', KeywordController.getKeywordInfo);
+  app.get('/api/correlationInfo/:keyword', KeywordController.getCorrelationInfo);
+  app.get('/api/:keyword', KeywordController.getResult);
 
 
   app.use((req, res) => {

@@ -1,10 +1,12 @@
 import {GET_CORRELATIONINFO} from '../actions/keyword';
 
-export default function listReducer(state = [], action) {
+const INITIAL_STATE = { items: [] };
+
+export default function listReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
     case GET_CORRELATIONINFO: {
       console.log('get corr info reducer invoked');
-      return  [action.payload] ;
+      return { ...state, items: action.payload.data.list } ;
     }
     default: {
       return state;

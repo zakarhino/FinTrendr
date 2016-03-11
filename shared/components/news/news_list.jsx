@@ -9,6 +9,10 @@ class NewsList extends Component {
     this.props.getNews(this.props.term);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.term !== nextProps.term) this.props.getNews(nextProps.term);
+  }
+
   renderArticles() {
     return this.props.news.map((article) => {
       return (
