@@ -6,15 +6,27 @@ import { getNews } from '../../actions/news';
 
 class NewsList extends Component {
   componentWillMount() {
-    this.props.getNews();
+    this.props.getNews("Clinton");
+  }
+
+  renderArticles() {
+    return this.props.news.map((article) => {
+      return (
+        <li key={article.guid}>
+          <h4>{article.title}</h4>
+          <h5>{article.pubDate}</h5>
+        </li>
+      );
+    });
   }
 
   render() {
-    console.log("this.props.all:", this.props.news);
     return (
       <div>
-        Test of news list
-        {this.props.news}
+        Related News:
+        <ul>
+          {this.renderArticles()}
+        </ul>
       </div>
     );
   }
