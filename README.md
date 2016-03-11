@@ -105,4 +105,4 @@ run some command to lint files?
 - Eric Mustin [ https://github.com/ericmustin ]
 - Elva Chao [ https://github.com/odekyc ]
 
-- Arlen Neylon [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/aneylon) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:arlen.m.neylon@gmail.com?Subject=trippian)
+- Arlen Neylon [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/aneylon) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:arlen.m.neylon@gmail.com?Subject=Trendr)
