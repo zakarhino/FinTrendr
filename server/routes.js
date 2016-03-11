@@ -1,4 +1,4 @@
-import express from 'express';
+  import express from 'express';
 import path from 'path';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -16,8 +16,10 @@ import KeywordController from './controller.js';
 import promise from 'redux-promise';
 
 export default (app) => {
-  // Keyword API route
+  app.get('/api/keywordInfo', KeywordController.getKeywordInfo);
+  app.get('/api/correlationInfo', KeywordController.getCorrelationInfo);
   app.get('/api/', KeywordController.getResult);
+
 
   app.use((req, res) => {
     const location = createLocation(req.url);

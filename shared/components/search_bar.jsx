@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
-
+import { Link } from 'react-router';
 
 export class SearchBar extends Component {
   constructor(props) {
@@ -14,40 +14,46 @@ export class SearchBar extends Component {
   }
 
   onInputChange(event) {
-    console.log('ya bro i got someshit');
+    // console.log('ya bro i got someshit');
     this.setState({term: event.target.value});
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-
     console.log('ya bro i got someshit from button click');
-    this.props.getKeyword(this.state.term);
+    // this.props.getKeyword(this.state.term);
+    
+         
+          
   }
 
   render(){
+    const { cool } = this.props;
+    console.log({cool});
     return (
-    <div>
+    <form onSubmit={this.onFormSubmit}>
       <input
-        type="text"
-        id="keyword"
         placeholder = "input a keyword"
         value={this.state.term}
         onChange={this.onInputChange} />
+      <Link to={`keywordPage/${this.state.term}`}>
       <button
-        type="button"
+        type="submit"
         className ="btn btn-primary"
-        onClick={this.onFormSubmit}
         id='buttonSubmit'>
           submit
       </button>
-    </div>
+      </Link>
+    </form>
     );
   }
 }
 
+function mapStatesToProps(state) {
+  return { cool: state};
+}
 function mapDispatchToProps(dispatch) {
   return bindActionCreators( { getKeyword }, dispatch);
 }
 
-export default connect(null,mapDispatchToProps)(SearchBar);
+export default connect(mapStatesToProps,mapDispatchToProps)(SearchBar);
