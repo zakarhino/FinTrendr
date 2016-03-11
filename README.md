@@ -5,7 +5,7 @@ Trendr is a responsive web application built by a team of five full stack softwa
 
 Visit the site now : [www.trendr.xyz](http://www.trendr.xyz)
 
-#Watch the video [ http://www.ourvideo.com ]
+#[Watch the video](http://www.ourvideo.com)
 
 
 # installation
@@ -15,9 +15,9 @@ To get started, run
  npm start
 ```
 #APIs
-- Google Trends [ https://www.google.com/trends/ ]
-- Google News [ https://www.news.google.com ]
-- Alchemy [ http://www.alchemyapi.com ]
+- [ Google Trends ](https://www.google.com/trends/)
+- [ Google News ](https://www.news.google.com)
+- [ Alchemy ](http://www.alchemyapi.com)
 
 # Choice of Technologies
 - React
@@ -96,13 +96,13 @@ run some command to lint files?
 ```
 
 # License
-  Trendr is a project made with help and cooperation from MakerSquare [ http://www.makersquare.com/ ]
+  Trendr is a project made with help and cooperation from [MakerSquare](http://www.makersquare.com/)
   The project is open source but full credit must be given by any and all projects forked from this repo
 
 # Contributors / Team
-- Zak Golding [ https://github.com/zakarhino ]
-- Jason Cheung [ https://github.com/JCheungX ]
-- Eric Mustin [ https://github.com/ericmustin ]
-- Elva Chao [ https://github.com/odekyc ]
+- [ Zak Golding ](https://github.com/zakarhino)
+- [ Jason Cheung ](https://github.com/JCheungX)
+- [ Eric Mustin ](https://github.com/ericmustin)
+- [ Elva Chao ](https://github.com/odekyc)
 
 - Arlen Neylon [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/aneylon) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:arlen.m.neylon@gmail.com?Subject=Trendr)
