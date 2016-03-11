@@ -1,11 +1,15 @@
 import React from 'react';
-import { Component } from 'react';
+import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
 import { Link } from 'react-router';
 
 export class SearchBar extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
     this.state = { term: '' };
@@ -20,6 +24,7 @@ export class SearchBar extends Component {
   onFormSubmit(event) {
     event.preventDefault();
     this.props.getKeyword(this.state.term);
+    this.context.router.push(`keywordPage/${this.state.term}`);
   }
 
   render(){
@@ -29,14 +34,12 @@ export class SearchBar extends Component {
         placeholder = "input a keyword"
         value={this.state.term}
         onChange={this.onInputChange} />
-      <Link to={`keywordPage/${this.state.term}`}>
       <button
         type="submit"
         className ="btn btn-primary"
         id='buttonSubmit'>
         submit
       </button>
-      </Link>
     </form>
     );
   }
@@ -46,4 +49,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ getKeyword }, dispatch);
 }
 
-export default connect(null,mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);

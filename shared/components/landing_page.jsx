@@ -6,10 +6,9 @@ export default class LandingPage extends Component {
 
   render() {
     return (
-     <div>
-     Welcome to the landing page of Trendr. Search for a term.
-      <SearchBar />
-     </div>
+    <div>
+      Welcome to the landing page of Trendr. Search for a term.
+    </div>
     );
   }
 }
