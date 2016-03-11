@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {LineChart} from 'react-d3';
+import { LineChart } from 'react-d3';
 
 export class Graph extends Component {
 
-
   getDatum(j) {
     var sin = [],
-      cos = [];
+        cos = [];
 
     for (var i = 0; i < 100; i++) {
       sin.push({ x: i, y: Math.sin(i / j) });
@@ -40,6 +39,7 @@ export class Graph extends Component {
       </div>
     );
   }
+
 }
 
 function mapStateToProps(state) {

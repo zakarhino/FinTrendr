@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { parseString } from 'xml2js';
 
-export const GET_NEWS = "GET_NEWS";
+export const FETCH_NEWS = "FETCH_NEWS";
 
 export function getNews(keyword) {
-  let request = axios.get(`https://news.google.com/news?q=${keyword}&output=rss`);
-  
+  let request = axios.get(`http://rss2json.com/api.json?rss_url=https%3A%2F%2Fnews.google.com%2Fnews%3Fq%3D${keyword}&output=rss`);
+
   return {
     type: GET_NEWS,
     payload: request

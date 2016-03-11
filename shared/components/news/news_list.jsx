@@ -5,11 +5,27 @@ import { bindActionCreators } from 'redux';
 import { getNews } from '../../actions/news';
 
 class NewsList extends Component {
+  componentWillMount() {
+    this.props.getNews();
+  }
+
   render() {
+    console.log("this.props.all:", this.props.news);
     return (
-      <div>Test of news list</div>
+      <div>
+        Test of news list
+        {this.props.news}
+      </div>
     );
   }
 };
 
-export default connect()
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getNews }, dispatch);
+};
+
+function mapStateToProps(state) {
+  return { news: state.news.all };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
