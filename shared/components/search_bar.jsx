@@ -6,6 +6,7 @@ import { getKeyword } from '../actions/keyword';
 import { Link } from 'react-router';
 
 export class SearchBar extends Component {
+
   static contextTypes = {
     router: PropTypes.object
   }
@@ -23,6 +24,7 @@ export class SearchBar extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+    console.log('yea');
     this.props.getKeyword(this.state.term);
     this.context.router.push(`keywordPage/${this.state.term}`);
   }

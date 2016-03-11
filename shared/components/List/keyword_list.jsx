@@ -9,31 +9,33 @@ class KeywordList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.keyword.Keyword !== this.props.keyword.Keyword) {
-      this.props.getCorrelationInfo(this.props.keyword.Keyword);
-    }
+    if(nextProps.keyword !== this.props.keyword) {
+      if(this.props.list) {
+        this.props.getCorrelationInfo(tempData);
+      }
+    } 
   }
 
-  renderItems() {
-    return this.props.list.map((item) => {
+  renderList() {
+    return this.props.list.items.map((listItem) => {
       return (
-        <li>
-          {item}
+      <li className="list-group-item" key={listItem.Keyword}>
+          <span className="pull-xs-right">{listItem.Keyword}</span>
+          <strong>{listItem.corr}</strong>
+          
         </li>
       );
     });
   }
 
   render() {
-    if(!this.props.list[0]) {
+     if(!this.props.list.items) {
       return <div>Loading...</div>;
-    }
-    const list = this.props.list;
+      }
     return (
       <div>
-        Items:
         <ul>
-          {this.renderItems()}
+          {this.renderList()}
         </ul>
       </div>
     );
