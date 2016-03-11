@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export const GET_KEYWORD = 'GET_KEYWORD';
 export const GET_CORRELATIONINFO = 'GET_CORRELATIONINFO';
-// export const SET_KEYWORD = 'SET_KEYWORD';
 
 export function getKeyword(keyword) {
   let request = axios.get(`http://localhost:3000/api/keywordInfo/${keyword}`);
