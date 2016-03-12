@@ -5,35 +5,38 @@ import { bindActionCreators} from 'redux';
 
 class KeywordList extends Component {
   componentWillMount() {
-    this.props.getCorrelationInfo(this.props.keyword.Keyword);
+    this.props.getCorrelationInfo(this.props.keyword);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.keyword.Keyword !== this.props.keyword.Keyword) {
-      this.props.getCorrelationInfo(this.props.keyword.Keyword);
+    if(nextProps.keyword !== this.props.keyword) {
+      if(this.props.list) {
+        this.props.getCorrelationInfo(nextProps.keyword);
+      }
     }
   }
 
-  renderItems() {
-    return this.props.list.map((item) => {
+  renderList() {
+    return this.props.list.items.map((listItem) => {
       return (
-        <li>
-          {item}
+      <li className="list-group-item" key={listItem.Keyword}>
+          <span className="pull-xs-right">{listItem.Keyword}</span>
+          <strong>{listItem.corr}</strong>
+          <strong>{listItem.data}</strong>
+          
         </li>
       );
     });
   }
 
   render() {
-    if(!this.props.list[0]) {
+     if(!this.props.list.items) {
       return <div>Loading...</div>;
-    }
-    const list = this.props.list;
+      }
     return (
       <div>
-        Items:
         <ul>
-          {this.renderItems()}
+          {this.renderList()}
         </ul>
       </div>
     );
@@ -43,8 +46,8 @@ class KeywordList extends Component {
 function mapStateToProps(state) {
   console.log('state is',state);
   return {
-    list: state.list.items,
-    keyword: state.keyword
+    list: state.list,
+    keyword: state.keyword.current
   };
 }
 

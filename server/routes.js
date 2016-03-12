@@ -15,16 +15,21 @@ import KeywordController from './controller.js';
 // Import redux middleware
 import promise from 'redux-promise';
 
+//log state
+
+
 export default (app) => {
   app.get('/api/keywordInfo/:keyword', KeywordController.getKeywordInfo);
-  app.get('/api/correlationInfo/:keyword', KeywordController.getCorrelationInfo);
-  app.get('/api/:keyword', KeywordController.getResult);
+  app.post('/api/correlationInfo', KeywordController.getCorrelationInfo);
+  app.get('/api/', KeywordController.getResult);
+
 
 
   app.use((req, res) => {
     const location = createLocation(req.url);
     // Create redux store with middleware attached
     const storeWithMiddleware = createStore(reducer, applyMiddleware(promise));
+
     match({ routes, location }, (err, redirection, props) => {
       if(err) {
         // console.error(err);
@@ -40,7 +45,7 @@ export default (app) => {
       );
       const componentHTML = renderToString(InitComp);
       const initialState = storeWithMiddleware.getState();
-
+      console.log('state is: ', initialState);
       const HTML = `
       <!DOCTYPE html>
       <html>
