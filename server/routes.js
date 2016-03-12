@@ -9,6 +9,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from '../shared/reducers';
 
+// import {reducers} from '../shared/reducers';
+// console.log("reducers", reducers);
 // Import Controller for api functions
 import KeywordController from './controller.js';
 
@@ -46,6 +48,7 @@ export default (app) => {
       const componentHTML = renderToString(InitComp);
       const initialState = storeWithMiddleware.getState();
       console.log('state is: ', initialState);
+      
       const HTML = `
       <!DOCTYPE html>
       <html>

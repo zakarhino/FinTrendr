@@ -7,6 +7,7 @@ import NewsList from './news/news_list';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
 import NavBar from './nav_bar';
+import TweetList from './twitter/tweet_list';
 
 class KeywordPage extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class KeywordPage extends Component {
   render() {
     return (
       <div>
+        <TweetList />
         Welcome to the keyword page of Trendr. Search for a term.
         <div>this.props.params.keyword: {this.props.params.keyword}</div>
         
