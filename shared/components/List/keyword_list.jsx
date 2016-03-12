@@ -5,7 +5,7 @@ import { bindActionCreators} from 'redux';
 
 class KeywordList extends Component {
   componentWillMount() {
-    this.props.getCorrelationInfo(this.props.keyword.Keyword);
+    this.props.getCorrelationInfo(this.props.keyword);
   }
 
   componentWillReceiveProps(nextProps) {

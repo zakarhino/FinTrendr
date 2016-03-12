@@ -146,14 +146,18 @@ module.exports = {
    * @return {[type]}     [description]
    */
   getKeywordInfo: function(req,res) {
+    console.log('keyword info invoked');
     let keyword = req.params.keyword;
+    console.log(keyword);
     db.getKeyword({Keyword: keyword }).then((data) => {
+      console.log('sending info back from keyword db');
       if(data.length>0) {
         let responseObj = data[0];
         res.send(responseObj);
       }
       else if(data.length===0) {
         queryGtrends(keyword, res).then((scaledArray) => {
+          console.log('sending info back from keyword gtrends');
           res.send({Keyword: keyword, 
                     data: scaledArray 
                   });
@@ -162,6 +166,7 @@ module.exports = {
     });
   },
   getCorrelationInfo: function(req,res) {
+    console.log('correlation info controller function invoked');
     let scaledArrayOfObjs = req.body.data;
     let keyword = req.body.Keyword;
 
