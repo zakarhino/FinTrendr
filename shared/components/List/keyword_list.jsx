@@ -11,9 +11,9 @@ class KeywordList extends Component {
   componentWillReceiveProps(nextProps) {
     if(nextProps.keyword !== this.props.keyword) {
       if(this.props.list) {
-        this.props.getCorrelationInfo(tempData);
+        this.props.getCorrelationInfo(nextProps.keyword);
       }
-    } 
+    }
   }
 
   renderList() {
@@ -22,6 +22,7 @@ class KeywordList extends Component {
       <li className="list-group-item" key={listItem.Keyword}>
           <span className="pull-xs-right">{listItem.Keyword}</span>
           <strong>{listItem.corr}</strong>
+          <strong>{listItem.data}</strong>
           
         </li>
       );
@@ -45,8 +46,8 @@ class KeywordList extends Component {
 function mapStateToProps(state) {
   console.log('state is',state);
   return {
-    list: state.list.items,
-    keyword: state.keyword
+    list: state.list,
+    keyword: state.keyword.current
   };
 }
 

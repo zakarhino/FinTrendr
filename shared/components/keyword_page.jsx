@@ -18,7 +18,7 @@ class KeywordPage extends Component {
       <div>
         Welcome to the keyword page of Trendr. Search for a term.
         <div>this.props.params.keyword: {this.props.params.keyword}</div>
-        <div>this.props.currentKeyword: {this.props.currentKeyword}</div>
+        
         <Graph />
         <KeywordList />
         <NewsList />

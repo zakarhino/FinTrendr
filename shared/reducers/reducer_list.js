@@ -5,8 +5,9 @@ const INITIAL_STATE = { items: []};
 export default function listReducer(state = [], action) {
   switch(action.type) {
     case GET_CORRELATIONINFO: {
+      console.log(action.payload)
       console.log('get corr info reducer invoked');
-      return  {...state, items: action.payload } ;
+      return  {...state, items: action.payload.data } ;
     }
     default: {
       return state;
