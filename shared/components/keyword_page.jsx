@@ -12,15 +12,17 @@ import TweetList from './twitter/tweet_list';
 class KeywordPage extends Component {
   constructor(props) {
     super(props);
+    //this.setState({keyword:this.props.params.keyword})
   }
 
   render() {
+    console.log('In Render',this.props.params.keyword);
     return (
       <div>
         <TweetList />
         Welcome to the keyword page of Trendr. Search for a term.
         <div>this.props.params.keyword: {this.props.params.keyword}</div>
-        
+
         <Graph />
         <KeywordList />
         <NewsList />

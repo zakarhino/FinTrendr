@@ -19,9 +19,7 @@ let queryGtrends = (keyword, res) => {
         res.send(new Error('Error making a get request to google trends'));
         return reject(err);
       } else {
-        console.log(body);
         let info = convertGtrends(eval(body.slice(61)));
-        console.log(info);
         return resolve(info);
       }
     });
@@ -43,16 +41,15 @@ let convertGtrends = (info) => {
   }
   let max = 100 / Math.max.apply(Math, results);
   let scaledArray = results.map(function(result) {
-    return result * max+.01;
+    return result * max + .01;
   });
   let scaledArrayOfObjs = [];
 
-  scaledArray.forEach( (value,index) => {
+  scaledArray.forEach((value, index) => {
     let obj = {}
     obj[dates[index]] = value;
     scaledArrayOfObjs.push(JSON.stringify(obj));
   });
-  console.log(scaledArrayOfObjs);
   return scaledArrayOfObjs;
 };
 
@@ -65,24 +62,16 @@ let createResultsObject = (nodeList) => {
   //Keyword:
   //data: [{},{},]
   console.log('the nodelist is ', nodeList);
-  console.log('ur prob is here');
   let updated = {};
   var count = 0;
   nodeList.forEach(function(node) {
-    console.log('in create results with: ', node);
     if (node.Keyword) {
-
-
-      // console.log('yea', count++);
-      // console.log('node is ', node);
-      // console.log('node keys is ', Object.keys(node));
       let numberArray = [];
-      // console.log('node date is '+ node.date + node.Keyword);
-      // console.log('node date is '+ node.date + typeof node.Keyword);
+
       var count2 = 0;
 
       node.data.forEach(function(dateObj) {
-        // console.log('another yea ', count2++);
+
         let parsedObj = JSON.parse(dateObj);
         for (var key in parsedObj) {
           numberArray.push(parsedObj[key]);
@@ -92,11 +81,8 @@ let createResultsObject = (nodeList) => {
       let max = Math.max.apply(Math, numberArray);
       console.log('max is: ', max);
       updated[node.Keyword] = {};
-      
       updated[node.Keyword]['Keyword'] = node.Keyword;
-      
       updated[node.Keyword]['data'] = node.data;
-      
       updated[node.Keyword]['dataScaled'] = [];
 
       for (var i = 0; i < numberArray.length; i++) {
@@ -106,12 +92,8 @@ let createResultsObject = (nodeList) => {
           updated[node.Keyword].dataScaled.push(numberArray[i] / max * 100);
         }
       }
-
     }
-    console.log('node after is: ', node)
   });
-
-  // console.log('the updated obj is', updated);
   return updated;
 };
 
@@ -138,6 +120,15 @@ let sortObject = (obj) => {
   return arr;
 };
 
+let parseKeywordDataToObject = (stringArray) => {
+  let result = [];
+  for (var item of stringArray)
+  {
+    result.push(JSON.parse(item));
+  }
+  return result ;
+}
+
 module.exports = {
   /**
    * To fill in
@@ -145,96 +136,102 @@ module.exports = {
    * @param  {[type]} res [description]
    * @return {[type]}     [description]
    */
-  getKeywordInfo: function(req,res) {
+  getKeywordInfo: function(req, res) {
     console.log('keyword info invoked');
     let keyword = req.params.keyword;
     console.log(keyword);
-    db.getKeyword({Keyword: keyword }).then((data) => {
-      console.log('sending info back from keyword db');
-      if(data.length>0) {
-        let responseObj = data[0];
-        res.send(responseObj);
-      }
-      else if(data.length===0) {
-        queryGtrends(keyword, res).then((scaledArray) => {
-          console.log('sending info back from keyword gtrends');
-          res.send({Keyword: keyword, 
-                    data: scaledArray 
-                  });
-        });
-      }
-    });
+    db.getKeyword({
+        Keyword: keyword
+      })
+      .then((data) => {
+        console.log('sending info back from keyword db');
+        if (data.length > 0) {
+          let responseObj = data[0];
+          data[0].data = parseKeywordDataToObject(data[0].data)
+          res.send(responseObj);
+        } else if (data.length === 0) {
+          queryGtrends(keyword, res)
+            .then((scaledArray) => {
+              console.log('sending info back from keyword gtrends');
+              res.send({
+                Keyword: keyword,
+                data: scaledArray
+              });
+            });
+        }
+      });
   },
-  getCorrelationInfo: function(req,res) {
+
+  getCorrelationInfo: function(req, res) {
     console.log('correlation info controller function invoked');
     let scaledArrayOfObjs = req.body.data;
     let keyword = req.body.Keyword;
 
-    db.getKeyword({ Keyword: keyword }).then((data) => {
-      //handle response if it already exists
-      //important function that still needs to be written to handle cases where keyword already has been searched for/saved
-      if (data.length > 0) {
-        // console.log('data is', data[0]);
-        db.getNamesOfRelationships({ Keyword: data[0].Keyword }).then((results) => {
-          console.log("results are: " + results);
-          res.send(results);
-        });
-      }
-      if (data.length === 0) {
-        console.log('prob db issue');
-        db.getKeyword({}).then((data) => {
-          console.log('scaled array is', scaledArrayOfObjs);
-          let updated = createResultsObject(data);
-          console.log(scaledArrayOfObjs);
-          let scaledArray = scaledArrayOfObjs.map( (obj) => {
-            console.log('obj before parse is', obj);
-            let parsedObj = JSON.parse(obj);
-            console.log('after parse is: ', parsedObj);
-            for(var key in parsedObj) {
-              console.log(parsedObj[key])
-              console.log(key)
-              return parsedObj[key];
-            }
-          });
-          let corrObj = {};
-          for (var keywords in updated) {
-            // console.log('inside for loop', updated[keywords]);
-            corrObj[keywords] = {};
-            corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
-            corrObj[keywords].data = updated[keywords].data;
-            //1 to -1 correlation
-            // console.log(corrObj[keywords]);
-
-          }
-          // console.log('the corrObj is: ', corrObj);
-          let sortedCorrelationsArray = sortObject(corrObj);
-          let scaledArrayOfObjects = [];
-
-          // scaledArray.forEach(function(data, i) {
-          //   scaledArrayOfObjects.push(JSON.stringify({
-          //     i: data
-          //   }));
-          // });
-          
-          db.saveKeyword({
-              Keyword: keyword,
-              data: scaledArrayOfObjs
+    db.getKeyword({
+        Keyword: keyword
+      })
+      .then((data) => {
+        //handle response if it already exists
+        //important function that still needs to be written to handle cases where keyword already has been searched for/saved
+        if (data.length > 0) {
+          // console.log('data is', data[0]);
+          db.getNamesOfRelationships({
+              Keyword: data[0].Keyword
             })
-            .then((data) => {
-              // console.log("keyword is" + keyword);
-              // console.log('we saved' + data.Keyword);
-
-              let topTen = [];
-              for (var i = 0; i < 10; i++) {
-                console.log('the sorted correlation array is', sortedCorrelationsArray[i]);
-                topTen.push({ Keyword: sortedCorrelationsArray[i]['key'], corr: sortedCorrelationsArray[i]['value'], data: sortedCorrelationsArray[i]['data'] });
-                db.addKeywordToKeyword({ Keyword: keyword }, { Keyword: sortedCorrelationsArray[i]['key'] }, sortedCorrelationsArray[i]['value']).then((data) => {
-                  console.log('relationship added ' + data);
-                });
-              }
-              res.send(topTen);
+            .then((results) => {
+              console.log("results are: " + results);
+              res.send(results);
             });
-          });
+        }
+        if (data.length === 0) {
+          db.getKeyword({})
+            .then((data) => {
+              let updated = createResultsObject(data);
+              let scaledArray = scaledArrayOfObjs.map((obj) => {
+                let parsedObj = JSON.parse(obj);
+                for (var key in parsedObj) {
+                  return parsedObj[key];
+                }
+              });
+              let corrObj = {};
+              for (var keywords in updated) {
+                corrObj[keywords] = {};
+                corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
+                corrObj[keywords].data = updated[keywords].data;
+              }
+              let sortedCorrelationsArray = sortObject(corrObj);
+              let scaledArrayOfObjects = [];
+
+              // scaledArray.forEach(function(data, i) {
+              //   scaledArrayOfObjects.push(JSON.stringify({
+              //     i: data
+              //   }));
+              // });
+
+              db.saveKeyword({
+                  Keyword: keyword,
+                  data: scaledArrayOfObjs
+                })
+                .then((data) => {
+                  let topTen = [];
+                  for (var i = 0; i < 10; i++) {
+                    topTen.push({
+                      Keyword: sortedCorrelationsArray[i]['key'],
+                      corr: sortedCorrelationsArray[i]['value'],
+                      data: sortedCorrelationsArray[i]['data']
+                    });
+                    db.addKeywordToKeyword({
+                        Keyword: keyword
+                      }, {
+                        Keyword: sortedCorrelationsArray[i]['key']
+                      }, sortedCorrelationsArray[i]['value'])
+                      .then((data) => {
+                        console.log('relationship added ' + data);
+                      });
+                  }
+                  res.send(topTen);
+                });
+            });
         }
       });
   },
@@ -242,64 +239,75 @@ module.exports = {
     console.log("CALLED GET RESULT");
     let keyword = req.query.keyword;
 
-    db.getKeyword({ Keyword: keyword }).then((data) => {
-      //handle response if it already exists
-      //important function that still needs to be written to handle cases where keyword already has been searched for/saved
-      if (data.length > 0) {
-        // console.log('data is', data[0]);
-        db.getNamesOfRelationships({ Keyword: data[0].Keyword }).then((results) => {
-          // console.log("results are: " + results);
-          res.send({ corr: results });
-        });
-      }
-      if (data.length === 0) {
-        // console.log('prob db issue');
-        db.getKeyword({}).then((data) => {
-          queryGtrends(keyword, res).then((scaledArray) => {
-            // console.log('scaled array is', scaledArray);
-            let updated = createResultsObject(data);
-
-            let corrObj = {};
-            for (var keywords in updated) {
-              // console.log('inside for loop', updated[keywords]);
-              // console.log('inside for loop', scaledArray);
-              corrObj[keywords] = Correlation.calc(updated[keywords], scaledArray);
-              //1 to -1 correlation
-              // console.log(corrObj[keywords]);
-
-            }
-            // console.log('the corrObj is: ', corrObj);
-            let sortedCorrelationsArray = sortObject(corrObj);
-            let scaledArrayOfObjects = [];
-
-            scaledArray.forEach(function(data, i) {
-              scaledArrayOfObjects.push(JSON.stringify({
-                i: data
-              }));
-            });
-            scaledArrayOfObjects;
-            db.saveKeyword({
-                Keyword: keyword,
-                data: scaledArrayOfObjects
-              })
-              .then((data) => {
-                // console.log("keyword is" + keyword);
-                // console.log('we saved' + data.Keyword);
-
-                let topTen = [];
-                for (var i = 0; i < 10; i++) {
-                  console.log('the sorted correlation array is', sortedCorrelationsArray[i]);
-                  topTen.push({ Keyword: sortedCorrelationsArray[i]['key'], corr: sortedCorrelationsArray[i]['value'], data: sortedCorrelationsArray[i]['data'] });
-                  db.addKeywordToKeyword({ Keyword: keyword }, { Keyword: sortedCorrelationsArray[i]['key'] }, sortedCorrelationsArray[i]['value']).then((data) => {
-                    console.log('relationship added ' + data);
-                  });
-                }
-                res.send({ corr: topTen });
+    db.getKeyword({
+        Keyword: keyword
+      })
+      .then((data) => {
+        //handle response if it already exists
+        //important function that still needs to be written to handle cases where keyword already has been searched for/saved
+        if (data.length > 0) {
+          db.getNamesOfRelationships({
+              Keyword: data[0].Keyword
+            })
+            .then((results) => {
+              res.send({
+                corr: results
               });
-          });
-        });
-      }
-    });
+            });
+        }
+        if (data.length === 0) {
+          db.getKeyword({})
+            .then((data) => {
+              queryGtrends(keyword, res)
+                .then((scaledArray) => {
+                  let updated = createResultsObject(data);
+
+                  let corrObj = {};
+                  for (var keywords in updated) {
+                    corrObj[keywords] = Correlation.calc(updated[keywords], scaledArray);
+                  }
+                  let sortedCorrelationsArray = sortObject(corrObj);
+                  let scaledArrayOfObjects = [];
+
+                  scaledArray.forEach(function(data, i) {
+                    scaledArrayOfObjects.push(JSON.stringify({
+                      i: data
+                    }));
+                  });
+                  scaledArrayOfObjects;
+                  db.saveKeyword({
+                      Keyword: keyword,
+                      data: scaledArrayOfObjects
+                    })
+                    .then((data) => {
+                      // console.log("keyword is" + keyword);
+                      // console.log('we saved' + data.Keyword);
+
+                      let topTen = [];
+                      for (var i = 0; i < 10; i++) {
+                        console.log('the sorted correlation array is', sortedCorrelationsArray[i]);
+                        topTen.push({
+                          Keyword: sortedCorrelationsArray[i]['key'],
+                          corr: sortedCorrelationsArray[i]['value'],
+                          data: sortedCorrelationsArray[i]['data']
+                        });
+                        db.addKeywordToKeyword({
+                            Keyword: keyword
+                          }, {
+                            Keyword: sortedCorrelationsArray[i]['key']
+                          }, sortedCorrelationsArray[i]['value'])
+                          .then((data) => {
+                            console.log('relationship added ' + data);
+                          });
+                      }
+                      res.send({
+                        corr: topTen
+                      });
+                    });
+                });
+            });
+        }
+      });
   },
   queryGtrends: queryGtrends,
   convertGtrends: convertGtrends,
