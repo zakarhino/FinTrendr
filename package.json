@@ -11,14 +11,13 @@
     "Elva Chao": "odekyc@gmail.com"
   },
   "scripts": {
-    "start": "nodemon --ignore public/dist/ --exec 'webpack'",
+    "start": "nodemon --ignore public/dist/ ",
     "test": "mocha"
   },
   "license": "MIT",
   "dependencies": {
+    "autoprefixer": "^6.3.3",
     "axios": "^0.9.1",
-    "babel": "^6.3.13",
-    "babel-core": "^6.3.21",
     "babel-loader": "^6.2.0",
     "babel-plugin-react-transform": "^2.0.0-beta1",
     "babel-plugin-transform-class-properties": "^6.3.13",
@@ -31,6 +30,7 @@
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "history": "^2.0.1",
+    "html-webpack-plugin": "^2.10.0",
     "node-correlation": "^1.0.2",
     "node-jsx": "^0.13.3",
     "react": "^0.14.7",
@@ -46,7 +46,10 @@
     "xml2js": "^0.4.16"
   },
   "devDependencies": {
+    "babel": "^6.3.13",
+    "babel-core": "^6.3.21",
     "babel-eslint": "^6.0.0-beta.5",
+    "babel-preset-react-hmre": "^1.1.1",
     "del": "^2.2.0",
     "eslint": "^2.3.0",
     "eslint-plugin-react": "^4.2.1",
@@ -63,6 +66,10 @@
     "gulp-uglify": "^1.5.3",
     "gulp-watch": "^4.3.5",
     "mocha": "^2.4.5",
+    "redux-devtools": "^3.1.1",
+    "redux-devtools-dock-monitor": "^1.1.0",
+    "redux-devtools-log-monitor": "^1.0.5",
+    "redux-mock-store": "^1.0.2",
     "should": "^8.2.2",
     "supertest": "^1.2.0",
     "supertest-as-promised": "^3.0.0",

@@ -9,6 +9,8 @@ import db from './db/db-model';
 
 const app = express();
 
+
+
 // Apply middleware
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(bodyParser.json());

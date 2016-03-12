@@ -19,11 +19,9 @@ class KeywordList extends Component {
   renderList() {
     return this.props.list.items.map((listItem) => {
       return (
-      <li className="list-group-item" key={listItem.Keyword}>
-          <span className="pull-xs-right">{listItem.Keyword}</span>
-          <strong>{listItem.corr}</strong>
-          <strong>{listItem.data}</strong>
-          
+      <li className="list-group-item" key={listItem.keyword}>
+          <span className="pull-xs-right">{listItem.keyword}</span>
+          <strong>{listItem.correlation}</strong>
         </li>
       );
     });
