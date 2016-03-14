@@ -4,7 +4,7 @@ const request = require('request');
 const Correlation = require('node-correlation');
 const qs = require('querystring');
 const db = require('./db/db-model');
-
+const keywords = require('../alchemy/app');
 /**
  * Query google trends data
  * @param  {String} keyword Keyword to search on Google Trends
@@ -122,11 +122,10 @@ let sortObject = (obj) => {
 
 let parseKeywordDataToObject = (stringArray) => {
   let result = [];
-  for (var item of stringArray)
-  {
+  for (var item of stringArray) {
     result.push(JSON.parse(item));
   }
-  return result ;
+  return result;
 }
 
 module.exports = {
@@ -137,7 +136,6 @@ module.exports = {
    * @return {[type]}     [description]
    */
   getKeywordInfo: function(req, res) {
-    console.log('keyword info invoked');
     let keyword = req.params.keyword;
     console.log(keyword);
     db.getKeyword({
@@ -148,11 +146,11 @@ module.exports = {
         if (data.length > 0) {
           let responseObj = data[0];
           data[0].data = parseKeywordDataToObject(data[0].data)
+
           res.send(responseObj);
         } else if (data.length === 0) {
           queryGtrends(keyword, res)
             .then((scaledArray) => {
-              console.log('sending info back from keyword gtrends');
               res.send({
                 Keyword: keyword,
                 data: scaledArray
@@ -306,8 +304,44 @@ module.exports = {
                     });
                 });
             });
+
         }
       });
+  },
+  getValidationInfo: function(req, res) {
+    console.log('attempting to validate server side');
+    var keyword = req.body.keyword;
+    var listItem = req.body.listItem;
+    console.log(keyword," is keyword");
+    console.log(listItem," is listItem");
+    
+    var resultsPromised = [];
+    var promise = new Promise(function(resolve, reject) {
+
+
+      keywords(keyword, listItem, function(result) {
+        console.log("result is: ", result);
+        if (result > .1) {
+          
+          console.log("item validation is,", result)
+          resolve(result);
+        } else {
+          resolve(result);
+        }
+
+      });
+
+    });
+    resultsPromised.push(promise);
+    Promise.all(resultsPromised).then(function(results) {
+      console.log(results);
+      var resultsObj = {
+        results: results,
+        keyword: keyword,
+        listItem: listItem
+      }
+      res.send(resultsObj); 
+    });
   },
   queryGtrends: queryGtrends,
   convertGtrends: convertGtrends,

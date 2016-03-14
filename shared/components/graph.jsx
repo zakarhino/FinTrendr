@@ -6,6 +6,8 @@ export class Graph extends Component {
 
   getDatum(j) {
     const {currentKeyword} = this.props;
+    // const {currenData} = this.props;
+    // console.log('get datum has logged with, ', currentData);
     let graphData = [];
     for (var item of currentKeyword.data) {
       let key = Object.keys(item)[0];
@@ -54,7 +56,15 @@ export class Graph extends Component {
 
 function mapStateToProps(state) {
   console.log('Graph receive new state update')
-  return {currentKeyword: state.keyword.current};
+  console.log('currentKeywordz in graph is: ', state.keyword.current);
+  // console.log('currentData in graph is: ', state.keyword.current.data);
+  if(state.keyword.current){
+  return {currentKeyword: state.keyword.current
+          };
+} else {
+  
+  return{currentKeyword: state.keyword.current};
+}
 }
 
 export default connect(mapStateToProps)(Graph);
