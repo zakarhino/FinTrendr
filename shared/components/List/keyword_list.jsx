@@ -7,14 +7,14 @@ import { getValidationInfo } from '../../actions/keyword';
 
 class KeywordList extends Component {
   componentWillMount() {
-    console.log('getting correlation from mount props');
-    this.props.getCorrelationInfo(this.props.keyword);
+    if(this.props.keyword){
+      this.props.getCorrelationInfo(this.props.keyword);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.keyword !== this.props.keyword) {
-      if(this.props.list) {
-        console.log('getting correlation from rec props');
+      if(nextProps.keyword) {
         this.props.getCorrelationInfo(nextProps.keyword);
       }
     }
@@ -26,7 +26,6 @@ class KeywordList extends Component {
   }
 
   renderList() {
-    console.log('list is being rendered with: ', this.props.list);
     return this.props.list.items.map((listItem) => {
       if( (listItem.Keyword === this.props.validation.listItem) && (this.props.validation.results > 0) ) {
         let divStyle = {
@@ -53,8 +52,6 @@ class KeywordList extends Component {
      if(this.props.list.items.length === 0) {
       return <div>Loading...</div>;
       }
-      console.log('we shouldnt be here until we can load items');
-      console.log(this.props.list.items.length);
     return (
       <div>
         <ul>
@@ -66,7 +63,6 @@ class KeywordList extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('state is for keyword list',state);
   return {
     list: state.list,
     keyword: state.keyword.current,

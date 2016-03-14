@@ -136,7 +136,6 @@ module.exports = {
    * @return {[type]}     [description]
    */
   getKeywordInfo: function(req, res) {
-    console.log('keyword info invoked');
     let keyword = req.params.keyword;
     console.log(keyword);
     db.getKeyword({
@@ -147,11 +146,11 @@ module.exports = {
         if (data.length > 0) {
           let responseObj = data[0];
           data[0].data = parseKeywordDataToObject(data[0].data)
+
           res.send(responseObj);
         } else if (data.length === 0) {
           queryGtrends(keyword, res)
             .then((scaledArray) => {
-              console.log('sending info back from keyword gtrends');
               res.send({
                 Keyword: keyword,
                 data: scaledArray
