@@ -198,9 +198,9 @@ describe('DB Model', function() {
       .should.be.fulfilled()
       .then(function(results) {
         results.should.be.an.instanceOf(Array).and.have.lengthOf(2);
-        results[0].should.have.properties(['keyword', 'correlation']);
-        results[1].should.have.properties(['keyword', 'correlation']);
-        results[0].correlation.should.be.above(results[1].correlation);
+        results[0].should.have.properties(['Keyword', 'corr', 'data']);      
+        results[1].should.have.properties(['Keyword', 'corr', 'data']);       
+        results[0].corr.should.be.above(results[1].corr);
         done();
       });
     });

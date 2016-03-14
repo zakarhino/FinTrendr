@@ -117,8 +117,9 @@ let getNamesOfRelationships = (keyword) => {
         var out = [];
         for (var x = 0; x < res.length; x++) {
           out.push({
-            "keyword": res[x].node.Keyword,
-            "correlation": res[x].r.properties.correlation
+            "Keyword": res[x].node.Keyword,
+            "corr": res[x].r.properties.correlation,
+            "data": res[x].node.data
           });
         }
         return resolve(out);

@@ -74,7 +74,7 @@ function csvtojson(csv) {
   for (var i = 1; i < array.length; i++) {
     if (array[i][0] !== '') {
       objArray[i - 1] = {};
-      dateObj = [];
+      var dateObj = [];
       for (var k = 0; k < array[0].length && k < array[i].length; k++) {
         var key = array[0][k];
         //keyword attribute

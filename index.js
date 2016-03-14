@@ -1,12 +1,14 @@
-"use strict";
+'use strict';
 
-const express = require('express');
-const app = express();
-const routes = require('./server/routes');
+require('babel-core/register')({});
+require('babel-polyfill');
+
+const server = require('./server/server').default;
 const loadcsv = require('./utility/csvtojson');
 const db = require('./server/db/db-model');
-// const dbtest = require('./server/db/db-test');
-routes(app);
+
+const PORT = process.env.PORT || 3000;
+
 
 // loadcsv('goldenticket.csv')
 //   .then((data) => {
@@ -18,9 +20,6 @@ routes(app);
 //     console.log('failed to parse data');
 //   });
 
-
-const port = process.env.PORT || 3000;
-
-app.listen(port, function() {
-  console.log('Server Established. Running on port ' + port);
+server.listen(PORT, () => {
+  console.log(`Server established on port ${PORT}.`);
 });

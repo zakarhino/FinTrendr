@@ -1,21 +1,83 @@
-var express = require('express');
-var path = require('path');
+import express from 'express';
+import path from 'path';
+import React from 'react';
+import {renderToString} from 'react-dom/server';
+import {RouterContext, match, browserHistory} from 'react-router';
+import createLocation from 'history/lib/createLocation';
+import routes from '../shared/routes';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import reducer from '../shared/reducers';
 
-var bodyParser = require('body-parser');
+// import {reducers} from '../shared/reducers';
+// console.log("reducers", reducers);
+// Import Controller for api functions
+import KeywordController from './controller.js';
 
-var KeywordController = require('./controller.js');
+// Import redux middleware
+import promise from 'redux-promise';
 
-module.exports = function(app) {
+//log state
 
-  // Log all incoming requests
-  app.all('*', function(req, res, next) {
-    console.log(req.method, 'Request for URL ', req.url);
+export default(app) => {
+
+  app.all('/*',function(req,res,next){
+    console.log(req.method,' Request for URL ',req.url)
     next();
   });
 
-  app.use(bodyParser.json());
-  app.use(express.static(path.join(__dirname, '../public')));
-
-  // Keyword API route
+  app.get('/api/keywordInfo/:keyword', KeywordController.getKeywordInfo);
+  app.post('/api/correlationInfo', KeywordController.getCorrelationInfo);
   app.get('/api/', KeywordController.getResult);
+  app.post('/api/validationInfo', KeywordController.getValidationInfo);
+
+
+  app.use((req, res) => {
+    const location = createLocation(req.url);
+    // Create redux store with middleware attached
+    const storeWithMiddleware = createStore(reducer, applyMiddleware(promise));
+
+    match({
+      routes,
+      location
+    }, (err, redirection, props) => {
+      if (err) {
+        // console.error(err);
+        return res
+          .status(500)
+          .end('Internal server error');
+      }
+      if (!props) {
+        return res
+          .status(404)
+          .end('Not found');
+      }
+      const InitComp = (
+        <Provider store={storeWithMiddleware}>
+          <RouterContext {...props}/>
+        </Provider>
+      );
+      const componentHTML = renderToString(InitComp);
+      const initialState = storeWithMiddleware.getState();
+      console.log('state is: ', initialState);
+      
+      const HTML = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Isomorphic Redux Demo</title>
+        </head>
+        <body>
+          <div id="container">${componentHTML}</div>
+          <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+    </script>
+          <script src="/dist/bundle.js"> </script>
+        </body>
+      </html>
+      `;
+
+      res.send(HTML);
+    });
+  });
 };
