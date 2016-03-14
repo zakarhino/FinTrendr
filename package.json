@@ -31,7 +31,6 @@
     "express": "^4.13.4",
     "history": "^2.0.1",
     "html-webpack-plugin": "^2.10.0",
-    "http": "0.0.0",
     "node-correlation": "^1.0.2",
     "node-jsx": "^0.13.3",
     "react": "^0.14.7",
