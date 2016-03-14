@@ -16,7 +16,7 @@
 
 
 var http = require('http');
-var fs = require('fs');
+// var fs = require('fs');
 
 
 //Make the class available
