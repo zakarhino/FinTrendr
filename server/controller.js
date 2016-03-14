@@ -4,7 +4,7 @@ const request = require('request');
 const Correlation = require('node-correlation');
 const qs = require('querystring');
 const db = require('./db/db-model');
-
+const keywords = require('../alchemy/app');
 /**
  * Query google trends data
  * @param  {String} keyword Keyword to search on Google Trends
@@ -122,11 +122,10 @@ let sortObject = (obj) => {
 
 let parseKeywordDataToObject = (stringArray) => {
   let result = [];
-  for (var item of stringArray)
-  {
+  for (var item of stringArray) {
     result.push(JSON.parse(item));
   }
-  return result ;
+  return result;
 }
 
 module.exports = {
@@ -309,6 +308,41 @@ module.exports = {
 
         }
       });
+  },
+  getValidationInfo: function(req, res) {
+    console.log('attempting to validate server side');
+    var keyword = req.body.keyword;
+    var listItem = req.body.listItem;
+    console.log(keyword," is keyword");
+    console.log(listItem," is listItem");
+    
+    var resultsPromised = [];
+    var promise = new Promise(function(resolve, reject) {
+
+
+      keywords(keyword, listItem, function(result) {
+        console.log("result is: ", result);
+        if (result > .1) {
+          
+          console.log("item validation is,", result)
+          resolve(result);
+        } else {
+          resolve(result);
+        }
+
+      });
+
+    });
+    resultsPromised.push(promise);
+    Promise.all(resultsPromised).then(function(results) {
+      console.log(results);
+      var resultsObj = {
+        results: results,
+        keyword: keyword,
+        listItem: listItem
+      }
+      res.send(resultsObj); 
+    });
   },
   queryGtrends: queryGtrends,
   convertGtrends: convertGtrends,
