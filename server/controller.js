@@ -71,7 +71,7 @@ let parseKeywordDataToObject = (stringArray) => {
     result.push(JSON.parse(item));
   }
   return result;
-}
+};
 module.exports = {
   /**
    *  Return keyword if found. Else use google trend to get the data and and save it .
@@ -89,23 +89,23 @@ module.exports = {
         console.log('receiving result', data.length);
         if (data.length > 0) {
           let responseObj = data[0];
-          responseObj.data = parseKeywordDataToObject(responseObj.data)
+          responseObj.data = parseKeywordDataToObject(responseObj.data);
           res.send(responseObj);
         } else if (data.length === 0) {
-          console.log('try getting google trend')
+          console.log('try getting google trend');
           googleTrend.query(keyword, res)
             .then((scaledArray) => {
-              console.log('return from googleTrend', keyword, scaledArray)
+              console.log('return from googleTrend', keyword, scaledArray);
               let responseObj = {
                 Keyword: keyword,
                 data: parseKeywordDataToObject(scaledArray)
-              }
+              };
               db.saveKeyword({
                   Keyword: keyword,
                   data: scaledArray
                 })
                 .then((data) => {
-                  console.log('Saving to DB Complete')
+                  console.log('Saving to DB Complete');
                 });
               res.send(responseObj);
             });
@@ -128,7 +128,7 @@ module.exports = {
       .then((data) => {
         console.log("results are: " + data, data.length);
         if (data.length > 0) {
-          console.log('return data back to user')
+          console.log('return data back to user');
           res.send(data);
         } else if (data.length === 0) {
           console.log('try to get data');
@@ -182,7 +182,7 @@ module.exports = {
                 res.statusCode(404)
                   .send('Fail to find keyword');
               }
-            })
+            });
         }
       });
   },
@@ -201,7 +201,7 @@ module.exports = {
             console.log('awesome');
             res.send(result);
           }
-          console.log("item validation is,", result)
+          console.log("item validation is,", result);
           resolve(result);
         } else {
           resolve(result);
@@ -216,7 +216,7 @@ module.exports = {
           results: results,
           keyword: keyword,
           listItem: listItem
-        }
+        };
         res.send(resultsObj);
       });
   },
@@ -225,7 +225,7 @@ module.exports = {
     let keywordData = req.body.data;
     let scaledArray = keywordData.map((obj) => {
       for (var keys in obj) {
-        return obj[keys]
+        return obj[keys];
       }
     });
     db.getStock({}).then((stockList) => {
