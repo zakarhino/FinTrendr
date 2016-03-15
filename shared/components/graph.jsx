@@ -40,7 +40,7 @@ export class Graph extends Component {
     const viewBoxOject = {
       x: 0,
       y: 0,
-      width: 700,
+      width: 2000,
       height: 400
     };
     return (
@@ -63,7 +63,7 @@ function mapStateToProps(state) {
   return {currentKeyword: state.keyword.current
           };
 } else {
-  
+
   return{currentKeyword: state.keyword.current};
 }
 }

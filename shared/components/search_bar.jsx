@@ -24,6 +24,7 @@ export class SearchBar extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
+    console.log(this.state.term);
     this.props.getKeyword(this.state.term);
     this.context.router.push(`keywordPage/${this.state.term}`);
   }

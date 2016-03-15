@@ -1,68 +1,10 @@
 "use strict";
-
 const request = require('request');
 const Correlation = require('node-correlation');
 const qs = require('querystring');
 const db = require('./db/db-model');
 const keywords = require('../alchemy/app');
-/**
- * Query google trends data
- * @param  {String} keyword Keyword to search on Google Trends
- * @param  {Object} res     Response object
- * @return {Object}         JSON object returned from Google Trends
- */
-let queryGtrends = (keyword, res) => {
-  return new Promise((resolve, reject) => {
-    let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
-    request.get(url, (err, response, body) => {
-      if (err) {
-        res.send(new Error('rate limited'));
-        return reject(err);
-      } else {
-        console.log('response is ', response);
-        console.log('body is ', body);
-        let needToCheck = eval(body.slice(61));
-        console.log(needToCheck);
-        if (needToCheck.status !== 'ok') {
-          res.send('rate limited');
-          return reject(needToCheck);
-        }
-        else {
-        let info = convertGtrends(eval(body.slice(61)));
-        return resolve(info);
-        }
-      }
-    });
-  });
-};
-
-/**
- * Convert Google Trends data to array
- * @param  {Object} info Data returned from queryGtrends function
- * @return {Array}       Array of converted information
- */
-let convertGtrends = (info) => {
-  console.dir(info);
-  let results = [];
-  let dates = [];
-  for (var i = 25; i > 1; i--) {
-    results.push(info.table.rows[info.table.rows.length - i].c[1].v);
-    dates.push(info.table.rows[info.table.rows.length - i].c[0].f)
-  }
-  let max = 100 / Math.max.apply(Math, results);
-  let scaledArray = results.map(function(result) {
-    return result * max + .01;
-  });
-  let scaledArrayOfObjs = [];
-
-  scaledArray.forEach((value, index) => {
-    let obj = {}
-    obj[dates[index]] = value;
-    scaledArrayOfObjs.push(JSON.stringify(obj));
-  });
-  return scaledArrayOfObjs;
-};
-
+const googleTrend = require('./model/google-trend-model');
 /**
  * Convert list of nodes to results object
  * @param  {Array} nodeList  List of noes
@@ -77,11 +19,8 @@ let createResultsObject = (nodeList) => {
   nodeList.forEach(function(node) {
     if (node.Keyword) {
       let numberArray = [];
-
       var count2 = 0;
-
       node.data.forEach(function(dateObj) {
-
         let parsedObj = JSON.parse(dateObj);
         for (var key in parsedObj) {
           numberArray.push(parsedObj[key]);
@@ -94,7 +33,6 @@ let createResultsObject = (nodeList) => {
       updated[node.Keyword]['Keyword'] = node.Keyword;
       updated[node.Keyword]['data'] = node.data;
       updated[node.Keyword]['dataScaled'] = [];
-
       for (var i = 0; i < numberArray.length; i++) {
         if (Number.isNaN(numberArray[i] / max * 100)) {
           updated[node.Keyword].dataScaled.push(.01);
@@ -106,7 +44,6 @@ let createResultsObject = (nodeList) => {
   });
   return updated;
 };
-
 /**
  * Function to sort object into an array
  * @param  {Object} obj Input object to sort
@@ -126,10 +63,8 @@ let sortObject = (obj) => {
   arr.sort(function(a, b) {
     return b.value - a.value;
   });
-
   return arr;
 };
-
 let parseKeywordDataToObject = (stringArray) => {
   let result = [];
   for (var item of stringArray) {
@@ -137,10 +72,9 @@ let parseKeywordDataToObject = (stringArray) => {
   }
   return result;
 }
-
 module.exports = {
   /**
-   * To fill in
+   *  Return keyword if found. Else use google trend to get the data and and save it .
    * @param  {[type]} req [description]
    * @param  {[type]} res [description]
    * @return {[type]}     [description]
@@ -152,94 +86,103 @@ module.exports = {
         Keyword: keyword
       })
       .then((data) => {
-        console.log('sending info back from keyword db');
+        console.log('receiving result', data.length);
         if (data.length > 0) {
           let responseObj = data[0];
-          data[0].data = parseKeywordDataToObject(data[0].data)
-
+          responseObj.data = parseKeywordDataToObject(responseObj.data)
           res.send(responseObj);
         } else if (data.length === 0) {
-          queryGtrends(keyword, res)
+          console.log('try getting google trend')
+          googleTrend.query(keyword, res)
             .then((scaledArray) => {
-              res.send({
+              console.log('return from googleTrend', keyword, scaledArray)
+              let responseObj = {
                 Keyword: keyword,
-                data: scaledArray
-              });
+                data: parseKeywordDataToObject(scaledArray)
+              }
+              db.saveKeyword({
+                  Keyword: keyword,
+                  data: scaledArray
+                })
+                .then((data) => {
+                  console.log('Saving to DB Complete')
+                });
+              res.send(responseObj);
             });
         }
       });
   },
 
+  /**
+   * Get correlationInfo
+   */
   getCorrelationInfo: function(req, res) {
     console.log('correlation info controller function invoked');
-    let scaledArrayOfObjs = req.body.data;
+    //let scaledArrayOfObjs = req.body.data;
     let keyword = req.body.Keyword;
-
-    db.getKeyword({
+    //handle response if it already exists
+    //important function that still needs to be written to handle cases where keyword already has been searched for/saved
+    db.getNamesOfRelationships({
         Keyword: keyword
       })
       .then((data) => {
-        //handle response if it already exists
-        //important function that still needs to be written to handle cases where keyword already has been searched for/saved
+        console.log("results are: " + data, data.length);
         if (data.length > 0) {
-          // console.log('data is', data[0]);
-          db.getNamesOfRelationships({
-              Keyword: data[0].Keyword
+          console.log('return data back to user')
+          res.send(data);
+        } else if (data.length === 0) {
+          console.log('try to get data');
+          db.getKeyword({
+              Keyword: keyword
             })
-            .then((results) => {
-              console.log("results are: " + results);
-              res.send(results);
-            });
-        }
-        if (data.length === 0) {
-          db.getKeyword({})
             .then((data) => {
-              let updated = createResultsObject(data);
-              let scaledArray = scaledArrayOfObjs.map((obj) => {
-                let parsedObj = JSON.parse(obj);
-                for (var key in parsedObj) {
-                  return parsedObj[key];
-                }
-              });
-              let corrObj = {};
-              for (var keywords in updated) {
-                corrObj[keywords] = {};
-                corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
-                corrObj[keywords].data = updated[keywords].data;
-              }
-              let sortedCorrelationsArray = sortObject(corrObj);
-              let scaledArrayOfObjects = [];
-
-              // scaledArray.forEach(function(data, i) {
-              //   scaledArrayOfObjects.push(JSON.stringify({
-              //     i: data
-              //   }));
-              // });
-
-              db.saveKeyword({
-                  Keyword: keyword,
-                  data: scaledArrayOfObjs
-                })
-                .then((data) => {
-                  let topTen = [];
-                  for (var i = 0; i < 10; i++) {
-                    topTen.push({
-                      Keyword: sortedCorrelationsArray[i]['key'],
-                      corr: sortedCorrelationsArray[i]['value'],
-                      data: sortedCorrelationsArray[i]['data']
+              console.log('confirming if keyword exist');
+              if (data.length > 0) {
+                console.log('keyword exist');
+                let scaledArrayOfObjs = data[0].data;
+                db.getKeyword({})
+                  .then((data) => {
+                    let updated = createResultsObject(data);
+                    let scaledArray = scaledArrayOfObjs.map((obj) => {
+                      let parsedObj = JSON.parse(obj);
+                      for (var key in parsedObj) {
+                        return parsedObj[key];
+                      }
                     });
-                    db.addKeywordToKeyword({
-                        Keyword: keyword
-                      }, {
-                        Keyword: sortedCorrelationsArray[i]['key']
-                      }, sortedCorrelationsArray[i]['value'])
-                      .then((data) => {
-                        console.log('relationship added ' + data);
+                    //
+                    let corrObj = {};
+                    for (var keywords in updated) {
+                      if (keywords !== keyword) {
+                        corrObj[keywords] = {};
+                        corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
+                        corrObj[keywords].data = updated[keywords].data;
+                      }
+                    }
+                    let sortedCorrelationsArray = sortObject(corrObj);
+                    let topTen = [];
+                    for (var i = 0; i < 10; i++) {
+                      topTen.push({
+                        Keyword: sortedCorrelationsArray[i]['key'],
+                        corr: sortedCorrelationsArray[i]['value'],
+                        data: sortedCorrelationsArray[i]['data']
                       });
-                  }
-                  res.send(topTen);
-                });
-            });
+                      console.log('Adding relationship to keyword');
+                      db.addKeywordToKeyword({
+                          Keyword: keyword
+                        }, {
+                          Keyword: sortedCorrelationsArray[i]['key']
+                        }, sortedCorrelationsArray[i]['value'])
+                        .then((data) => {
+                          console.log('relationship added ' + data);
+                        });
+                    }
+                    res.send(topTen);
+                  });
+              } else {
+                res.statusCode(404)
+                  .send('Fail to find keyword');
+              }
+            })
         }
       });
   },
@@ -247,18 +190,15 @@ module.exports = {
     console.log('attempting to validate server side');
     var keyword = req.body.keyword;
     var listItem = req.body.listItem;
-    console.log(keyword," is keyword");
-    console.log(listItem," is listItem");
-    
+    console.log(keyword, " is keyword");
+    console.log(listItem, " is listItem");
     var resultsPromised = [];
     var promise = new Promise(function(resolve, reject) {
-
-
       keywords(keyword, listItem, function(result) {
         console.log("result is: ", result);
         if (result > .1) {
-          if(result === 'rate limited') {
-            console.log('u fucked up');
+          if (result === 'rate limited') {
+            console.log('awesome');
             res.send(result);
           }
           console.log("item validation is,", result)
@@ -266,26 +206,62 @@ module.exports = {
         } else {
           resolve(result);
         }
-
+      });
+    });
+    resultsPromised.push(promise);
+    Promise.all(resultsPromised)
+      .then(function(results) {
+        console.log(results);
+        var resultsObj = {
+          results: results,
+          keyword: keyword,
+          listItem: listItem
+        }
+        res.send(resultsObj);
+      });
+  },
+  getStocksInfo: function(req, res) {
+    let keyword = req.body.Keyword;
+    let keywordData = req.body.data;
+    let scaledArray = keywordData.map((obj) => {
+      for (var keys in obj) {
+        return obj[keys]
+      }
+    });
+    db.getStock({}).then((stockList) => {
+      var stockCorrList = [];
+      stockList.forEach((stockObj) => {
+        var promise = new Promise((resolve, reject) => {
+          let stockData = JSON.parse(stockObj.data);
+          let adjustedStockObj = {};
+          adjustedStockObj.label = stockObj.Stock;
+          let corr = 0;
+          if (scaledArray.length === stockData.length) {
+            corr = Correlation.calc(scaledArray, stockData);
+          }
+          adjustedStockObj.value = corr;
+          resolve(adjustedStockObj);
+          reject({});
+        });
+        stockCorrList.push(promise);
+      });
+      Promise.all(stockCorrList).then((result) => {
+        console.log('the promise resolved');
+        let correlationObj = {};
+        correlationObj['positive'] = [];
+        correlationObj['negative'] = [];
+        result.forEach((stock) => {
+          if (stock['value'] < 0) {
+            correlationObj['negative'].push(stock);
+          } else if (stock['value'] > 0) {
+            correlationObj['positive'].push(stock);
+          }
+        });
+        res.send(correlationObj);
       });
 
     });
-    resultsPromised.push(promise);
-    Promise.all(resultsPromised).then(function(results) {
-      console.log(results);
-      var resultsObj = {
-        results: results,
-        keyword: keyword,
-        listItem: listItem
-      }
-      res.send(resultsObj); 
-    });
   },
-  getStocksInfo(req,res) {
-    res.send('test');
-  },
-  queryGtrends: queryGtrends,
-  convertGtrends: convertGtrends,
   createResultsObject: createResultsObject,
   sortObject: sortObject
 };
