@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import  { getCorrelationInfo } from '../../actions/keyword';
 import { bindActionCreators} from 'redux';
 import { getValidationInfo } from '../../actions/keyword';
+import { getStocksInfo } from '../../actions/stocks';
 
 
 class KeywordList extends Component {
@@ -25,6 +26,7 @@ class KeywordList extends Component {
   getValidation(keyword,listItem) {
     console.log('determining validation between ', keyword, " and ", listItem);
     this.props.getValidationInfo(keyword,listItem);
+    this.props.getStocksInfo(keyword);
   }
 
   renderList() {
