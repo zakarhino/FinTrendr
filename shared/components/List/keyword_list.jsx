@@ -8,7 +8,9 @@ import { getValidationInfo } from '../../actions/keyword';
 class KeywordList extends Component {
   componentWillMount() {
     if(this.props.keyword){
+      console.log('we got in here on mount');
       this.props.getCorrelationInfo(this.props.keyword);
+      
     }
   }
 
@@ -47,6 +49,18 @@ class KeywordList extends Component {
       );
     });
   }
+  renderStocks() {
+    if(this.props.stocks.length > 0) {
+    return this.props.stocks.map((stockItem) => {
+        return (
+          <li className="list-group-item" key={stockItem.Keyword}>
+            <span className="pull-xs-left">{stockItem.Keyword}</span>
+            <strong>{listItem.corr}</strong>
+          </li>
+        );
+      });
+    }
+  }
 
   render() {
      if(this.props.list.items.length === 0) {
@@ -57,6 +71,10 @@ class KeywordList extends Component {
         <ul>
           {this.renderList()}
         </ul>
+        <ul>
+          {this.renderStocks()}
+        </ul>
+        
       </div>
     );
   }
@@ -66,14 +84,16 @@ function mapStateToProps(state) {
   return {
     list: state.list,
     keyword: state.keyword.current,
-    validation: state.validation.items
+    validation: state.validation.items,
+    stocks: state.stocks.items
   };
 }
 
 function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
-    getValidationInfo: getValidationInfo
+    getValidationInfo: getValidationInfo,
+    getStocksInfo: getStocksInfo
   };
   return bindActionCreators(obj, dispatch);
 };

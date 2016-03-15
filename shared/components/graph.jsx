@@ -27,13 +27,14 @@ export class Graph extends Component {
     console.log('Graph receive render request before current Keyword')
 
     if (!currentKeyword) {
+
       return (
         <div>
           Loading Graph
         </div>
       )
     }
-    console.log('Graph receive render request')
+    console.log('Graph receive render request', currentKeyword);
     const data = this.getDatum(10);
     console.log(data);
     const viewBoxOject = {
