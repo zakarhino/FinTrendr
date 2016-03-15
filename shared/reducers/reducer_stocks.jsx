@@ -6,7 +6,7 @@ export default function getStocks(state = INITIAL_STATE, action) {
   switch(action.type) {
   case GET_STOCKS:
   console.log('in getstocks with', action.payload)
-    return { ...state, items: action.payload };
+    return { ...state, items: action.payload.data };
   default:
     return state;
   }
