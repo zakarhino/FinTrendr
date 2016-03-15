@@ -60,7 +60,7 @@ export default(app) => {
       const componentHTML = renderToString(InitComp);
       const initialState = storeWithMiddleware.getState();
       console.log('state is: ', initialState);
-      
+
       const HTML = `
       <!DOCTYPE html>
       <html>
