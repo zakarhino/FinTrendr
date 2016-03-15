@@ -4,11 +4,14 @@ import NewsReducer from './reducer_news';
 import TweetReducer from './reducer_twitter';
 import List from './reducer_list';
 import Validation from './reducer_validation';
+import getStocks from './reducer_validation';
+
 
 export default combineReducers({
   keyword: KeywordReducer,
   news: NewsReducer,
   tweets: TweetReducer,
   list: List,
-  validation: Validation
+  validation: Validation,
+  stocks: getStocks
 });

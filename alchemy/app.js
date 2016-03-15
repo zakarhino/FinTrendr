@@ -97,13 +97,15 @@ module.exports = function keywords(keyword, item, cb) {
   console.log(count);
   setTimeout(function() {
     request.get('http://rss2json.com/api.json?rss_url=https%3A%2F%2Fnews.google.com%2Fnews%3Fq%3D' + keyword1 + '%20' + keyword2 + '%26output%3Drss', function(err, response, body) {
-      // if(err) {
-      //  console.log(err);
-      //  res.render('results for error',err);
-      // }
-
+      if(err) {
+        cb(err);
+      }
       var parsed = JSON.parse(body);
       console.log(body);
+      if(parsed.status === 'error') {
+        cb('rate limited')
+        return;
+      }
       var mapped = parsed.items.map(function(obj) {
         return obj.link.substr(obj.link.indexOf('url=') + 4);
       })

@@ -16,11 +16,21 @@ let queryGtrends = (keyword, res) => {
     let url = 'http://www.google.com/trends/fetchComponent?hl=en-US&geo=US&q=' + keyword + '&cid=TIMESERIES_GRAPH_0&export=3';
     request.get(url, (err, response, body) => {
       if (err) {
-        res.send(new Error('Error making a get request to google trends'));
+        res.send(new Error('rate limited'));
         return reject(err);
       } else {
+        console.log('response is ', response);
+        console.log('body is ', body);
+        let needToCheck = eval(body.slice(61));
+        console.log(needToCheck);
+        if (needToCheck.status !== 'ok') {
+          res.send('rate limited');
+          return reject(needToCheck);
+        }
+        else {
         let info = convertGtrends(eval(body.slice(61)));
         return resolve(info);
+        }
       }
     });
   });
@@ -233,81 +243,6 @@ module.exports = {
         }
       });
   },
-  getResult: function(req, res) {
-    console.log("CALLED GET RESULT");
-    let keyword = req.query.keyword;
-
-    db.getKeyword({
-        Keyword: keyword
-      })
-      .then((data) => {
-        //handle response if it already exists
-        //important function that still needs to be written to handle cases where keyword already has been searched for/saved
-        if (data.length > 0) {
-          db.getNamesOfRelationships({
-              Keyword: data[0].Keyword
-            })
-            .then((results) => {
-              res.send({
-                corr: results
-              });
-            });
-        }
-        if (data.length === 0) {
-          db.getKeyword({})
-            .then((data) => {
-              queryGtrends(keyword, res)
-                .then((scaledArray) => {
-                  let updated = createResultsObject(data);
-
-                  let corrObj = {};
-                  for (var keywords in updated) {
-                    corrObj[keywords] = Correlation.calc(updated[keywords], scaledArray);
-                  }
-                  let sortedCorrelationsArray = sortObject(corrObj);
-                  let scaledArrayOfObjects = [];
-
-                  scaledArray.forEach(function(data, i) {
-                    scaledArrayOfObjects.push(JSON.stringify({
-                      i: data
-                    }));
-                  });
-                  scaledArrayOfObjects;
-                  db.saveKeyword({
-                      Keyword: keyword,
-                      data: scaledArrayOfObjects
-                    })
-                    .then((data) => {
-                      // console.log("keyword is" + keyword);
-                      // console.log('we saved' + data.Keyword);
-
-                      let topTen = [];
-                      for (var i = 0; i < 10; i++) {
-                        console.log('the sorted correlation array is', sortedCorrelationsArray[i]);
-                        topTen.push({
-                          Keyword: sortedCorrelationsArray[i]['key'],
-                          corr: sortedCorrelationsArray[i]['value'],
-                          data: sortedCorrelationsArray[i]['data']
-                        });
-                        db.addKeywordToKeyword({
-                            Keyword: keyword
-                          }, {
-                            Keyword: sortedCorrelationsArray[i]['key']
-                          }, sortedCorrelationsArray[i]['value'])
-                          .then((data) => {
-                            console.log('relationship added ' + data);
-                          });
-                      }
-                      res.send({
-                        corr: topTen
-                      });
-                    });
-                });
-            });
-
-        }
-      });
-  },
   getValidationInfo: function(req, res) {
     console.log('attempting to validate server side');
     var keyword = req.body.keyword;
@@ -322,7 +257,10 @@ module.exports = {
       keywords(keyword, listItem, function(result) {
         console.log("result is: ", result);
         if (result > .1) {
-          
+          if(result === 'rate limited') {
+            console.log('u fucked up');
+            res.send(result);
+          }
           console.log("item validation is,", result)
           resolve(result);
         } else {
@@ -342,6 +280,9 @@ module.exports = {
       }
       res.send(resultsObj); 
     });
+  },
+  getStocksInfo(req,res) {
+    res.send('test');
   },
   queryGtrends: queryGtrends,
   convertGtrends: convertGtrends,
