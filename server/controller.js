@@ -149,6 +149,7 @@ module.exports = {
                         return parsedObj[key];
                       }
                     });
+                    //
                     let corrObj = {};
                     for (var keywords in updated) {
                         if (keywords !==keyword){
@@ -158,7 +159,6 @@ module.exports = {
                       }
                     }
                     let sortedCorrelationsArray = sortObject(corrObj);
-                    let scaledArrayOfObjects = [];
                     let topTen = [];
                     for (var i = 0; i < 10; i++) {
                       topTen.push({
@@ -166,7 +166,6 @@ module.exports = {
                         corr: sortedCorrelationsArray[i]['value'],
                         data: sortedCorrelationsArray[i]['data']
                       });
-
                       console.log('Adding relationship to keyword');
                       db.addKeywordToKeyword({
                           Keyword: keyword
