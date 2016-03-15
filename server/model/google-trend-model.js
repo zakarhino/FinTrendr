@@ -1,3 +1,4 @@
+"use strict";
 const request = require('request');
 module.exports = {
   /**
@@ -26,7 +27,6 @@ module.exports = {
    * @return {Array}       Array of converted information
    */
   convertGtrends: function(info) {
-    console.dir(info);
     let results = [];
     let dates = [];
     for (var i = 25; i > 1; i--) {
