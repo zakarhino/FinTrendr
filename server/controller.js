@@ -86,7 +86,7 @@ module.exports = {
         Keyword: keyword
       })
       .then((data) => {
-        console.log('receiving result',data.length);
+        console.log('receiving result', data.length);
         if (data.length > 0) {
           let responseObj = data[0];
           responseObj.data = parseKeywordDataToObject(responseObj.data)
@@ -95,7 +95,7 @@ module.exports = {
           console.log('try getting google trend')
           googleTrend.query(keyword, res)
             .then((scaledArray) => {
-              console.log('return from googleTrend',keyword,scaledArray)
+              console.log('return from googleTrend', keyword, scaledArray)
               let responseObj = {
                 Keyword: keyword,
                 data: parseKeywordDataToObject(scaledArray)
@@ -126,7 +126,7 @@ module.exports = {
         Keyword: keyword
       })
       .then((data) => {
-        console.log("results are: " + data,data.length);
+        console.log("results are: " + data, data.length);
         if (data.length > 0) {
           console.log('return data back to user')
           res.send(data);
@@ -138,7 +138,7 @@ module.exports = {
             .then((data) => {
               console.log('confirming if keyword exist');
               if (data.length > 0) {
-                  console.log('keyword exist');
+                console.log('keyword exist');
                 let scaledArrayOfObjs = data[0].data;
                 db.getKeyword({})
                   .then((data) => {
@@ -152,7 +152,7 @@ module.exports = {
                     //
                     let corrObj = {};
                     for (var keywords in updated) {
-                        if (keywords !==keyword){
+                      if (keywords !== keyword) {
                         corrObj[keywords] = {};
                         corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
                         corrObj[keywords].data = updated[keywords].data;
@@ -197,7 +197,7 @@ module.exports = {
       keywords(keyword, listItem, function(result) {
         console.log("result is: ", result);
         if (result > .1) {
-          if(result === 'rate limited') {
+          if (result === 'rate limited') {
             console.log('awesome');
             res.send(result);
           }
@@ -220,8 +220,47 @@ module.exports = {
         res.send(resultsObj);
       });
   },
-  getStocksInfo(req,res) {
-    res.send('test');
+  getStocksInfo: function(req, res) {
+    let keyword = req.body.Keyword;
+    let keywordData = req.body.data;
+    let scaledArray = keywordData.map((obj) => {
+      for (var keys in obj) {
+        return obj[keys]
+      }
+    });
+    db.getStock({}).then((stockList) => {
+      var stockCorrList = [];
+      stockList.forEach((stockObj) => {
+        var promise = new Promise((resolve, reject) => {
+          let stockData = JSON.parse(stockObj.data);
+          let adjustedStockObj = {};
+          adjustedStockObj.label = stockObj.Stock;
+          let corr = 0;
+          if (scaledArray.length === stockData.length) {
+            corr = Correlation.calc(scaledArray, stockData);
+          }
+          adjustedStockObj.value = corr;
+          resolve(adjustedStockObj);
+          reject({});
+        });
+        stockCorrList.push(promise);
+      });
+      Promise.all(stockCorrList).then((result) => {
+        console.log('the promise resolved');
+        let correlationObj = {};
+        correlationObj['positive'] = [];
+        correlationObj['negative'] = [];
+        result.forEach((stock) => {
+          if (stock['value'] < 0) {
+            correlationObj['negative'].push(stock);
+          } else if (stock['value'] > 0) {
+            correlationObj['positive'].push(stock);
+          }
+        });
+        res.send(correlationObj);
+      });
+
+    });
   },
   createResultsObject: createResultsObject,
   sortObject: sortObject

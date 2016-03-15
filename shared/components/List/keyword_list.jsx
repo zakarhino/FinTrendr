@@ -11,7 +11,7 @@ class KeywordList extends Component {
     if(this.props.keyword){
       console.log('we got in here on mount');
       this.props.getCorrelationInfo(this.props.keyword);
-      
+      this.props.getStocksInfo(this.props.keyword);
     }
   }
 
@@ -19,6 +19,7 @@ class KeywordList extends Component {
     if(nextProps.keyword !== this.props.keyword) {
       if(nextProps.keyword) {
         this.props.getCorrelationInfo(nextProps.keyword);
+        this.props.getStocksInfo(nextProps.keyword);
       }
     }
   }
@@ -26,7 +27,6 @@ class KeywordList extends Component {
   getValidation(keyword,listItem) {
     console.log('determining validation between ', keyword, " and ", listItem);
     this.props.getValidationInfo(keyword,listItem);
-    this.props.getStocksInfo(keyword);
   }
 
   renderList() {
