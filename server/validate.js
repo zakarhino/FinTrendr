@@ -16,11 +16,19 @@ const validate = (keyword, item) => {
         let parsed = cheerio.load(item.content)('table').text();
         tfidf.addDocument(parsed);
       });
-      let count = 0;
-      tfidf.tfidfs(keyword + ' ' + item, (i, measure) => {
+      let count = 0, appeared = 0;
+      tfidf.tfidfs([keyword, item], (i, measure) => {
+        console.log(i + ": " + measure);
         count += measure;
+        if(measure > 0.7) {
+          appeared++;
+        }
       });
-      resolve(count > 8 ? true : false);
+      if(count > 9 && appeared > 3) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
   });
 };
