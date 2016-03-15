@@ -103,12 +103,12 @@ module.exports = function keywords(keyword, item, cb) {
       var parsed = JSON.parse(body);
       console.log(body);
       if(parsed.status === 'error') {
-        cb('rate limited')
+        cb('rate limited');
         return;
       }
       var mapped = parsed.items.map(function(obj) {
         return obj.link.substr(obj.link.indexOf('url=') + 4);
-      })
+      });
 
       mapped.forEach(function(url) {
         var promise = new Promise(function(resolve, reject) {
@@ -121,7 +121,7 @@ module.exports = function keywords(keyword, item, cb) {
               resolve(0);
             }
             if (tempData.keywords) {
-              var tempKeywordList = []
+              var tempKeywordList = [];
                 // console.log('tempData for :', i, " is ", tempData.keywords);
               var tempData2 = tempData.keywords;
               tempData2.forEach(function(obj) {
@@ -176,7 +176,7 @@ module.exports = function keywords(keyword, item, cb) {
     });
   }, 5000);
 
-}
+};
 
 // function concepts(req, res, output) {
 //  alchemyapi.concepts('text', demo_text, { 'showSourceText':1 }, function(response) {

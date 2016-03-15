@@ -51,18 +51,6 @@ class KeywordList extends Component {
       );
     });
   }
-  renderStocks() {
-    if(this.props.stocks.length > 0) {
-    return this.props.stocks.map((stockItem) => {
-        return (
-          <li className="list-group-item" key={stockItem.Keyword}>
-            <span className="pull-xs-left">{stockItem.Keyword}</span>
-            <strong>{listItem.corr}</strong>
-          </li>
-        );
-      });
-    }
-  }
 
   render() {
      if(this.props.list.items.length === 0) {
@@ -72,11 +60,7 @@ class KeywordList extends Component {
       <div>
         <ul>
           {this.renderList()}
-        </ul>
-        <ul>
-          {this.renderStocks()}
-        </ul>
-        
+        </ul>        
       </div>
     );
   }
