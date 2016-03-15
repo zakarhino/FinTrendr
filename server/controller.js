@@ -12,8 +12,7 @@ const validate = require('./validate.js');
  * @return {Object}          Results object
  */
 let createResultsObject = (nodeList) => {
-  //Keyword:
-  //data: [{},{},]
+
   console.log('the nodelist is ', nodeList);
   let updated = {};
   var count = 0;
