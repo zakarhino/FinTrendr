@@ -5,6 +5,7 @@ const qs = require('querystring');
 const db = require('./db/db-model');
 const keywords = require('../alchemy/app');
 const googleTrend = require('./model/google-trend-model');
+const validate = require('./validate.js');
 /**
  * Convert list of nodes to results object
  * @param  {Array} nodeList  List of noes
@@ -192,33 +193,50 @@ module.exports = {
     var listItem = req.body.listItem;
     console.log(keyword, " is keyword");
     console.log(listItem, " is listItem");
-    var resultsPromised = [];
-    var promise = new Promise(function(resolve, reject) {
-      keywords(keyword, listItem, function(result) {
-        console.log("result is: ", result);
-        if (result > .1) {
-          if (result === 'rate limited') {
-            console.log('awesome');
-            res.send(result);
-          }
-          console.log("item validation is,", result);
-          resolve(result);
-        } else {
-          resolve(result);
-        }
-      });
-    });
-    resultsPromised.push(promise);
-    Promise.all(resultsPromised)
-      .then(function(results) {
-        console.log(results);
-        var resultsObj = {
-          results: results,
+    validate(keyword, listItem)
+    .then((result) => {
+      console.log("Result:", result);
+      if(result) {
+        res.send({
+          results: [1],
           keyword: keyword,
           listItem: listItem
-        };
-        res.send(resultsObj);
-      });
+        });
+      } else {
+        res.send({
+          results: [],
+          keyword: keyword,
+          listItem: listItem
+        });
+      }
+    });
+    // var resultsPromised = [];
+    // var promise = new Promise(function(resolve, reject) {
+    //   keywords(keyword, listItem, function(result) {
+    //     console.log("result is: ", result);
+    //     if (result > .1) {
+    //       if (result === 'rate limited') {
+    //         console.log('awesome');
+    //         res.send(result);
+    //       }
+    //       console.log("item validation is,", result);
+    //       resolve(result);
+    //     } else {
+    //       resolve(result);
+    //     }
+    //   });
+    // });
+    // resultsPromised.push(promise);
+    // Promise.all(resultsPromised)
+    //   .then(function(results) {
+    //     console.log("Results:", results);
+    //     var resultsObj = {
+    //       results: results,
+    //       keyword: keyword,
+    //       listItem: listItem
+    //     };
+    //     res.send(resultsObj);
+    //   });
   },
   getStocksInfo: function(req, res) {
     let keyword = req.body.Keyword;

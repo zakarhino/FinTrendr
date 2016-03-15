@@ -20,7 +20,7 @@ const validate = (keyword, item) => {
       tfidf.tfidfs(keyword + ' ' + item, (i, measure) => {
         count += measure;
       });
-      resolve(count > 7 ? true : false);
+      resolve(count > 8 ? true : false);
     });
   });
 };
