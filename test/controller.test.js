@@ -23,7 +23,6 @@ describe('Server Controller', function() {
 
 
   it('Should contain getResult and all utility functions for parsing', function() {
-    controller.getResult.should.be.a.Function();
     controller.queryGtrends.should.be.a.Function();
     controller.convertGtrends.should.be.a.Function();
     controller.createResultsObject.should.be.a.Function();

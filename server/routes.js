@@ -29,6 +29,7 @@ export default(app) => {
   app.get('/api/keywordInfo/:keyword', KeywordController.getKeywordInfo);
   app.post('/api/correlationInfo', KeywordController.getCorrelationInfo);
   app.post('/api/validationInfo', KeywordController.getValidationInfo);
+  app.post('/api/getStocksInfo', KeywordController.getStocksInfo);
 
 
   app.use((req, res) => {

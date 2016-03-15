@@ -281,6 +281,9 @@ module.exports = {
       res.send(resultsObj); 
     });
   },
+  getStocksInfo(req,res) {
+    res.send('test');
+  },
   queryGtrends: queryGtrends,
   convertGtrends: convertGtrends,
   createResultsObject: createResultsObject,
