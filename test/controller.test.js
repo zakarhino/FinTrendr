@@ -28,6 +28,7 @@ describe('Server Controller', function() {
     controller.convertGtrends.should.be.a.Function();
     controller.createResultsObject.should.be.a.Function();
   });
+  
   describe('convertGtrends', function() {
 
     var tempGoogleResponse = eval(tempData.tempString.slice(61));
