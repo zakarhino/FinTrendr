@@ -2,7 +2,7 @@
   "name": "fintrendr",
   "version": "1.0.0",
   "description": "Thesis Project",
-  "main": "server.js",
+  "main": "index.js",
   "author": {
     "Eric Mustin": "musin.eric@gmail.com",
     "Zak Golding": "zak@0x7cf.com",
@@ -10,7 +10,7 @@
     "Arlen Neylon": "arlen.m.neylon@gmail.com"
   },
   "scripts": {
-    "start": "nodemon --ignore public/dist/ ",
+    "start": "clear ; webpack --progress && nodemon",
     "test": "mocha"
   },
   "license": "MIT",
