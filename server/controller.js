@@ -13,7 +13,7 @@ const validate = require('./validate.js');
  */
 let createResultsObject = (nodeList) => {
 
-  console.log('the nodelist is ', nodeList);
+  // console.log('the nodelist is ', nodeList);
   let updated = {};
   var count = 0;
   nodeList.forEach(function(node) {
@@ -297,5 +297,6 @@ module.exports = {
     });
   },
   createResultsObject: createResultsObject,
-  sortObject: sortObject
+  sortObject: sortObject,
+  parseKeywordDataToObject: parseKeywordDataToObject
 };
