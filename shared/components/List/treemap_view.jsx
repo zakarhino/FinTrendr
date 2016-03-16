@@ -22,10 +22,12 @@ class TreeMap extends Component {
     }
   }
   convertToGraphData(data) {
+    console.log(data);
     let result = []
     for (let item in data) {
+      console.log(item);
       let temp = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < data[item].length; i++) {
         temp.push(data[item][i]);
       }
       result.push(temp);
