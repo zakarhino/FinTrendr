@@ -18,13 +18,10 @@ const validate = (keyword, item) => {
       });
       let count = 0, appeared = 0;
       tfidf.tfidfs([keyword, item], (i, measure) => {
-        console.log(i + ": " + measure);
         count += measure;
-        if(measure > 0.7) {
-          appeared++;
-        }
+        if(measure > 0.7) appeared++;
       });
-      if(count > 9 && appeared > 3) {
+      if(count > 9 && appeared > 4) {
         resolve(true);
       } else {
         resolve(false);

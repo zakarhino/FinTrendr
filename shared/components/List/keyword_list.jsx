@@ -43,8 +43,9 @@ class KeywordList extends Component {
           </li>
         );
       }
+      // onClick={this.getValidation.bind(this,this.props.keyword.Keyword,listItem.Keyword)}
       return (
-      <li className="list-group-item" key={listItem.Keyword} onClick={this.getValidation.bind(this,this.props.keyword.Keyword,listItem.Keyword)}>
+      <li className="list-group-item" key={listItem.Keyword}>
           <span className="pull-xs-right">{listItem.Keyword}</span>
           <strong>{listItem.corr}</strong>
         </li>
