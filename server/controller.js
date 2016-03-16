@@ -267,7 +267,8 @@ module.exports = {
         var promise = new Promise((resolve, reject) => {
           let stockData = JSON.parse(stockObj.data);
           let adjustedStockObj = {};
-          adjustedStockObj.label = stockObj.Stock;
+          adjustedStockObj.label = stockObj.Symbol;
+          adjustedStockObj.sector = stockObj.Sector
           let corr = 0;
           if (scaledArray.length === stockData.length) {
             corr = Correlation.calc(scaledArray, stockData);
