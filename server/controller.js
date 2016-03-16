@@ -270,6 +270,7 @@ module.exports = {
         correlationObj['negative'] = [];
         result.forEach((stock) => {
           if (stock['value'] < -0.5) {
+            stock['value'] = Math.abs(stock['value']);
             correlationObj['negative'].push(stock);
           } else if (stock['value'] > 0.5) {
             correlationObj['positive'].push(stock);
