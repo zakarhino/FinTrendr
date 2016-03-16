@@ -43,23 +43,6 @@ let saveKeyword = (keyword) => {
   });
 };
 
-// /**
-//  * Saves term to DB and passes saved object to callback
-//  * @param  {Object} term Term object
-//  * @return {Object}      Promise object
-//  */
-// let saveTerm = (term) => {
-//   return new Promise((resolve, reject) => {
-//     saveItem(term, 'Term')
-//       .then((node) => {
-//         return resolve(node);
-//       })
-//       .catch((err) => {
-//         return reject(err);
-//       });
-//   });
-// };
-
 /**
  * Saves item to DB and passes saved object back to caller function
  * @param  {Object} item Item to add
@@ -129,42 +112,6 @@ let getNamesOfRelationships = (keyword) => {
 };
 
 /**
- * Gets term from DB and passes it into callback
- * @param  {Object} term String object
- * @return {Object}      Promise object
- */
-// let getTerm = (term) => {
-//   return new Promise((resolve, reject) => {
-//     let cypher = "MATCH (n:Keyword { Keyword: '" + keyword.Keyword + "' })-[r:correlates]->(node) RETURN node, r ORDER BY r.correlation DESC";
-//     db.query(cypher, (err, res) => {
-//       if (err) return reject(err);
-//       var out = [];
-//       for (var x = 0; x < res.length; x++) {
-//         out.push({
-//           "keyword": res[x].node.Keyword,
-//           "correlation": res[x].r.properties.correlation
-//         });
-//       }
-//       return resolve(out);
-//     });
-//   });
-// };
-
-// /**
-//  * Gets term from DB and passes it into callback
-//  * @param  {Object} term String object
-//  * @return {Object}      Promise object
-//  */
-// let getTerm = (term) => {
-//   return new Promise((resolve, reject) => {
-//     db.find(term, 'Term', (err, node) => {
-//       if (err) return reject(err);
-//       return resolve(node);
-//     });
-//   });
-// };
-
-/**
  * Generic get item from DB function
  * @param  {[type]} item Raw item to get
  * @param  {[type]} term Label of item to get
@@ -225,29 +172,6 @@ let deleteKeyword = (keyword) => {
   });
 };
 
-// /**
-//  * Deletes term fromm DB
-//  * @param  {Object} term Term object
-//  * @return {Object}      Promise object
-//  */
-// let deleteTerm = (term) => {
-//   return new Promise((resolve, reject) => {
-//     getTerm(term)
-//       .then((node) => {
-//         deleteItem(node)
-//           .then(() => {
-//             return resolve();
-//           })
-//           .catch((err) => {
-//             return reject(err);
-//           });
-//       })
-//       .catch((err) => {
-//         return reject(err);
-//       });
-//   });
-// };
-
 /**
  * Deletes item from DB
  * @param  {Object}    item  Seraph node object
@@ -273,7 +197,8 @@ let addKeywordToKeyword = (first, second, correlation) => {
   return new Promise((resolve, reject) => {
     Promise.all([getKeyword(first), getKeyword(second)])
       .then(function(results) {
-        db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation }, (err, rel) => {
+        console.log("Got inside addKeywordToKeyword");
+        db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation.corr, relevance: correlation.rel }, (err, rel) => {
           if (err) return reject(err);
           return resolve(rel);
         });

@@ -13,7 +13,7 @@ const db = require('./server/db/db-model');
 const PORT = process.env.PORT || 3000;
 
 
-// loadcsv('newdata6.csv')
+// loadcsv.loadCSV('goldenticket.csv')
 //   .then((data) => {
 //     for(var i =0; i<data.length; i++) {
 //       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
@@ -28,10 +28,10 @@ const PORT = process.env.PORT || 3000;
 // etfList.forEach((symbol) => {
 //   console.log('hey hey');
 //   var promise = new Promise((resolve, reject) => {
-//
+
 //     request.get('https://www.quandl.com/api/v3/datasets/WIKI/' + symbol + '/data.json?column_index=4&api_key=fiuzUjysoMY6y1FMEbBE&start_date=2014-02-28&end_date=2016-01-31&order=asc&collapse=monthly',
 //       (err, response, body) => {
-//
+
 //         var parsedBody = JSON.parse(body);
 //         if (err) {
 //           reject(err);
@@ -44,16 +44,16 @@ const PORT = process.env.PORT || 3000;
 //           resolve(returnObj);
 //         }
 //       });
-//
+
 //   });
-//
+
 //   etfData.push(promise);
 // });
-//
+
 // Promise.all(etfData).then((results) => {
 //   results.forEach((stock) => {
 //     stock.data = JSON.stringify(stock.data);
-//
+
 //     db.saveStock( stock ).then((node) => {
 //         console.log('done!');
 //       })

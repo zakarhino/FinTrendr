@@ -27,7 +27,7 @@ export function getCorrelationInfo(keyword) {
   const url = '/api/correlationInfo';
   const request = axios.post(url,keyword);
 
-  console.log('action creation invoked');
+  console.log('get correlation action creation invoked');
 
   // const tempData = [{
   //   Keyword: 'AAPL',

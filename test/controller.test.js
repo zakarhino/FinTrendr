@@ -20,12 +20,14 @@ function wipeDB() {
 }
 
 describe('Server Controller', function() {
-  it("should contain controller object", function() {
+  it("should contain controller object", function(done) {
     should.exist(controller);
+    done();
   });
 
-  it('Should contain getResult and all utility functions for parsing', function() {
+  it('Should contain getResult and all utility functions for parsing', function(done) {
     controller.createResultsObject.should.be.a.Function();
+    done();
   });
 
   // describe('createResultsObject', function() {

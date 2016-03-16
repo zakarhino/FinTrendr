@@ -31,7 +31,7 @@ module.exports = {
     let dates = [];
     for (var i = 25; i > 1; i--) {
       results.push(info.table.rows[info.table.rows.length - i].c[1].v);
-      dates.push(info.table.rows[info.table.rows.length - i].c[0].f)
+      dates.push(info.table.rows[info.table.rows.length - i].c[0].f);
     }
     let max = 100 / Math.max.apply(Math, results);
     let scaledArray = results.map(function(result) {
@@ -39,10 +39,10 @@ module.exports = {
     });
     let scaledArrayOfObjs = [];
     scaledArray.forEach((value, index) => {
-      let obj = {}
+      let obj = {};
       obj[dates[index]] = value;
       scaledArrayOfObjs.push(JSON.stringify(obj));
     });
     return scaledArrayOfObjs;
   }
-}
+};

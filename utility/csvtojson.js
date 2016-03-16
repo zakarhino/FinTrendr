@@ -4,7 +4,6 @@ const path = require('path');
 // This will parse a delimited string into an array of
 // arrays. The default delimiter is the comma, but this
 // can be overriden in the second argument.
-
 function CSVToArray(strData, strDelimiter) {
   // Check to see if the delimiter is defined. If not,
   // then default to comma.
@@ -45,8 +44,7 @@ function CSVToArray(strData, strDelimiter) {
     if (arrMatches[2]) {
       // We found a quoted value. When we capture
       // this value, unescape any double quotes.
-      var strMatchedValue = arrMatches[2].replace(
-        new RegExp("\"\"", "g"), "\"");
+      var strMatchedValue = arrMatches[2].replace(new RegExp("\"\"", "g"), "\"");
     } else {
       // We found a non-quoted value.
       var strMatchedValue = arrMatches[3];
@@ -58,8 +56,6 @@ function CSVToArray(strData, strDelimiter) {
   // Return the parsed data.
   return (arrData);
 }
-
-
 /**
  * convert a csv string to json string
  * @param  {string} csv the csv string
@@ -93,7 +89,6 @@ function csvtojson(csv) {
   }
   return objArray;
 }
-
 /**
  * loadCSV and parse to json base on filepath name
  * @param  {string} filename filepath to the file
@@ -114,5 +109,7 @@ function loadCSV(filename) {
     });
   });
 }
-
-module.exports = loadCSV;
+module.exports = {
+  loadCSV: loadCSV,
+  csvtojson: csvtojson
+};
