@@ -62,7 +62,7 @@ let sortObject = (obj) => {
     }
   }
   arr.sort(function(a, b) {
-    return b.value - a.value;
+    return b.corr - a.corr;
   });
   return arr;
 };
