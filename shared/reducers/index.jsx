@@ -5,6 +5,7 @@ import TweetReducer from './reducer_twitter';
 import List from './reducer_list';
 import Validation from './reducer_validation';
 import getStocks from './reducer_stocks';
+import getHotTrends from './reducer_hotTrends';
 
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
   tweets: TweetReducer,
   list: List,
   validation: Validation,
-  stocks: getStocks
+  stocks: getStocks,
+  hotTrends: getHotTrends
 });
