@@ -7,8 +7,7 @@
     "Eric Mustin": "musin.eric@gmail.com",
     "Zak Golding": "zak@0x7cf.com",
     "Jason Cheung": "jasoncheungcf@gmail.com",
-    "Arlen Neylon": "arlen.m.neylon@gmail.com",
-    "Elva Chao": "odekyc@gmail.com"
+    "Arlen Neylon": "arlen.m.neylon@gmail.com"
   },
   "scripts": {
     "start": "nodemon --ignore public/dist/ ",
