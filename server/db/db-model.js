@@ -195,17 +195,20 @@ let deleteItem = (item) => {
  */
 let addKeywordToKeyword = (first, second, correlation) => {
   return new Promise((resolve, reject) => {
+    console.log("Correlation:", correlation.corr, correlation.rel);
     Promise.all([getKeyword(first), getKeyword(second)])
-      .then(function(results) {
-        console.log("Got inside addKeywordToKeyword");
-        db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation.corr, relevance: correlation.rel }, (err, rel) => {
-          if (err) return reject(err);
-          return resolve(rel);
-        });
-      })
-      .catch((err) => {
-        console.log("ERROR:", err);
+    .then((results) => {
+      db.relate(results[0][0], 'correlates', results[1][0], { correlation: correlation.corr, relevance: correlation.rel }, (err, rel) => {
+        if (err) {
+          console.log("ERROR:", err);
+          return reject(err);
+        }
+        return resolve(rel);
       });
+    })
+    .catch((err) => {
+      console.log("ERROR:", err);
+    });
   });
 };
 

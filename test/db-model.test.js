@@ -138,7 +138,7 @@ describe('DB Model', function() {
 
   });
 
-  describe('and should save and retrieve Keyword relationships', function() {
+  describe('should save and retrieve Keyword relationships', function() {
     // Wipe DB after testing
     after(wipeDB);
 
@@ -175,7 +175,7 @@ describe('DB Model', function() {
         relationship.id.should.be.an.instanceOf(Number);
         relationship.properties
         .should.be.an.instanceOf(Object)
-        .and.deepEqual({ corr: 67, rel: true });
+        .and.deepEqual({ correlation: 67, relevance: true });
       })
       .then(function() {
         db.addKeywordToKeyword({Keyword: "Wolf"}, {Keyword: "Bat"}, { corr: 34, rel: false })
@@ -187,23 +187,23 @@ describe('DB Model', function() {
           relationship.id.should.be.an.instanceOf(Number);
           relationship.properties
           .should.be.an.instanceOf(Object)
-          .and.deepEqual({ corr: 34, rel: false });
+          .and.deepEqual({ correlation: 34, relevance: false });
           done();
         });
       });
     });
 
-    // it("should retrieve a node's relationships", function(done) {
-    //   return db.getNamesOfRelationships({Keyword: "Wolf"})
-    //   .should.be.fulfilled()
-    //   .then(function(results) {
-    //     results.should.be.an.instanceOf(Array).and.have.lengthOf(2);
-    //     results[0].should.have.properties(['Keyword', 'corr', 'rel', 'data']);
-    //     results[1].should.have.properties(['Keyword', 'corr', 'rel', 'data']);
-    //     results[0].corr.should.be.above(results[1].corr);
-    //     done();
-    //   });
-    // });
+    it("should retrieve a node's relationships", function(done) {
+      return db.getNamesOfRelationships({Keyword: "Wolf"})
+      .should.be.fulfilled()
+      .then(function(results) {
+        results.should.be.an.instanceOf(Array).and.have.lengthOf(2);
+        results[0].should.have.properties(['Keyword', 'corr', 'data']);
+        results[1].should.have.properties(['Keyword', 'corr', 'data']);
+        results[0].corr.should.be.above(results[1].corr);
+        done();
+      });
+    });
 
   });
 
