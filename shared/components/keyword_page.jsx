@@ -41,7 +41,6 @@ class KeywordPage extends Component {
     }
     return (
       <div>
-        <TweetList/>
         Welcome to the keyword page of Trendr. Search for a term.
         <div>this.props.params.keyword: {this.props.params.keyword}</div>
         <button type='button' className="btn btn-primary" onClick={this.switchView.bind(this)}>CHANGE!</button>
