@@ -14,7 +14,7 @@ const validate = require('./validate.js');
 let createResultsObject = (nodeList) => {
   //Keyword:
   //data: [{},{},]
-  console.log('the nodelist is ', nodeList);
+  //console.log('the nodelist is ', nodeList);
   let updated = {};
   var count = 0;
   nodeList.forEach(function(node) {
@@ -27,9 +27,9 @@ let createResultsObject = (nodeList) => {
           numberArray.push(parsedObj[key]);
         }
       });
-      console.log('successfully parsed', numberArray);
+      // console.log('successfully parsed', numberArray);
       let max = Math.max.apply(Math, numberArray);
-      console.log('max is: ', max);
+      // console.log('max is: ', max);
       updated[node.Keyword] = {};
       updated[node.Keyword]['Keyword'] = node.Keyword;
       updated[node.Keyword]['data'] = node.data;
@@ -56,7 +56,8 @@ let sortObject = (obj) => {
     if (obj.hasOwnProperty(prop)) {
       arr.push({
         'key': prop,
-        'value': obj[prop]['corr'],
+        'corr': obj[prop]['corr'],
+        'rel': obj[prop]['rel'],
         'data': obj[prop]['data']
       });
     }
@@ -82,21 +83,21 @@ module.exports = {
    */
   getKeywordInfo: function(req, res) {
     let keyword = req.params.keyword;
-    console.log(keyword);
+    // console.log(keyword);
     db.getKeyword({
         Keyword: keyword
       })
       .then((data) => {
-        console.log('receiving result', data.length);
+        // console.log('receiving result', data.length);
         if (data.length > 0) {
           let responseObj = data[0];
           responseObj.data = parseKeywordDataToObject(responseObj.data);
           res.send(responseObj);
         } else if (data.length === 0) {
-          console.log('try getting google trend');
+          // console.log('try getting google trend');
           googleTrend.query(keyword, res)
             .then((scaledArray) => {
-              console.log('return from googleTrend', keyword, scaledArray);
+              // console.log('return from googleTrend', keyword, scaledArray);
               let responseObj = {
                 Keyword: keyword,
                 data: parseKeywordDataToObject(scaledArray)
@@ -127,7 +128,7 @@ module.exports = {
         Keyword: keyword
       })
       .then((data) => {
-        console.log("results are: " + data, data.length);
+        // console.log("results are: " + data, data.length);
         if (data.length > 0) {
           console.log('return data back to user');
           res.send(data);
@@ -157,27 +158,42 @@ module.exports = {
                         corrObj[keywords] = {};
                         corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
                         corrObj[keywords].data = updated[keywords].data;
+                        // console.log("corrObj[keywords]:", corrObj[keywords]);
                       }
                     }
                     let sortedCorrelationsArray = sortObject(corrObj);
-                    let topTen = [];
-                    for (var i = 0; i < 10; i++) {
-                      topTen.push({
-                        Keyword: sortedCorrelationsArray[i]['key'],
-                        corr: sortedCorrelationsArray[i]['value'],
-                        data: sortedCorrelationsArray[i]['data']
-                      });
-                      console.log('Adding relationship to keyword');
-                      db.addKeywordToKeyword({
+                    let out = [];
+                    for (let i = 0; i < 10; i++) {
+                      console.log("sortedCorrelationsArray["+ i +"]: " + sortedCorrelationsArray[i]);
+                      console.log("got inside loop");
+                      validate(keyword, sortedCorrelationsArray[i]['key'])
+                      .then((bool) => {
+                        console.log("at save, i is", i);
+                        out.push({
+                          Keyword: sortedCorrelationsArray[i]['key'],
+                          corr: sortedCorrelationsArray[i]['corr'],
+                          rel: bool,
+                          data: sortedCorrelationsArray[i]['data']
+                        });
+                        console.log("Out:", out);
+                        console.log("Out length:", out.length);
+                        db.addKeywordToKeyword({
                           Keyword: keyword
                         }, {
                           Keyword: sortedCorrelationsArray[i]['key']
-                        }, sortedCorrelationsArray[i]['value'])
+                        }, {
+                          corr: sortedCorrelationsArray[i]['corr'],
+                          rel: bool
+                        })
                         .then((data) => {
                           console.log('relationship added ' + data);
                         });
-                    }
-                    res.send(topTen);
+                        if(out.length === 10) {
+                          console.log("Length is 10");
+                          res.send(out);
+                        }
+                      });
+                    };
                   });
               } else {
                 res.statusCode(404)
