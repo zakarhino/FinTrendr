@@ -3,23 +3,23 @@ import { connect } from 'react-redux';
 import  { getCorrelationInfo } from '../../actions/keyword';
 import { bindActionCreators} from 'redux';
 import { getValidationInfo } from '../../actions/keyword';
-import { getStocksInfo } from '../../actions/stocks';
 
 
 class KeywordList extends Component {
   componentWillMount() {
     if(this.props.keyword){
-      console.log('we got in here on mount');
+      console.log('we got in hedasdasdre on mount');
       this.props.getCorrelationInfo(this.props.keyword);
-      this.props.getStocksInfo(this.props.keyword);
     }
   }
 
   componentWillReceiveProps(nextProps) {
+
+      console.log('check if get correlation should be trigger')
     if(nextProps.keyword !== this.props.keyword) {
       if(nextProps.keyword) {
+        console.log('triggering get correlation')
         this.props.getCorrelationInfo(nextProps.keyword);
-        this.props.getStocksInfo(nextProps.keyword);
       }
     }
   }
@@ -51,6 +51,18 @@ class KeywordList extends Component {
       );
     });
   }
+  // renderStocks() {
+  //   if(this.props.stocks.length > 0) {
+  //   return this.props.stocks.map((stockItem) => {
+  //       return (
+  //         <li className="list-group-item" key={stockItem.Keyword}>
+  //           <span className="pull-xs-left">{stockItem.Keyword}</span>
+  //           <strong>{listItem.corr}</strong>
+  //         </li>
+  //       );
+  //     });
+  //   }
+  // }
 
   render() {
      if(this.props.list.items.length === 0) {
@@ -60,7 +72,7 @@ class KeywordList extends Component {
       <div>
         <ul>
           {this.renderList()}
-        </ul>        
+        </ul>
       </div>
     );
   }
@@ -70,8 +82,7 @@ function mapStateToProps(state) {
   return {
     list: state.list,
     keyword: state.keyword.current,
-    validation: state.validation.items,
-    stocks: state.stocks.items
+    validation: state.validation.items
   };
 }
 
@@ -79,7 +90,6 @@ function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
     getValidationInfo: getValidationInfo,
-    getStocksInfo: getStocksInfo
   };
   return bindActionCreators(obj, dispatch);
 };
