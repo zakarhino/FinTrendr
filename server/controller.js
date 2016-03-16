@@ -281,17 +281,19 @@ module.exports = {
       });
       Promise.all(stockCorrList).then((result) => {
         console.log('the promise resolved');
-        let correlationObj = {};
-        correlationObj['positive'] = [];
-        correlationObj['negative'] = [];
+        let correlationObj = {name:'stocks',children:[]};
+        let positiveObj = {name:'positive', children:[] };
+        let negativeObj ={name:'negative', children:[]};
         result.forEach((stock) => {
-          if (stock['value'] < -0.5) {
+          if (stock['value'] < -0.3) {
             stock['value'] = Math.abs(stock['value']);
-            correlationObj['negative'].push(stock);
-          } else if (stock['value'] > 0.5) {
-            correlationObj['positive'].push(stock);
+            negativeObj.children.push(stock);
+          } else if (stock['value'] > 0.3) {
+            positiveObj.children.push(stock);
           }
         });
+        correlationObj.children.push(negativeObj);
+        correlationObj.children.push(positiveObj);
         res.send(correlationObj);
       });
 

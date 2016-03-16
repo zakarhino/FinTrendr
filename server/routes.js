@@ -68,7 +68,8 @@ export default(app) => {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Trendr</title>
+          <title>Isomorphic Redux Demo</title>
+          <link href="styles/style.css" rel="stylesheet" />
         </head>
         <body>
           <div id="container">${componentHTML}</div>
