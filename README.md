@@ -103,6 +103,4 @@ run some command to lint files?
 - [ Zak Golding ](https://github.com/zakarhino)
 - [ Jason Cheung ](https://github.com/JCheungX)
 - [ Eric Mustin ](https://github.com/ericmustin)
-- [ Elva Chao ](https://github.com/odekyc)
-
 - Arlen Neylon [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/aneylon) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:arlen.m.neylon@gmail.com?Subject=Trendr)
