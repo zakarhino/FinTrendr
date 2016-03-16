@@ -3,13 +3,16 @@ import { connect } from 'react-redux';
 import  { getCorrelationInfo } from '../../actions/keyword';
 import { bindActionCreators} from 'redux';
 import { getValidationInfo } from '../../actions/keyword';
+import { getHotTrends } from '../../actions/hotTrends'
 
 
 class KeywordList extends Component {
   componentWillMount() {
+    this.props.getHotTrends();
     if(this.props.keyword){
       console.log('we got in hedasdasdre on mount');
       this.props.getCorrelationInfo(this.props.keyword);
+      
     }
   }
 
@@ -70,7 +73,7 @@ class KeywordList extends Component {
       return <div>Loading...</div>;
       }
     return (
-      <div>
+      <div> Suggested Ideas
         <ul>
           {this.renderList()}
         </ul>
@@ -83,7 +86,7 @@ function mapStateToProps(state) {
   return {
     list: state.list,
     keyword: state.keyword.current,
-    validation: state.validation.items
+    validation: state.validation.items,
   };
 }
 
@@ -91,6 +94,7 @@ function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
     getValidationInfo: getValidationInfo,
+    getHotTrends: getHotTrends
   };
   return bindActionCreators(obj, dispatch);
 };
