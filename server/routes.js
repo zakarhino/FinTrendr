@@ -14,6 +14,8 @@ import reducer from '../shared/reducers';
 // Import Controller for api functions
 import KeywordController from './controller.js';
 import HotTrendsController from './hotTrendsController.js';
+import SaveKeywordController from './saveKeywordController.js';
+
 
 // Import redux middleware
 import promise from 'redux-promise';
@@ -32,6 +34,7 @@ export default(app) => {
   app.post('/api/getStocksInfo', KeywordController.getStocksInfo);
   app.get('/api/getHotTrendsInfo', HotTrendsController.getHotTrendsInfo);
   app.get('/api/getNews/:keyword',KeywordController.getNews);
+  app.post('/api/saveKeywordInfo/', SaveKeywordController.saveKeywordInfo);
 
 
   app.use((req, res) => {

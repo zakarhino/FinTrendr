@@ -5,6 +5,7 @@ import TweetReducer from './reducer_twitter';
 import List from './reducer_list';
 import getStocks from './reducer_stocks';
 import getHotTrends from './reducer_hotTrends';
+import saveKeyword from './reducer_saveKeyword';
 
 
 export default combineReducers({
@@ -13,5 +14,6 @@ export default combineReducers({
   tweets: TweetReducer,
   list: List,
   stocks: getStocks,
-  hotTrends: getHotTrends
+  hotTrends: getHotTrends,
+  saveKeyword: saveKeyword
 });
