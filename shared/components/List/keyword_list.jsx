@@ -56,7 +56,8 @@ class KeywordList extends Component {
   //   }
   // }
   render() {
-    if (this.props.list.items.length === 0) {
+    const {list} = this.props;
+    if (!list||!list.items|| list.items.length ===0 ) {
       return <div>Loading...</div>;
     }
     return (
@@ -70,7 +71,8 @@ class KeywordList extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {list: state.list, keyword: state.keyword.current, validation: state.validation.items};
+  console.log(state);
+  return {list: state.list, keyword: state.keyword.current};
 }
 function mapDispatchToProps(dispatch) {
   let obj = {
