@@ -46,7 +46,7 @@ const PORT = process.env.PORT || 3000;
 //           resolve(returnObj);
 //         }
 //       });
-// 
+//
 //   });
 //
 //   etfData.push(promise);

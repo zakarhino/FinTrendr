@@ -83,21 +83,13 @@ function mapStateToProps(state) {
   return {
     list: state.list,
     keyword: state.keyword.current,
-<<<<<<< f4de10d21c34967d42c75b3cc951794ba9b46aa1
-    validation: state.validation.items,
-=======
->>>>>>> (news) Fixed news function
   };
 }
 
 function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
-<<<<<<< f4de10d21c34967d42c75b3cc951794ba9b46aa1
-    getValidationInfo: getValidationInfo,
     getHotTrends: getHotTrends
-=======
->>>>>>> (news) Fixed news function
   };
   return bindActionCreators(obj, dispatch);
 };
