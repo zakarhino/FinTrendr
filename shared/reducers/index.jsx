@@ -3,7 +3,6 @@ import KeywordReducer from './reducer_keyword';
 import NewsReducer from './reducer_news';
 import TweetReducer from './reducer_twitter';
 import List from './reducer_list';
-import Validation from './reducer_validation';
 import getStocks from './reducer_stocks';
 import getHotTrends from './reducer_hotTrends';
 
@@ -13,7 +12,6 @@ export default combineReducers({
   news: NewsReducer,
   tweets: TweetReducer,
   list: List,
-  validation: Validation,
   stocks: getStocks,
   hotTrends: getHotTrends
 });

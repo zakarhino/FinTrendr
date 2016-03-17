@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export const GET_KEYWORD = 'GET_KEYWORD';
 export const GET_CORRELATIONINFO = 'GET_CORRELATIONINFO';
-export const GET_VALIDATIONINFO = 'GET_VALIDATIONINFO';
 
 export function getKeyword(keyword) {
   //add in the logic for getting  the return
@@ -36,22 +35,6 @@ export function getCorrelationInfo(keyword) {
   // }];
 return {
     type: GET_CORRELATIONINFO,
-    payload: request
-  };
-};
-
-export function getValidationInfo(keyword,listItem) {
-  const data = {
-    keyword: keyword,
-    listItem: listItem
-  };
-  const url = '/api/validationInfo';
-  const request = axios.post(url,data);
-
-  console.log('validation action creation invoked');
-
-  return {
-    type: GET_VALIDATIONINFO,
     payload: request
   };
 };

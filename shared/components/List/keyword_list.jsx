@@ -5,23 +5,21 @@ import { bindActionCreators} from 'redux';
 import { getValidationInfo } from '../../actions/keyword';
 import { getHotTrends } from '../../actions/hotTrends'
 
-
 class KeywordList extends Component {
   componentWillMount() {
     this.props.getHotTrends();
     if(this.props.keyword){
       console.log('we got in hedasdasdre on mount');
       this.props.getCorrelationInfo(this.props.keyword);
-      
+
     }
   }
 
   componentWillReceiveProps(nextProps) {
-
-      console.log('check if get correlation should be trigger')
+    console.log('check if get correlation should be trigger');
     if(nextProps.keyword !== this.props.keyword) {
       if(nextProps.keyword) {
-        console.log('triggering get correlation')
+        console.log('triggering get correlation');
         this.props.getCorrelationInfo(nextProps.keyword);
       }
     }
@@ -34,7 +32,7 @@ class KeywordList extends Component {
 
   renderList() {
     return this.props.list.items.map((listItem) => {
-      if( (listItem.Keyword === this.props.validation.listItem) && (this.props.validation.results > 0) ) {
+      if(listItem.rel) {
         let divStyle = {
           color: 'green'
         };
@@ -42,7 +40,6 @@ class KeywordList extends Component {
           <li className="list-group-item" style={divStyle} key={listItem.Keyword}>
             <span className="pull-xs-right">{listItem.Keyword}</span>
             <strong>{listItem.corr}</strong>
-            <strong>{this.props.validation.results}</strong>
           </li>
         );
       }
@@ -86,15 +83,21 @@ function mapStateToProps(state) {
   return {
     list: state.list,
     keyword: state.keyword.current,
+<<<<<<< f4de10d21c34967d42c75b3cc951794ba9b46aa1
     validation: state.validation.items,
+=======
+>>>>>>> (news) Fixed news function
   };
 }
 
 function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
+<<<<<<< f4de10d21c34967d42c75b3cc951794ba9b46aa1
     getValidationInfo: getValidationInfo,
     getHotTrends: getHotTrends
+=======
+>>>>>>> (news) Fixed news function
   };
   return bindActionCreators(obj, dispatch);
 };
