@@ -5,7 +5,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        Welcome to Trendr. Get Trending.
+        <h1>Welcome to Trendr. Get Trending.</h1>
         <SearchBar />
         {this.props.children}
       </div>

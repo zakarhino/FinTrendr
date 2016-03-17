@@ -25,7 +25,7 @@ class TweetList extends Component {
   render() {
     return (
       <div>
-        Trending Tweets:
+        <h2>Trending Tweets:</h2>
         <ul>
           {this.renderTweets()}
         </ul>
