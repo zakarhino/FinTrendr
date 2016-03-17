@@ -75,7 +75,7 @@ let parseKeywordDataToObject = (stringArray) => {
 let parseStockToResult = (sectorObj) => {
   let correlationObj = {
     name: 'stock',
-    children : []
+    children: []
   }
   for (let key in sectorObj) {
     let keyChildren = [];
@@ -98,9 +98,8 @@ let parseStockToResult = (sectorObj) => {
   }
   return correlationObj
 }
-
-let buildSectorObj = (stockList,scaledArray)=>{
-  let sectorObj ={}
+let buildSectorObj = (stockList, scaledArray) => {
+  let sectorObj = {}
   stockList.forEach((stockObj) => {
     let stockData = JSON.parse(stockObj.data);
     let corr = 0;
@@ -134,34 +133,31 @@ module.exports = {
     let keyword = req.params.keyword;
     // console.log(keyword);
     db.getKeyword({
-        Keyword: keyword
-      })
-      .then((data) => {
-        // console.log('receiving result', data.length);
-        if (data.length > 0) {
-          let responseObj = data[0];
-          responseObj.data = parseKeywordDataToObject(responseObj.data);
+      Keyword: keyword
+    }).then((data) => {
+      // console.log('receiving result', data.length);
+      if (data.length > 0) {
+        let responseObj = data[0];
+        responseObj.data = parseKeywordDataToObject(responseObj.data);
+        res.send(responseObj);
+      } else if (data.length === 0) {
+        // console.log('try getting google trend');
+        googleTrend.query(keyword, res).then((scaledArray) => {
+          // console.log('return from googleTrend', keyword, scaledArray);
+          let responseObj = {
+            Keyword: keyword,
+            data: parseKeywordDataToObject(scaledArray)
+          };
+          db.saveKeyword({
+            Keyword: keyword,
+            data: scaledArray
+          }).then((data) => {
+            console.log('Saving to DB Complete');
+          });
           res.send(responseObj);
-        } else if (data.length === 0) {
-          // console.log('try getting google trend');
-          googleTrend.query(keyword, res)
-            .then((scaledArray) => {
-              // console.log('return from googleTrend', keyword, scaledArray);
-              let responseObj = {
-                Keyword: keyword,
-                data: parseKeywordDataToObject(scaledArray)
-              };
-              db.saveKeyword({
-                  Keyword: keyword,
-                  data: scaledArray
-                })
-                .then((data) => {
-                  console.log('Saving to DB Complete');
-                });
-              res.send(responseObj);
-            });
-        }
-      });
+        });
+      }
+    });
   },
   /**
    * Get correlationInfo
@@ -173,107 +169,96 @@ module.exports = {
     //handle response if it already exists
     //important function that still needs to be written to handle cases where keyword already has been searched for/saved
     db.getNamesOfRelationships({
-        Keyword: keyword
-      })
-      .then((data) => {
-        // console.log("results are: " + data, data.length);
-        if (data.length > 0) {
-          console.log('return data back to user');
-          res.send(data);
-        } else if (data.length === 0) {
-          console.log('try to get data');
-          db.getKeyword({
-              Keyword: keyword
-            })
-            .then((data) => {
-              console.log('confirming if keyword exist');
-              if (data.length > 0) {
-                console.log('keyword exist');
-                let scaledArrayOfObjs = data[0].data;
-                db.getKeyword({})
-                  .then((data) => {
-                    let updated = createResultsObject(data);
-                    let scaledArray = scaledArrayOfObjs.map((obj) => {
-                      let parsedObj = JSON.parse(obj);
-                      for (var key in parsedObj) {
-                        return parsedObj[key];
-                      }
-                    });
-                    //
-                    let corrObj = {};
-                    for (var keywords in updated) {
-                      if (keywords !== keyword) {
-                        corrObj[keywords] = {};
-                        corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
-                        corrObj[keywords].data = updated[keywords].data;
-                        // console.log("corrObj[keywords]:", corrObj[keywords]);
-                      }
-                    }
-                    let sortedCorrelationsArray = sortObject(corrObj);
-                    let out = [];
-                    for (let i = 0; i < 10; i++) {
-                      console.log("sortedCorrelationsArray[" + i + "]: " + sortedCorrelationsArray[i]);
-                      console.log("got inside loop");
-                      validate(keyword, sortedCorrelationsArray[i]['key'])
-                        .then((bool) => {
-                          console.log("at save, i is", i);
-                          out.push({
-                            Keyword: sortedCorrelationsArray[i]['key'],
-                            corr: sortedCorrelationsArray[i]['corr'],
-                            rel: bool,
-                            data: sortedCorrelationsArray[i]['data']
-                          });
-                          console.log("Out:", out);
-                          console.log("Out length:", out.length);
-                          db.addKeywordToKeyword({
-                              Keyword: keyword
-                            }, {
-                              Keyword: sortedCorrelationsArray[i]['key']
-                            }, {
-                              corr: sortedCorrelationsArray[i]['corr'],
-                              rel: bool
-                            })
-                            .then((data) => {
-                              console.log('relationship added ' + data);
-                            });
-                          if (out.length === 10) {
-                            console.log("Length is 10");
-                            res.send(out);
-                          }
-                        });
-                    };
-                  });
-              } else {
-                res.statusCode(404)
-                  .send('Fail to find keyword');
+      Keyword: keyword
+    }).then((data) => {
+      // console.log("results are: " + data, data.length);
+      if (data.length > 0) {
+        res.send(data);
+      } else if (data.length === 0) {
+        db.getKeyword({
+          Keyword: keyword
+        }).then((data) => {
+          if (data.length > 0) {
+            let scaledArrayOfObjs = data[0].data;
+            db.getKeyword({}).then((data) => {
+              let updated = createResultsObject(data);
+              let scaledArray = scaledArrayOfObjs.map((obj) => {
+                let parsedObj = JSON.parse(obj);
+                for (var key in parsedObj) {
+                  return parsedObj[key];
+                }
+              });
+              //
+              let corrObj = {};
+              for (var keywords in updated) {
+                if (keywords !== keyword) {
+                  corrObj[keywords] = {};
+                  corrObj[keywords].corr = Correlation.calc(updated[keywords].dataScaled, scaledArray);
+                  corrObj[keywords].data = updated[keywords].data;
+                  // console.log("corrObj[keywords]:", corrObj[keywords]);
+                }
               }
+              let sortedCorrelationsArray = sortObject(corrObj);
+              let out = [];
+              for (let i = 0; i < 10; i++) {
+                // console.log("sortedCorrelationsArray[" + i + "]: " + sortedCorrelationsArray[i]);
+                // console.log("got inside loop");
+                validate(keyword, sortedCorrelationsArray[i]['key']).then((bool) => {
+                  // console.log("at save, i is", i);
+                  out.push({
+                    Keyword: sortedCorrelationsArray[i]['key'],
+                    corr: sortedCorrelationsArray[i]['corr'],
+                    rel: bool,
+                    data: sortedCorrelationsArray[i]['data']
+                  });
+                  // console.log("Out:", out);
+                  // console.log("Out length:", out.length);
+                  db.addKeywordToKeyword({
+                    Keyword: keyword
+                  }, {
+                    Keyword: sortedCorrelationsArray[i]['key']
+                  }, {
+                    corr: sortedCorrelationsArray[i]['corr'],
+                    rel: bool
+                  }).then((data) => {
+                    // console.log('relationship added ' + data);
+                  });
+                  if (out.length === 10) {
+                    // console.log("Length is 10");
+                    res.send(out);
+                  }
+                });
+              };
             });
-        }
-      });
+          } else {
+            res.statusCode(404).send('Fail to find keyword');
+          }
+        });
+      }
+    });
   },
   getValidationInfo: function(req, res) {
-    console.log('attempting to validate server side');
+    // console.log('attempting to validate server side');
     var keyword = req.body.keyword;
     var listItem = req.body.listItem;
-    console.log(keyword, " is keyword");
-    console.log(listItem, " is listItem");
-    validate(keyword, listItem)
-      .then((result) => {
-        console.log("Result:", result);
-        if (result) {
-          res.send({
-            results: [1],
-            keyword: keyword,
-            listItem: listItem
-          });
-        } else {
-          res.send({
-            results: [],
-            keyword: keyword,
-            listItem: listItem
-          });
-        }
-      });
+    // console.log(keyword, " is keyword");
+    // console.log(listItem, " is listItem");
+    validate(keyword, listItem).then((result) => {
+      // console.log("Result:", result);
+      if (result) {
+        res.send({
+          results: [1],
+          keyword: keyword,
+          listItem: listItem
+        });
+      } else {
+        res.send({
+          results: [],
+          keyword: keyword,
+          listItem: listItem
+        });
+      }
+    });
     // var resultsPromised = [];
     // var promise = new Promise(function(resolve, reject) {
     //   keywords(keyword, listItem, function(result) {
@@ -310,14 +295,13 @@ module.exports = {
         return obj[keys];
       }
     });
-    db.getStock({})
-      .then((stockList) => {
-        var stockCorrList = [];
-        let sectorObj = buildSectorObj(stockList,scaledArray);
-        let correlationObj =  parseStockToResult(sectorObj);
-        console.log(correlationObj);
-        res.send(correlationObj);
-      });
+    db.getStock({}).then((stockList) => {
+      var stockCorrList = [];
+      let sectorObj = buildSectorObj(stockList, scaledArray);
+      let correlationObj = parseStockToResult(sectorObj);
+    //  console.log(correlationObj);
+      res.send(correlationObj);
+    });
   },
   createResultsObject: createResultsObject,
   sortObject: sortObject,
