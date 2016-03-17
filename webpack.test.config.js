@@ -2,16 +2,15 @@ var path = require('path');
 var webpack = require('webpack');
 var fs = require('fs');
 
-const ROOT_PATH = path.resolve(__dirname);
+var ROOT_PATH = path.resolve(__dirname);
 //setup asssets path
-const assetsPath = path.resolve(__dirname,'./public/dist');
-const host = (process.env.HOST|| 'localhost');
-const port = (+process.env.PORT +1) || 3001;
+var assetsPath = path.resolve(__dirname,'./public/dist');
+var host = (process.env.HOST|| 'localhost');
+var port = (+process.env.PORT +1) || 3001;
 
 //load babelrc for server side setup
-const bablerc = fs.readFileSync('./babelrc');
-const babelrcObject = {}
-
+var babelrc = fs.readFileSync('./.babelrc');
+var babelrcObject = {};
 //load babelrc to object to change plugin base on setting
 try {
   babelrcObject = JSON.parse(babelrc);
@@ -20,7 +19,7 @@ catch(err){
   console.error('Error in parsing .babelrc');
   console.error(err);
 }
-//load bablerc development env setting;
+//load babelrc development env setting;
 var babelrcObjectDevelopment = babelrcObject.env && babelrcObject.env.development || {};
 
 // merge global and dev-only plugins
@@ -29,7 +28,6 @@ combinedPlugins = combinedPlugins.concat(babelrcObjectDevelopment.plugins);
 
 var babelLoaderQuery = Object.assign({}, babelrcObjectDevelopment, babelrcObject, {plugins: combinedPlugins});
 delete babelLoaderQuery.env;
-
 // Since we use .babelrc for client and server, and we don't want HMR enabled on the server, we have to add
 // the babel plugin react-transform-hmr manually here.
 
@@ -58,7 +56,7 @@ reactTransform[1].transforms.push({
   imports: ['react'],
   locals: ['module']
 });
-
+console.log(host,port);
 const webpackConfiguration = {
   devtool: 'inline-source-map',
   entry: [
@@ -90,23 +88,15 @@ const webpackConfiguration = {
     }]
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.ProvidePlugin({
-      'window.Tether': 'tether'
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.IgnorePlugin(/webpack-stats\.json$/),
+    new webpack.DefinePlugin({
+      __CLIENT__: true,
+      __SERVER__: false,
+      __DEVELOPMENT__: true,
+      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
     })
   ]
 };
 
-if (process.env.NODE_ENV === 'development') {
-  const webpackHMR = new webpack.HotModuleReplacementPlugin();
-  webpackConfiguration.plugins.push(webpackHMR);
-  webpackConfiguration.entry.push('webpack-hot-middleware/client');
-}
-
-if (process.env.NODE_ENV === 'production') {
-  const webpackNoErrors = new webpack.NoErrorsPlugin();
-  webpackConfiguration.plugins.push(
-    webpackNoErrors
-  );
-}
-module.export= webpackConfiguration;
+module.exports= webpackConfiguration;
