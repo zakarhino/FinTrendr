@@ -33,7 +33,7 @@ module.exports = React.createClass({
                     // make sure calculation loop through all objects inside array
                     .size([props.width, props.height])
                     .sticky(true)
-                    .padding(1)
+                    .padding(3)
                     .value( function(d)  { return d.value; });
 
     var tree = treemap(props.data);

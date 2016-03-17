@@ -48,7 +48,7 @@ export class Graph extends Component {
         <AreaChart data ={data} xAxisTickInterval={{
           unit: 'month',
           interval: 5
-        }} title="Area Chart" interpolate='true' yAxisLabel='Value' xAxisLabel='Month' width='100%' height={400} viewBoxObject={viewBoxOject}/>
+        }} title="Area Chart" interpolate={true} xAxisTickCount={24} yAxisLabel='Value' xAxisLabel='Month' width='100%' height={400} viewBoxObject={viewBoxOject}/>
       </div>
     );
   }

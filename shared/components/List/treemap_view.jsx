@@ -39,7 +39,6 @@ class TreeMap extends Component {
   render() {
     let {stocks} = this.props;
     //let graphData = this.convertToGraphData(stocks);
-    console.log(stocks);
     let colorFunction = d3
       .scale
       .linear()
