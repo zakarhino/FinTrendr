@@ -12,10 +12,6 @@ class KeywordList extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    console.log('check if get correlation should be trigger');
-    if(nextProps.keyword !== this.props.keyword) {
-      if(nextProps.keyword) {
-        console.log('triggering get correlation');
     if (nextProps.keyword !== this.props.keyword) {
       if (nextProps.keyword) {
         this.props.getCorrelationInfo(nextProps.keyword);
