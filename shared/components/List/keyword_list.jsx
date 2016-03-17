@@ -1,14 +1,17 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {getCorrelationInfo} from '../../actions/keyword';
-import {bindActionCreators} from 'redux';
-import {getValidationInfo} from '../../actions/keyword';
-import {getHotTrends} from '../../actions/hotTrends'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import  { getCorrelationInfo } from '../../actions/keyword';
+import { bindActionCreators} from 'redux';
+import { getValidationInfo } from '../../actions/keyword';
+import { getHotTrends } from '../../actions/hotTrends';
+import { saveKeywordInfo } from '../../actions/saveKeyword'
+
 class KeywordList extends Component {
   componentWillMount() {
     this.props.getHotTrends();
     if (this.props.keyword) {
       this.props.getCorrelationInfo(this.props.keyword);
+      // {this.saveNewKeywordInfo('america')}
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -21,6 +24,11 @@ class KeywordList extends Component {
   getValidation(keyword, listItem) {
     this.props.getValidationInfo(keyword, listItem);
   }
+  saveNewKeywordInfo(newKeyword) {
+    console.log('determining correlattion between ', newKeyword, " and ", this.props.keyword.Keyword);
+    this.props.saveKeywordInfo(newKeyword,this.props.keyword);
+  }
+
   renderList() {
     return this.props.list.items.map((listItem) => {
       if(listItem.rel) {
@@ -71,12 +79,17 @@ class KeywordList extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {list: state.list, keyword: state.keyword.current};
+  return {
+    list: state.list,
+    keyword: state.keyword.current,
+    saveKeyword: state.saveKeyword.items
+  };
 }
 function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
-    getHotTrends: getHotTrends
+    getHotTrends: getHotTrends,
+    saveKeywordInfo: saveKeywordInfo
   };
   return bindActionCreators(obj, dispatch);
 };
