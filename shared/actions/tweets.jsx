@@ -7,7 +7,7 @@ export function getTweets(keyword) {
   // console.log("tweets", request);
   // let request = axios.get(`https://api.twitter.com/1.1/trends/place.json?id=1`);
   // console.log(request);
-  
+
   let request = { data: { items : [
       {
         guid: 0,

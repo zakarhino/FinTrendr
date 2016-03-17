@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AreaChart} from '../../react-d3/index';
-
 export class Graph extends Component {
-
   getDatum(j) {
     const {currentKeyword} = this.props;
     // const {currenData} = this.props;
@@ -21,22 +19,17 @@ export class Graph extends Component {
       }
     ];
   }
-
   render() {
     const {currentKeyword} = this.props;
-    console.log('Graph receive render request before current Keyword')
-
     if (!currentKeyword) {
-
       return (
         <div>
-          Loading Graph
+          Loading Grapha
         </div>
       )
     }
-    console.log('Graph receive render request', currentKeyword);
     const data = this.getDatum(10);
-    console.log(data);
+    //console.log(data);
     const viewBoxOject = {
       x: 0,
       y: 0,
@@ -52,20 +45,12 @@ export class Graph extends Component {
       </div>
     );
   }
-
 }
-
 function mapStateToProps(state) {
-  console.log('Graph receive new state update')
-  console.log('currentKeywordz in graph is: ', state.keyword.current);
-  // console.log('currentData in graph is: ', state.keyword.current.data);
-  if(state.keyword.current){
-  return {currentKeyword: state.keyword.current
-          };
-} else {
-
-  return{currentKeyword: state.keyword.current};
+  if (state.keyword.current) {
+    return {currentKeyword: state.keyword.current};
+  } else {
+    return {currentKeyword: state.keyword.current};
+  }
 }
-}
-
 export default connect(mapStateToProps)(Graph);

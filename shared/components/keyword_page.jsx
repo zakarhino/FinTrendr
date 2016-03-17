@@ -15,11 +15,16 @@ class KeywordPage extends Component {
     super(props);
     //this.setState({keyword:this.props.params.keyword})
     this.state = {listView: true};
+    console.log('In Keyword Page setting',this.state,this.props);
+  }
 
+  componentWillMount(){
+    if (this.props.params.keyword!==this.state.keyword){
+    this.props.getKeyword(this.props.params.keyword);
+    }
   }
 
   switchView(){
-    console.log(this.state.listView);
     if (this.state.listView)
     {
         this.setState({listView: false});
@@ -30,10 +35,7 @@ class KeywordPage extends Component {
   };
 
   render() {
-    console.log('In Render', this.props.params.keyword);
     let keywordCorrView = {};
-    console.log(this.state.listView);
-
     if (this.state.listView) {
       keywordCorrView = <KeywordList/>;
     } else {
