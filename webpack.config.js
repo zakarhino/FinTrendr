@@ -9,6 +9,7 @@ module.exports = {
     path: path.join(__dirname, 'public/dist'),
     filename: 'bundle.js'
   },
+  progres : true,
   resolve: {
     modulesDirectories: ['node_modules', 'shared'],
     extensions: ['', '.js', '.jsx']
