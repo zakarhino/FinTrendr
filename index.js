@@ -46,17 +46,12 @@ const PORT = process.env.PORT || 3000;
 //           resolve(returnObj);
 //         }
 //       });
-//
-//
 //   });
-//
 //   etfData.push(promise);
 // });
-//
 // Promise.all(etfData).then((results) => {
 //   results.forEach((stock) => {
 //     stock.data = JSON.stringify(stock.data);
-//
 //     db.saveStock( stock ).then((node) => {
 //         console.log('done!');
 //       })
