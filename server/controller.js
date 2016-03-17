@@ -82,7 +82,6 @@ module.exports = {
    */
   getKeywordInfo: function(req, res) {
     let keyword = req.params.keyword;
-    // console.log(keyword);
     db.getKeyword({
         Keyword: keyword
       })

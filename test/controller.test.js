@@ -22,82 +22,98 @@ function wipeDB() {
 const superRequest = require('supertest')
 const express = require('express');
 const app = express();
-// const bodyParser = require('body-parser');
-// app.use(bodyParser.json());
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 app.get('/api/keywordInfo/:keyword', controller.getKeywordInfo);
 app.post('/api/correlationInfo', controller.getCorrelationInfo);
 app.post('/api/validationInfo', controller.getValidationInfo);
 app.post('/api/getStocksInfo', controller.getStocksInfo);
 
+// add .only to it to only run that test
 
 describe('GET / getKeywordInfo', function(){
+  const endpoint = '/api/keywordInfo/';
   it('get keyword info', function(done){
+    const keyword = "Steve";
     superRequest(app)
-      .get('/api/keywordInfo')
-      // .type('form')
-      // .send('{one:"test"}')
+      .get(endpoint + keyword)
       .end(function(err,res){
-        if(err)return done(err);
+        if(err){
+          console.log(err);
+          return done(err);
+        }
         // console.log("res.body", res.body);
+        // console.log("status is ", res.status);
+        (res.body).should.be.an.instanceOf(Object);
+        // check that keyword is correct
+        (res.body.Keyword).should.equal(keyword);
         done();
       })
   })
 })
-/*
+
 describe('POST / getCorrelationInfo', function(){
   it('get correlations', function(done){
-    superRequest(app)
-      .post('/api/correlationInfo')
-      .type('form')
-      .send('{one:"test"}')
-      .end(function(err,res){
-        if(err)return done(err);
-        console.log("res.body", res.body);
-        done();
-      })
+    (true).should.equal(true);
+    done();
+    // superRequest(app)
+    //   .post('/api/correlationInfo')
+    //   .send({'Keyword':'test'})
+    //   .end(function(err,res){
+    //     if(err){
+    //       console.log(err);
+    //       return done(err)
+    //     };
+    //     console.log('res.body ', res.body);
+    //     console.log('status is ', res.status);
+    //     // tests go here
+    //     done();
+    //   })
   })
 })
-*/
-/*
+
+
   describe('POST / getStocksInfo', function(){
-    // uses createResultsObject
-    it('should getStocksInfo', function(){
-      superRequest(app)
-        .post('/api/correlationInfo')
-        .type('form')
-        .send('{one:"test"}')
-        .end(function(err,res){
-          if(err)return done(err);
-          console.log("res.body", res.body);
-          done();
-        })
+    it('should getStocksInfo', function(done){
+      (true).should.equal(true);
+      done();
+      // superRequest(app)
+      //   .post('/api/stocksInfo')
+      //   .send({'Keyword':'Keyword',data:[]})
+      //   .end(function(err,res){
+      //     if(err){
+      //       console.log(err);
+      //       return done(err);
+      //     }
+      //     console.log("res.body", res.body);
+      //     // tests go here
+      //     done();
+      //   })
     });
   });
-*/
-/*
+
+
   describe('POST / getValidationInfo', function(){
-    // uses createResultsObject
-    // takes
     // { keyword: keyword,
     //   listItem: listItem }
     it('should validate info', function(){
-      var dataToValidate = {keyword: "stuff", listItem:[1,2,3]};
+      (true).should.equal(true);
 
-      superRequest(app)
-        .post('/api/validationInfo')
-        .type('form')
-        // .set('Content-Type', 'application/json')
-        // .accept('json')
-        // .type('json')
-        .set('Accept', /application\/json/)
-        .send(dataToValidate)
-        // .expect(201)
-        .end(function(err,res){
-          if(err)return done(err);
-          console.log("res.body ", res.body);
-          done();
-        })
+      // var dataToValidate = {keyword: "stuff", listItem:[1,2,3]};
+
+      // superRequest(app)
+      //   .post('/api/validationInfo')
+      //   .send(dataToValidate)
+      //   .end(function(err,res){
+      //     if(err){
+      //       console.log(err);
+      //       return done(err);
+      //     }
+      //     console.log("res.body ", res.body);
+      //     // tests go here
+      //     done();
+      //   })
 
         // is object
         // returns
@@ -108,7 +124,7 @@ describe('POST / getCorrelationInfo', function(){
         // }
     });
   });
-*/
+
 
 describe('Server Controller', function() {
   it("should contain controller object", function(done) {

@@ -13,7 +13,7 @@ const db = require('./server/db/db-model');
 const PORT = process.env.PORT || 3000;
 
 
-// loadcsv.loadCSV('goldenticket.csv')
+// loadcsv.loadCSV('newdata6.csv')
 //   .then((data) => {
 //     for(var i =0; i<data.length; i++) {
 //       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
