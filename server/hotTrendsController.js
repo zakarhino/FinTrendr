@@ -19,10 +19,10 @@ module.exports = {
             let twitSymbols = twitsBodyParsed.symbols.map((symbolObj) => {
               return symbolObj.symbol;
             });
-            console.log(bodyParsed[1]);
+            //console.log(bodyParsed[1]);
 
             popularController.getPopularInfo().then((randomTen) => {
-                console.log('outside the db');
+                //console.log('outside the db');
                 res.send({
                   keywords: bodyParsed[1],
                   stocks: twitSymbols,

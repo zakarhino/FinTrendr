@@ -52,7 +52,7 @@ module.exports = {
                 let lastMonth = JSON.parse(updated[keywords].data[tempDataLength - 1]);
                 for (var key in lastMonth) {
                   if (lastMonth[key] > 99000) {
-                    console.log('PARTY');
+                    //console.log('PARTY');
                     popularArray.push(keywords);
                   }
                 }
@@ -64,7 +64,7 @@ module.exports = {
           for (var i = 0; i < 10; i++) {
             randomTen.push(popularArray[Math.floor(Math.random() * popularArray.length)]);
           }
-          console.log(randomTen);
+          //console.log(randomTen);
           resolve(randomTen);
         })
         .catch((err) => {

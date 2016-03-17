@@ -4,7 +4,6 @@ import parser from 'xml2js';
 export const FETCH_NEWS = "FETCH_NEWS";
 
 export function getNews(keyword) {
-  console.log("Get news was called");
   const url = '/api/getNews';
   const request = axios.get(`${url}/${keyword.Keyword}`);
 

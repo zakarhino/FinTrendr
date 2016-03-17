@@ -25,8 +25,6 @@ class KeywordPage extends Component {
   }
 
   switchView(){
-
-    console.log(this.state.listView);
     if (this.state.listView)
     {
         this.setState({listView: false});
