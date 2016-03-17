@@ -7,8 +7,8 @@ require('babel-polyfill');
 const server = require('./server/server').default;
 
 const PORT = process.env.PORT || 3000;
-
-// loadcsv.loadCSV('newdata6.csv')
+//
+// loadcsv.loadCSV('goldenticket.csv')
 //   .then((data) => {
 //     for(var i =0; i<data.length; i++) {
 //       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 //   .catch(() => {
 //     console.log('failed to parse data');
 //   });
-//
+
 // let SPX = stockData.SPX;
 // let etfData = [];
 // SPX.forEach((symbol) => {
