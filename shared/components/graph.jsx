@@ -24,7 +24,7 @@ export class Graph extends Component {
     if (!currentKeyword) {
       return (
         <div>
-          Loading Graph
+          Loading Grapha
         </div>
       )
     }
