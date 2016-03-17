@@ -152,7 +152,7 @@ module.exports = {
             Keyword: keyword,
             data: scaledArray
           }).then((data) => {
-            console.log('Saving to DB Complete');
+            //console.log('Saving to DB Complete');
           });
           res.send(responseObj);
         });
@@ -163,7 +163,7 @@ module.exports = {
    * Get correlationInfo
    */
   getCorrelationInfo: function(req, res) {
-    console.log('correlation info controller function invoked');
+    //console.log('correlation info controller function invoked');
     //let scaledArrayOfObjs = req.body.data;
     let keyword = req.body.Keyword;
     //handle response if it already exists
@@ -306,8 +306,8 @@ module.exports = {
   getNews: function(req, res) {
     let url = `https://news.google.com/news/section?output=rss&q=${req.params.keyword}`;
     parser.parseURL(url, (err, parsed) => {
-      console.log("Sending:", JSON.stringify(parsed.feed.entries));
-      console.log("The URL is:", url);
+      // console.log("Sending:", JSON.stringify(parsed.feed.entries));
+      // console.log("The URL is:", url);
       res.send(JSON.stringify(parsed.feed.entries));
     });
   },

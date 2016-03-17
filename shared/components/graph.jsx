@@ -29,7 +29,7 @@ export class Graph extends Component {
       )
     }
     const data = this.getDatum(10);
-    console.log(data);
+    //console.log(data);
     const viewBoxOject = {
       x: 0,
       y: 0,

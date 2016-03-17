@@ -71,7 +71,6 @@ class KeywordList extends Component {
   }
 }
 function mapStateToProps(state) {
-  console.log(state);
   return {list: state.list, keyword: state.keyword.current};
 }
 function mapDispatchToProps(dispatch) {

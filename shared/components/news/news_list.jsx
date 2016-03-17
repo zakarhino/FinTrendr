@@ -1,18 +1,17 @@
-import React, { Component } from 'react';
-import { parseString } from 'xml2js';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getNews } from '../../actions/news';
-
+import React, {Component} from 'react';
+import {parseString} from 'xml2js';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {getNews} from '../../actions/news';
 class NewsList extends Component {
   componentWillMount() {
-    this.props.getNews(this.props.term);
-  }
 
+  }
   componentWillReceiveProps(nextProps) {
-    if(this.props.term !== nextProps.term) this.props.getNews(nextProps.term);
+    if (this.props.term.Keyword !== nextProps.term.Keyword) {
+      this.props.getNews(nextProps.term);
+    }
   }
-
   renderArticles() {
     return this.props.news.map((article) => {
       return (
@@ -23,7 +22,6 @@ class NewsList extends Component {
       );
     });
   }
-
   render() {
     return (
       <div>
@@ -35,13 +33,12 @@ class NewsList extends Component {
     );
   }
 };
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ getNews }, dispatch);
+  return bindActionCreators({
+    getNews
+  }, dispatch);
 };
-
 function mapStateToProps(state) {
-  return { news: state.news.all, term: state.keyword.current };
+  return {news: state.news.all, term: state.keyword.current};
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
