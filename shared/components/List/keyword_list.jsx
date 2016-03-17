@@ -1,35 +1,26 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import  { getCorrelationInfo } from '../../actions/keyword';
-import { bindActionCreators} from 'redux';
-import { getValidationInfo } from '../../actions/keyword';
-import { getHotTrends } from '../../actions/hotTrends'
-
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {getCorrelationInfo} from '../../actions/keyword';
+import {bindActionCreators} from 'redux';
+import {getValidationInfo} from '../../actions/keyword';
+import {getHotTrends} from '../../actions/hotTrends'
 class KeywordList extends Component {
   componentWillMount() {
     this.props.getHotTrends();
-    if(this.props.keyword){
-      console.log('we got in hedasdasdre on mount');
+    if (this.props.keyword) {
       this.props.getCorrelationInfo(this.props.keyword);
-
     }
   }
-
   componentWillReceiveProps(nextProps) {
-    console.log('check if get correlation should be trigger');
-    if(nextProps.keyword !== this.props.keyword) {
-      if(nextProps.keyword) {
-        console.log('triggering get correlation');
+    if (nextProps.keyword !== this.props.keyword) {
+      if (nextProps.keyword) {
         this.props.getCorrelationInfo(nextProps.keyword);
       }
     }
   }
-
-  getValidation(keyword,listItem) {
-    console.log('determining validation between ', keyword, " and ", listItem);
-    this.props.getValidationInfo(keyword,listItem);
+  getValidation(keyword, listItem) {
+    this.props.getValidationInfo(keyword, listItem);
   }
-
   renderList() {
     return this.props.list.items.map((listItem) => {
       if(listItem.rel) {
@@ -45,7 +36,7 @@ class KeywordList extends Component {
       }
       // onClick={this.getValidation.bind(this,this.props.keyword.Keyword,listItem.Keyword)}
       return (
-      <li className="list-group-item" key={listItem.Keyword}>
+        <li className="list-group-item" key={listItem.Keyword}>
           <span className="pull-xs-right">{listItem.Keyword}</span>
           <strong>{listItem.corr}</strong>
         </li>
@@ -64,13 +55,14 @@ class KeywordList extends Component {
   //     });
   //   }
   // }
-
   render() {
-     if(this.props.list.items.length === 0) {
+    const {list} = this.props;
+    if (!list||!list.items|| list.items.length ===0 ) {
       return <div>Loading...</div>;
-      }
+    }
     return (
-      <div> Suggested Ideas
+      <div>
+        Suggested Ideas
         <ul>
           {this.renderList()}
         </ul>
@@ -78,14 +70,10 @@ class KeywordList extends Component {
     );
   }
 }
-
 function mapStateToProps(state) {
-  return {
-    list: state.list,
-    keyword: state.keyword.current,
-  };
+  console.log(state);
+  return {list: state.list, keyword: state.keyword.current};
 }
-
 function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
@@ -93,5 +81,4 @@ function mapDispatchToProps(dispatch) {
   };
   return bindActionCreators(obj, dispatch);
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(KeywordList);

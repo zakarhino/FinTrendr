@@ -8,8 +8,7 @@ export function getKeyword(keyword) {
   //from the db.getkeyword function (keyword and data)
   // in /api/ route then pass that as the payload
   // //this will require a redux-promise
-  console.log('keyword is', keyword);
-  const url = '/api/keywordInfo';
+  const url = 'http://localhost:3000/api/keywordInfo';
   const request = axios.get(`${url}/${keyword}`);
 
   console.log('action creation invoked');
@@ -23,7 +22,7 @@ export function getKeyword(keyword) {
 };
 
 export function getCorrelationInfo(keyword) {
-  const url = '/api/correlationInfo';
+  const url = 'http://localhost:3000/api/correlationInfo';
   const request = axios.post(url,keyword);
 
   console.log('get correlation action creation invoked');
@@ -35,6 +34,22 @@ export function getCorrelationInfo(keyword) {
   // }];
 return {
     type: GET_CORRELATIONINFO,
+    payload: request
+  };
+};
+
+export function getValidationInfo(keyword,listItem) {
+  const data = {
+    keyword: keyword,
+    listItem: listItem
+  };
+  const url = 'http://localhost:3000/api/validationInfo';
+  const request = axios.post(url,data);
+
+  console.log('validation action creation invoked');
+
+  return {
+    type: GET_VALIDATIONINFO,
     payload: request
   };
 };

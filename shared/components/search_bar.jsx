@@ -22,29 +22,22 @@ export class SearchBar extends Component {
     this.setState({term: event.target.value});
   }
 
-  onFormSubmit(event) {
-    event.preventDefault();
-    console.log(this.state.term);
-    this.props.getKeyword(this.state.term);
-    // console.log(this.context.router.getCurrentPathname());
-
-    this.context.router.push(`/keywordPage/${this.state.term}`);
+  onFormSubmit() {
+    return `/keywordPage/${this.state.term}`;
   }
 
   render(){
     return (
-    <form onSubmit={this.onFormSubmit}>
-      <input
-        placeholder = "input a keyword"
-        value={this.state.term}
-        onChange={this.onInputChange} />
-      <button
-        type="submit"
-        className ="btn btn-primary"
-        id='buttonSubmit'>
-        submit
-      </button>
-    </form>
+      <div>
+        <input
+          placeholder = "input a keyword"
+          value={this.state.term}
+          onChange={this.onInputChange} />
+        <button>
+        <a href={this.onFormSubmit()}>
+            Search
+        </a></button>
+      </div>
     );
   }
 }
