@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Treemap} from 'react-d3';
+import {Treemap} from '../../../react-d3/index';
 import {bindActionCreators} from 'redux';
 import {getStocksInfo} from '../../actions/stocks';
+
 class TreeMap extends Component {
   componentWillMount() {
     if (this.props.keyword) {
@@ -37,13 +38,14 @@ class TreeMap extends Component {
   }
   render() {
     let {stocks} = this.props;
-    let graphData = this.convertToGraphData(stocks);
+    //let graphData = this.convertToGraphData(stocks);
     let colorFunction = d3
       .scale
       .linear()
       .domain([-1, 0, 1])
       .range(['red', 'white', 'green']);
     let colorAccessor = function(d) {
+      console.log(d.parent)
       if (d.parent && d.parent.name === 'negative') {
         return -d.value;
       } else {
@@ -53,7 +55,7 @@ class TreeMap extends Component {
 
     return (
       <div>
-        <Treemap data={graphData} colors={colorFunction} colorAccessor={colorAccessor} width={1000} height={300} textColor="#484848" fontSize="12px" title="Treemap" hoverAnimation={true}/>
+        <Treemap data={stocks} colors={colorFunction} colorAccessor={colorAccessor} width={1000} height={300} textColor="#484848" fontSize="12px" title="Treemap" hoverAnimation={true}/>
       </div>
     );
   }

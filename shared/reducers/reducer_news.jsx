@@ -5,7 +5,7 @@ const INITIAL_STATE = { all: [] };
 export default function newsReducer(state = INITIAL_STATE, action) {
   switch(action.type) {
   case FETCH_NEWS:
-    return { ...state, all: action.payload.data.items };
+    return { ...state, all: action.payload.data };
   default:
     return state;
   }

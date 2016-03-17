@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3000;
 //   .catch(() => {
 //     console.log('failed to parse data');
 //   });
-
+//
 // let SPX = stockData.SPX;
 // let etfData = [];
 // SPX.forEach((symbol) => {
@@ -46,24 +46,20 @@ const PORT = process.env.PORT || 3000;
 //           resolve(returnObj);
 //         }
 //       });
-
-  });
-
-  etfData.push(promise);
-});
-
-Promise.all(etfData).then((results) => {
-  results.forEach((stock) => {
-    stock.data = JSON.stringify(stock.data);
-
-    db.saveStock( stock ).then((node) => {
-        console.log('done!');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-});
+//   });
+//   etfData.push(promise);
+// });
+// Promise.all(etfData).then((results) => {
+//   results.forEach((stock) => {
+//     stock.data = JSON.stringify(stock.data);
+//     db.saveStock( stock ).then((node) => {
+//         console.log('done!');
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//   });
+// });
 
 server.listen(PORT, () => {
   console.log(`Server established on port ${PORT}.`);

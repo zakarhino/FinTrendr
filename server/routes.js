@@ -23,16 +23,16 @@ import promise from 'redux-promise';
 export default(app) => {
 
   app.all('/*',function(req,res,next){
-    console.log(req.method,' Request for URL ',req.url)
+    console.log(req.method,' Request for URL ',req.url);
     next();
   });
 
   app.get('/api/keywordInfo/:keyword', KeywordController.getKeywordInfo);
+  app.get('/api/getNews/:keyword', KeywordController.getNews);
   app.post('/api/correlationInfo', KeywordController.getCorrelationInfo);
   app.post('/api/validationInfo', KeywordController.getValidationInfo);
   app.post('/api/getStocksInfo', KeywordController.getStocksInfo);
   app.get('/api/getHotTrendsInfo', HotTrendsController.getHotTrendsInfo);
-
 
   app.use((req, res) => {
     const location = createLocation(req.url);
@@ -69,6 +69,9 @@ export default(app) => {
         <head>
           <meta charset="utf-8">
           <title>Trendr</title>
+          <link rel="stylesheet" href="https://code.getmdl.io/1.1.2/material.deep_purple-pink.min.css" />
+          <link rel="stylesheet" href="styles/new_styles.css" />
+          <link rel="stylesheet" href="styles/style.css" />
         </head>
         <body>
           <div id="container">${componentHTML}</div>

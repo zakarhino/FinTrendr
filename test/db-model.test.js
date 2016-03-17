@@ -138,7 +138,7 @@ describe('DB Model', function() {
 
   });
 
-  describe('should save and retrieve Keyword relationships', function() {
+  describe('Should save and retrieve Keyword relationships', function() {
     // Wipe DB after testing
     after(wipeDB);
 
@@ -165,8 +165,8 @@ describe('DB Model', function() {
       });
     });
 
-    it('and should add relationships between nodes', function(done) {
-      return db.addKeywordToKeyword({Keyword: "Wolf"}, {Keyword: "Sheep"}, {corr: 67, rel: true})
+    it('should add relationships between nodes', function(done) {
+      return db.addKeywordToKeyword({Keyword: "Wolf"}, {Keyword: "Sheep"}, {rel: true, corr: 67})
       .should.be.fulfilled()
       .then(function(relationship) {
         relationship.start.should.equal(wolfId);
@@ -178,7 +178,7 @@ describe('DB Model', function() {
         .and.deepEqual({ correlation: 67, relevance: true });
       })
       .then(function() {
-        db.addKeywordToKeyword({Keyword: "Wolf"}, {Keyword: "Bat"}, { corr: 34, rel: false })
+        db.addKeywordToKeyword({Keyword: "Wolf"}, {Keyword: "Bat"}, {corr: 34, rel: false})
         .should.be.fulfilled()
         .then(function(relationship) {
           relationship.start.should.equal(wolfId);
@@ -198,8 +198,8 @@ describe('DB Model', function() {
       .should.be.fulfilled()
       .then(function(results) {
         results.should.be.an.instanceOf(Array).and.have.lengthOf(2);
-        results[0].should.have.properties(['Keyword', 'corr', 'data']);
-        results[1].should.have.properties(['Keyword', 'corr', 'data']);
+        results[0].should.have.properties(['Keyword', 'corr', 'rel', 'data']);
+        results[1].should.have.properties(['Keyword', 'corr', 'rel', 'data']);
         results[0].corr.should.be.above(results[1].corr);
         done();
       });
