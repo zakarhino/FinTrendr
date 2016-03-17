@@ -2,7 +2,7 @@
   "name": "fintrendr",
   "version": "1.0.0",
   "description": "Thesis Project",
-  "main": "server.js",
+  "main": "index.js",
   "author": {
     "Eric Mustin": "musin.eric@gmail.com",
     "Zak Golding": "zak@0x7cf.com",
@@ -10,7 +10,7 @@
     "Arlen Neylon": "arlen.m.neylon@gmail.com"
   },
   "scripts": {
-    "start": "nodemon --ignore public/dist/ ",
+    "start": "clear ; webpack --progress && nodemon",
     "test": "mocha"
   },
   "license": "MIT",
@@ -31,6 +31,7 @@
     "express": "^4.13.4",
     "history": "^2.0.1",
     "html-webpack-plugin": "^2.10.0",
+    "htmlparser": "^1.7.7",
     "natural": "^0.4.0",
     "node-correlation": "^1.0.2",
     "node-jsx": "^0.13.3",
@@ -45,6 +46,7 @@
     "rss-parser": "^2.2.4",
     "seraph": "^0.14.2",
     "webpack": "^1.12.9",
+    "whatwg-fetch": "^0.11.0",
     "xml2js": "^0.4.16"
   },
   "devDependencies": {

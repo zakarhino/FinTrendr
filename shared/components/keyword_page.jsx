@@ -37,7 +37,7 @@ class KeywordPage extends Component {
     if (this.state.listView) {
       keywordCorrView = <KeywordList/>;
     } else {
-      keywordCorrView = <TreeMapView/>
+      keywordCorrView = <TreeMapView/>;
     }
     return (
       <div>

@@ -6,6 +6,7 @@ const db = require('./db/db-model');
 const keywords = require('../alchemy/app');
 const googleTrend = require('./model/google-trend-model');
 const validate = require('./validate.js');
+const parser  = require('rss-parser');
 /**
  * Convert list of nodes to results object
  * @param  {Array} nodeList  List of noes
@@ -318,6 +319,14 @@ module.exports = {
         console.log(correlationObj);
         res.send(correlationObj);
       });
+  },
+  getNews: function(req, res) {
+    let url = `https://news.google.com/news/section?output=rss&q=${req.params.keyword}`;
+    parser.parseURL(url, (err, parsed) => {
+      console.log("Sending:", JSON.stringify(parsed.feed.entries));
+      console.log("The URL is:", url);
+      res.send(JSON.stringify(parsed.feed.entries));
+    });
   },
   createResultsObject: createResultsObject,
   sortObject: sortObject,
