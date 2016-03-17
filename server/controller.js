@@ -12,7 +12,6 @@ const validate = require('./validate.js');
  * @return {Object}          Results object
  */
 let createResultsObject = (nodeList) => {
-
   // console.log('the nodelist is ', nodeList);
   let updated = {};
   var count = 0;
@@ -73,6 +72,57 @@ let parseKeywordDataToObject = (stringArray) => {
   }
   return result;
 };
+let parseStockToResult = (sectorObj) => {
+  let correlationObj = {
+    name: 'stock',
+    children : []
+  }
+  for (let key in sectorObj) {
+    let keyChildren = [];
+    if (sectorObj[key].negative) {
+      keyChildren.push({
+        name: 'negative',
+        children: sectorObj[key].negative
+      });
+    }
+    if (sectorObj[key].positive) {
+      keyChildren.push({
+        name: 'positive',
+        children: sectorObj[key].positive
+      });
+    }
+    correlationObj.children.push({
+      name: key,
+      children: keyChildren
+    })
+  }
+  return correlationObj
+}
+
+let buildSectorObj = (stockList,scaledArray)=>{
+  let sectorObj ={}
+  stockList.forEach((stockObj) => {
+    let stockData = JSON.parse(stockObj.data);
+    let corr = 0;
+    let adjustedStockObj = {};
+    adjustedStockObj.label = stockObj.Stock;
+    if (scaledArray.length === stockData.length) {
+      corr = Correlation.calc(scaledArray, stockData);
+    }
+    adjustedStockObj.value = corr;
+    if (corr < -0.3) {
+      adjustedStockObj.value = Math.abs(adjustedStockObj.value);
+      sectorObj[stockObj.Sector] = sectorObj[stockObj.Sector] || {};
+      sectorObj[stockObj.Sector].negative = sectorObj[stockObj.Sector].negative || [];
+      sectorObj[stockObj.Sector].negative.push(adjustedStockObj);
+    } else if (corr > 0.3) {
+      sectorObj[stockObj.Sector] = sectorObj[stockObj.Sector] || {};
+      sectorObj[stockObj.Sector].positive = sectorObj[stockObj.Sector].positive || [];
+      sectorObj[stockObj.Sector].positive.push(adjustedStockObj);
+    }
+  });
+  return sectorObj;
+}
 module.exports = {
   /**
    *  Return keyword if found. Else use google trend to get the data and and save it .
@@ -113,7 +163,6 @@ module.exports = {
         }
       });
   },
-
   /**
    * Get correlationInfo
    */
@@ -163,35 +212,35 @@ module.exports = {
                     let sortedCorrelationsArray = sortObject(corrObj);
                     let out = [];
                     for (let i = 0; i < 10; i++) {
-                      console.log("sortedCorrelationsArray["+ i +"]: " + sortedCorrelationsArray[i]);
+                      console.log("sortedCorrelationsArray[" + i + "]: " + sortedCorrelationsArray[i]);
                       console.log("got inside loop");
                       validate(keyword, sortedCorrelationsArray[i]['key'])
-                      .then((bool) => {
-                        console.log("at save, i is", i);
-                        out.push({
-                          Keyword: sortedCorrelationsArray[i]['key'],
-                          corr: sortedCorrelationsArray[i]['corr'],
-                          rel: bool,
-                          data: sortedCorrelationsArray[i]['data']
+                        .then((bool) => {
+                          console.log("at save, i is", i);
+                          out.push({
+                            Keyword: sortedCorrelationsArray[i]['key'],
+                            corr: sortedCorrelationsArray[i]['corr'],
+                            rel: bool,
+                            data: sortedCorrelationsArray[i]['data']
+                          });
+                          console.log("Out:", out);
+                          console.log("Out length:", out.length);
+                          db.addKeywordToKeyword({
+                              Keyword: keyword
+                            }, {
+                              Keyword: sortedCorrelationsArray[i]['key']
+                            }, {
+                              corr: sortedCorrelationsArray[i]['corr'],
+                              rel: bool
+                            })
+                            .then((data) => {
+                              console.log('relationship added ' + data);
+                            });
+                          if (out.length === 10) {
+                            console.log("Length is 10");
+                            res.send(out);
+                          }
                         });
-                        console.log("Out:", out);
-                        console.log("Out length:", out.length);
-                        db.addKeywordToKeyword({
-                          Keyword: keyword
-                        }, {
-                          Keyword: sortedCorrelationsArray[i]['key']
-                        }, {
-                          corr: sortedCorrelationsArray[i]['corr'],
-                          rel: bool
-                        })
-                        .then((data) => {
-                          console.log('relationship added ' + data);
-                        });
-                        if(out.length === 10) {
-                          console.log("Length is 10");
-                          res.send(out);
-                        }
-                      });
                     };
                   });
               } else {
@@ -209,22 +258,22 @@ module.exports = {
     console.log(keyword, " is keyword");
     console.log(listItem, " is listItem");
     validate(keyword, listItem)
-    .then((result) => {
-      console.log("Result:", result);
-      if(result) {
-        res.send({
-          results: [1],
-          keyword: keyword,
-          listItem: listItem
-        });
-      } else {
-        res.send({
-          results: [],
-          keyword: keyword,
-          listItem: listItem
-        });
-      }
-    });
+      .then((result) => {
+        console.log("Result:", result);
+        if (result) {
+          res.send({
+            results: [1],
+            keyword: keyword,
+            listItem: listItem
+          });
+        } else {
+          res.send({
+            results: [],
+            keyword: keyword,
+            listItem: listItem
+          });
+        }
+      });
     // var resultsPromised = [];
     // var promise = new Promise(function(resolve, reject) {
     //   keywords(keyword, listItem, function(result) {
@@ -261,41 +310,14 @@ module.exports = {
         return obj[keys];
       }
     });
-    db.getStock({}).then((stockList) => {
-      var stockCorrList = [];
-      stockList.forEach((stockObj) => {
-        var promise = new Promise((resolve, reject) => {
-          let stockData = JSON.parse(stockObj.data);
-          let adjustedStockObj = {};
-          adjustedStockObj.label = stockObj.Symbol;
-          adjustedStockObj.sector = stockObj.Sector
-          let corr = 0;
-          if (scaledArray.length === stockData.length) {
-            corr = Correlation.calc(scaledArray, stockData);
-          }
-          adjustedStockObj.value = corr;
-          resolve(adjustedStockObj);
-          reject({});
-        });
-        stockCorrList.push(promise);
-      });
-      Promise.all(stockCorrList).then((result) => {
-        console.log('the promise resolved');
-        let correlationObj = {};
-        correlationObj['positive'] = [];
-        correlationObj['negative'] = [];
-        result.forEach((stock) => {
-          if (stock['value'] < -0.5) {
-            stock['value'] = Math.abs(stock['value']);
-            correlationObj['negative'].push(stock);
-          } else if (stock['value'] > 0.5) {
-            correlationObj['positive'].push(stock);
-          }
-        });
+    db.getStock({})
+      .then((stockList) => {
+        var stockCorrList = [];
+        let sectorObj = buildSectorObj(stockList,scaledArray);
+        let correlationObj =  parseStockToResult(sectorObj);
+        console.log(correlationObj);
         res.send(correlationObj);
       });
-
-    });
   },
   createResultsObject: createResultsObject,
   sortObject: sortObject,
