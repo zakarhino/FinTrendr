@@ -6,7 +6,7 @@ var d3 = require('d3');
 
 module.exports = React.createClass({
 
-  displayName: 'Cell',
+  displayName: 'LabelCell',
 
   propTypes: {
     fill: React.PropTypes.string,
@@ -28,10 +28,10 @@ module.exports = React.createClass({
 
     var t = ("translate(" + props.x + ", " + (props.y) + "  )");
 
-    return (
+     return (
       React.createElement("g", {transform: t},
         React.createElement("rect", {
-          className: "rd3-treemap-cell",
+          className: "rd3-treemap-label",
           width: props.width,
           height: props.height,
           fill: props.fill,

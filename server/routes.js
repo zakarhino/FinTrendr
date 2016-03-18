@@ -57,7 +57,7 @@ export default (app) => {
           .status(404)
           .end('Not found');
       }
-      const InitComp = ( 
+      const InitComp = (
         < Provider store = { storeWithMiddleware } >
           < RouterContext {...props }/>
         </Provider>
