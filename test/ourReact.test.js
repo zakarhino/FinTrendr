@@ -28,3 +28,9 @@ describe('React App component', function() {
 //     expect(tweets.find('h2').text().to.equal('Trending Tweets:'))
 //   })
 // })
+
+/*
+// possible test fixes
+# script: mocha --compilers js:babel-core/register --require ./test/reactSetup.js
+# script: npm run test:enzyme
+ */
