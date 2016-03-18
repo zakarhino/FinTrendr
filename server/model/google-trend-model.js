@@ -29,7 +29,7 @@ module.exports = {
   convertGtrends: function(info) {
     let results = [];
     let dates = [];
-    for (var i = 25; i > 1; i--) {
+    for (var i = 24; i > 0; i--) {
       results.push(info.table.rows[info.table.rows.length - i].c[1].v);
       dates.push(info.table.rows[info.table.rows.length - i].c[0].f);
     }
