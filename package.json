@@ -4,15 +4,15 @@
   "description": "Thesis Project",
   "main": "index.js",
   "author": {
-    "Eric Mustin": "musin.eric@gmail.com",
+    "Eric Mustin": "mustin.eric@gmail.com",
     "Zak Golding": "zak@0x7cf.com",
     "Jason Cheung": "jasoncheungcf@gmail.com",
     "Arlen Neylon": "arlen.m.neylon@gmail.com"
   },
   "scripts": {
     "start": "clear ; webpack --progress && nodemon",
-    "test": "mocha --compilers js:babel-core/register --require ./test/reactSetup.js",
-    "enzymeTest": "mocha --compilers js:babel-core/register --require ./test/reactSetup.js"
+    "test": "mocha",
+    "test:enzyme": "mocha --compilers js:babel-core/register --require ./test/reactSetup.js"
   },
   "license": "MIT",
   "dependencies": {

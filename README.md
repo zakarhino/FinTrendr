@@ -5,16 +5,26 @@ Trendr is a responsive web application built by a team of five full stack softwa
 
 Visit the site now : [www.trendr.xyz](http://www.trendr.xyz)
 
-#[Watch the video](http://www.ourvideo.com)
+# [Watch the video](http://www.ourvideo.com)
 
 
 # installation
-To get started, run
+### To get started
+
+##### Set up database
+
+```
+ npm setup.js
+```
+
+##### Start server
+
 ```
  npm install
  npm start
 ```
-#APIs
+
+# APIs
 - [ Google Trends ](https://www.google.com/trends/)
 - [ Google News ](https://www.news.google.com)
 - [ Alchemy ](http://www.alchemyapi.com)
@@ -24,6 +34,10 @@ To get started, run
 - Redux
 - Express
 - Node.js
+- [Cheerio](https://github.com/cheeriojs/cheerio) Web Scraping
+- [Natural](https://github.com/NaturalNode/natural) Natural Language Processing
+- [Fuzzy](https://github.com/bripkens/fuzzy.js) Approximate string matching
+- [React-D3](https://github.com/esbullington/react-d3) Charts
 - Neo4j
 - Seraph
 - Bable
@@ -86,21 +100,23 @@ Testing includes both backend and front end coverage
 # Style Guide
 [Style Guide](STYLE_GUIDE.md)
 
-#Contributing
+# Contributing
 [Contributing Guide](CONTRIBUTING.md)
 
-#Linting
-run some command to lint files?
+# Linting
+Install eslint globaly and run
+
 ```
-  npm ...
+  npm install -g eslint
 ```
 
 # License
   Trendr is a project made with help and cooperation from [MakerSquare](http://www.makersquare.com/)
   The project is open source but full credit must be given by any and all projects forked from this repo
 
-# Contributors / Team
-- [ Zak Golding ](https://github.com/zakarhino)
-- [ Jason Cheung ](https://github.com/JCheungX)
-- [ Eric Mustin ](https://github.com/ericmustin)
+# Team
+
+- Zak Golding [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/zakarhino) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:zak@0x7cf.com?Subject=Trendr)
+- Jason Cheung [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/JCheungX) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:jasoncheungcf@gmail.com?Subject=Trendr)
+- Eric Mustin [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/ericmustin) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:mustin.eric@gmail.com?Subject=Trendr)
 - Arlen Neylon [<img src="http://cdn.flaticon.com/png/256/25231.png" width=20>](https://github.com/aneylon) [<img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width=20>](mailto:arlen.m.neylon@gmail.com?Subject=Trendr)
