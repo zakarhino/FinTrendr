@@ -34,7 +34,7 @@ module.exports = {
               newKeyData.push(obj[key])
             }
           });
-          let responseObj.corr = Correlation.calc(newKeyData, userKeywordData);
+          responseObj.corr = Correlation.calc(newKeyData, userKeywordData);
           console.log(corr);
           res.send(responseObj);
         } else if (data.length === 0) {
