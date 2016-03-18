@@ -1,9 +1,7 @@
 language: node_js
 node_js: "5.6.0"
-# before_script:
-#   - npm install -g gulp
-# script: gulp
-# script: mocha --compilers js:babel-core/register --require ./test/reactSetup.js
-script: npm run test:enzyme
+before_script:
+  - npm install -g gulp
+script: gulp
 notifications:
   slack: mks31:h1vgoaaSxeZ6OoHSlEdT0QA2
