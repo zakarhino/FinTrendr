@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
   getDefaultProps:function() {
     return {
-      interpolationType: 'linear'
+      interpolationType: 'cardinal'
     };
   },
 
@@ -33,8 +33,8 @@ module.exports = React.createClass({
 
     return (
       React.createElement(AreaContainer, {
-        fill: props.fill, 
-        hoverAnimation: props.hoverAnimation, 
+        fill: props.fill,
+        hoverAnimation: props.hoverAnimation,
         path: path}
       )
     );

@@ -6,7 +6,7 @@ const db = require('./db/db-model');
 const keywords = require('../alchemy/app');
 const googleTrend = require('./model/google-trend-model');
 const validate = require('./validate.js');
-const parser  = require('rss-parser');
+const parser = require('rss-parser');
 /**
  * Convert list of nodes to results object
  * @param  {Array} nodeList  List of noes
@@ -19,11 +19,13 @@ let createResultsObject = (nodeList) => {
   nodeList.forEach(function(node) {
     if (node.Keyword) {
       let numberArray = [];
+      let keyArray = [];
       var count2 = 0;
       node.data.forEach(function(dateObj) {
         let parsedObj = JSON.parse(dateObj);
         for (var key in parsedObj) {
-          numberArray.push(parsedObj[key]);
+          keyArray.push(key);
+          numberArray.push(parseInt(parsedObj[key]));
         }
       });
       // console.log('successfully parsed', numberArray);
@@ -31,14 +33,17 @@ let createResultsObject = (nodeList) => {
       // console.log('max is: ', max);
       updated[node.Keyword] = {};
       updated[node.Keyword]['Keyword'] = node.Keyword;
-      updated[node.Keyword]['data'] = node.data;
       updated[node.Keyword]['dataScaled'] = [];
+      updated[node.Keyword].data = [];
       for (var i = 0; i < numberArray.length; i++) {
-        if (Number.isNaN(numberArray[i] / max * 100)) {
-          updated[node.Keyword].dataScaled.push(.01);
-        } else {
-          updated[node.Keyword].dataScaled.push(numberArray[i] / max * 100);
+        let value = .01;
+        let resultDataObj = {};
+        if (!Number.isNaN(numberArray[i] / max * 100)) {
+          value = numberArray[i] / max * 100;
         }
+        updated[node.Keyword].dataScaled.push(value);
+        resultDataObj[keyArray[i]] = value
+        updated[node.Keyword].data.push(resultDataObj);
       }
     }
   });
@@ -66,6 +71,7 @@ let sortObject = (obj) => {
   });
   return arr;
 };
+//Parse keyword Data from String to Object
 let parseKeywordDataToObject = (stringArray) => {
   let result = [];
   for (var item of stringArray) {
@@ -73,56 +79,99 @@ let parseKeywordDataToObject = (stringArray) => {
   }
   return result;
 };
+//parse Stock data to result for client side Treemap
 let parseStockToResult = (sectorObj) => {
-  let correlationObj = {
-    name: 'stock',
-    children: []
-  }
-  for (let key in sectorObj) {
-    let keyChildren = [];
-    if (sectorObj[key].negative) {
-      keyChildren.push({
-        name: 'negative',
-        children: sectorObj[key].negative
-      });
+    let correlationObj = {
+      name: 'stock',
+      children: []
     }
-    if (sectorObj[key].positive) {
-      keyChildren.push({
-        name: 'positive',
-        children: sectorObj[key].positive
-      });
+    for (let key in sectorObj) {
+      let keyChildren = [];
+      if (sectorObj[key].negative) {
+        keyChildren.push({
+          name: 'negative',
+          children: sectorObj[key].negative
+        });
+      }
+      if (sectorObj[key].positive) {
+        keyChildren.push({
+          name: 'positive',
+          children: sectorObj[key].positive
+        });
+      }
+      correlationObj.children.push({
+        name: key,
+        children: keyChildren
+      })
     }
-    correlationObj.children.push({
-      name: key,
-      children: keyChildren
-    })
+    return correlationObj
   }
-  return correlationObj
-}
+  //Build Sector Information for stockList
 let buildSectorObj = (stockList, scaledArray) => {
-  let sectorObj = {}
-  stockList.forEach((stockObj) => {
-    let stockData = JSON.parse(stockObj.data);
-    let corr = 0;
-    let adjustedStockObj = {};
-    adjustedStockObj.label = stockObj.Stock;
-    if (scaledArray.length === stockData.length) {
-      corr = Correlation.calc(scaledArray, stockData);
+    let sectorObj = {}
+    stockList.forEach((stockObj) => {
+      let stockData = JSON.parse(stockObj.data);
+      let corr = 0;
+      let adjustedStockObj = {};
+      adjustedStockObj.label = stockObj.Stock;
+      if (scaledArray.length === stockData.length) {
+        corr = Correlation.calc(scaledArray, stockData);
+      }
+      adjustedStockObj.value = corr;
+      if (corr < -0.3) {
+        adjustedStockObj.value = Math.abs(adjustedStockObj.value);
+        sectorObj[stockObj.Sector] = sectorObj[stockObj.Sector] || {};
+        sectorObj[stockObj.Sector].negative = sectorObj[stockObj.Sector].negative || [];
+        sectorObj[stockObj.Sector].negative.push(adjustedStockObj);
+      } else if (corr > 0.3) {
+        sectorObj[stockObj.Sector] = sectorObj[stockObj.Sector] || {};
+        sectorObj[stockObj.Sector].positive = sectorObj[stockObj.Sector].positive || [];
+        sectorObj[stockObj.Sector].positive.push(adjustedStockObj);
+      }
+    });
+    return sectorObj;
+  }
+  //scaled normal array for client side
+let scaleResultToClient = (node) => {
+  // console.log('the nodelist is ', nodeList);
+  const updated = {};
+  if (node.Keyword) {
+    let numberArray = [];
+    let keyArray = [];
+    var count2 = 0;
+    node.data.forEach(function(dateObj) {
+      let parsedObj = JSON.parse(dateObj);
+      for (var key in parsedObj) {
+        keyArray.push(key);
+        numberArray.push(parseInt(parsedObj[key]));
+      }
+    });
+    // console.log('successfully parsed', numberArray);
+    let max = Math.max.apply(Math, numberArray);
+    // console.log('max is: ', max);
+    updated.Keyword = node.Keyword;
+    updated.data = [];
+    if (node.corr){
+      updated.corr = node.corr
     }
-    adjustedStockObj.value = corr;
-    if (corr < -0.3) {
-      adjustedStockObj.value = Math.abs(adjustedStockObj.value);
-      sectorObj[stockObj.Sector] = sectorObj[stockObj.Sector] || {};
-      sectorObj[stockObj.Sector].negative = sectorObj[stockObj.Sector].negative || [];
-      sectorObj[stockObj.Sector].negative.push(adjustedStockObj);
-    } else if (corr > 0.3) {
-      sectorObj[stockObj.Sector] = sectorObj[stockObj.Sector] || {};
-      sectorObj[stockObj.Sector].positive = sectorObj[stockObj.Sector].positive || [];
-      sectorObj[stockObj.Sector].positive.push(adjustedStockObj);
+    if (node.rel !==undefined){
+      updated.rel = node.rel;
     }
-  });
-  return sectorObj;
-}
+    for (var i = 0; i < numberArray.length; i++) {
+      let value = .01;
+      let resultDataObj = {};
+      if (!Number.isNaN(numberArray[i] / max * 100)) {
+        value = numberArray[i] / max * 100;
+      }
+
+      resultDataObj[keyArray[i]] = value
+      updated.data.push(resultDataObj);
+    }
+
+    console.log('in scaling data',updated.data);
+  }
+  return updated;
+};
 module.exports = {
   /**
    *  Return keyword if found. Else use google trend to get the data and and save it .
@@ -137,8 +186,7 @@ module.exports = {
     }).then((data) => {
       // console.log('receiving result', data.length);
       if (data.length > 0) {
-        let responseObj = data[0];
-        responseObj.data = parseKeywordDataToObject(responseObj.data);
+        let responseObj = scaleResultToClient(data[0]);
         res.send(responseObj);
       } else if (data.length === 0) {
         // console.log('try getting google trend');
@@ -168,24 +216,31 @@ module.exports = {
     let keyword = req.body.Keyword;
     //handle response if it already exists
     //important function that still needs to be written to handle cases where keyword already has been searched for/saved
+    console.log('getting relationship');
     db.getNamesOfRelationships({
       Keyword: keyword
     }).then((data) => {
       // console.log("results are: " + data, data.length);
       if (data.length > 0) {
-        res.send(data);
+         let result = data.map(function(item){
+           return scaleResultToClient(item);
+         })
+        res.send(result);
       } else if (data.length === 0) {
         db.getKeyword({
           Keyword: keyword
         }).then((data) => {
           if (data.length > 0) {
+            //Base Keyword Object
             let scaledArrayOfObjs = data[0].data;
             db.getKeyword({}).then((data) => {
+              //All Keyword Object
               let updated = createResultsObject(data);
+              //get the Base Keyword Scaled Array Object
               let scaledArray = scaledArrayOfObjs.map((obj) => {
                 let parsedObj = JSON.parse(obj);
                 for (var key in parsedObj) {
-                  return parsedObj[key];
+                  return parseInt(parsedObj[key]);
                 }
               });
               //
@@ -200,10 +255,13 @@ module.exports = {
               }
               let sortedCorrelationsArray = sortObject(corrObj);
               let out = [];
+              let promiseArray = []
               for (let i = 0; i < 10; i++) {
                 // console.log("sortedCorrelationsArray[" + i + "]: " + sortedCorrelationsArray[i]);
                 // console.log("got inside loop");
-                validate(keyword, sortedCorrelationsArray[i]['key']).then((bool) => {
+                //
+                var promise = new Promise((resolve, reject) => {
+                  validate(keyword, sortedCorrelationsArray[i]['key']).then((bool) => {
                   // console.log("at save, i is", i);
                   out.push({
                     Keyword: sortedCorrelationsArray[i]['key'],
@@ -221,14 +279,23 @@ module.exports = {
                     corr: sortedCorrelationsArray[i]['corr'],
                     rel: bool
                   }).then((data) => {
+                    resolve();
                     // console.log('relationship added ' + data);
                   });
-                  if (out.length === 10) {
-                    // console.log("Length is 10");
-                    res.send(out);
-                  }
+
                 });
+              });
+              promiseArray.push(promise)
               };
+              Promise.all(promiseArray).then((data)=>{
+                if (out.length === 10) {
+                // console.log("Length is 10");
+                out.sort(function(a,b){
+                  return b.corr - a.corr
+                })
+                res.send(out);
+                }
+              });
             });
           } else {
             res.statusCode(404).send('Fail to find keyword');
@@ -299,7 +366,7 @@ module.exports = {
       var stockCorrList = [];
       let sectorObj = buildSectorObj(stockList, scaledArray);
       let correlationObj = parseStockToResult(sectorObj);
-    //  console.log(correlationObj);
+      //  console.log(correlationObj);
       res.send(correlationObj);
     });
   },

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {AreaChart} from '../../react-d3/index';
 export class Graph extends Component {
-  getDatum(j) {
+  getDatum() {
     const {currentKeyword} = this.props;
     // const {currenData} = this.props;
     // console.log('get datum has logged with, ', currentData);
@@ -20,7 +20,9 @@ export class Graph extends Component {
     ];
   }
   render() {
+    console.log('I am rerendering!!!', this.props.lineGraph);
     const {currentKeyword} = this.props;
+    const {lineGraph} = this.props;
     if (!currentKeyword) {
       return (
         <div>
@@ -28,7 +30,7 @@ export class Graph extends Component {
         </div>
       )
     }
-    const data = this.getDatum(10);
+    const data = this.getDatum();
     //console.log(data);
     const viewBoxOject = {
       x: 0,
@@ -38,19 +40,15 @@ export class Graph extends Component {
     };
     return (
       <div>
-        <AreaChart data ={data} xAxisTickInterval={{
+        <AreaChart data ={data} lineData={lineGraph} xAxisTickInterval={{
           unit: 'month',
           interval: 5
-        }} title="Area Chart" interpolate={true} xAxisTickCount={24} yAxisLabel='Value' xAxisLabel='Month' width='100%' height={400} viewBoxObject={viewBoxOject}/>
+        }} title="Area Chart" interpolate={true} interpolationType='cardinal' xAxisTickCount={24} yAxisLabel='Value' xAxisLabel='Month' width='100%' height={400} viewBoxObject={viewBoxOject}/>
       </div>
     );
   }
 }
 function mapStateToProps(state) {
-  if (state.keyword.current) {
-    return {currentKeyword: state.keyword.current};
-  } else {
-    return {currentKeyword: state.keyword.current};
-  }
+    return {currentKeyword: state.keyword.current, lineGraph: state.linegraph.linegraph};
 }
 export default connect(mapStateToProps)(Graph);

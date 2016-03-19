@@ -5,7 +5,9 @@ var d3 = require('d3');
 var DataSeries = require('./DataSeries');
 var $__0=      require('../common'),Chart=$__0.Chart,XAxis=$__0.XAxis,YAxis=$__0.YAxis;
 var $__1=     require('../mixins'),CartesianChartPropsMixin=$__1.CartesianChartPropsMixin,ViewBoxMixin=$__1.ViewBoxMixin;
-
+var LineDataSeries = require('../linechart/DataSeries');
+var utils = require('../utils');
+var VoronoiCircleContainer = require('../linechart/VoronoiCircleContainer');
 module.exports = React.createClass({
 
   mixins: [ CartesianChartPropsMixin, ViewBoxMixin ],
@@ -21,14 +23,17 @@ module.exports = React.createClass({
 
   getDefaultProps:function() {
     return {
+      circleRadius:    3,
       margins: {top: 10, right: 20, bottom: 40, left: 45},
       yAxisTickCount: 4,
-      interpolate: false,
+      interpolate: true,
       interpolationType: null,
       className: 'rd3-areachart',
       hoverAnimation: true
     };
   },
+
+  _calculateScales: utils.calculateScales,
 
   render:function() {
 
@@ -89,75 +94,134 @@ module.exports = React.createClass({
     var trans = ("translate(" +  props.margins.left + "," +  props.margins.top + ")");
 
     var dataSeries = layers.map( function(d, idx)  {
+
       return (
           React.createElement(DataSeries, {
-            key: idx, 
-            seriesName: d.name, 
-            fill: props.colors(props.colorAccessor(d, idx)), 
-            index: idx, 
-            xScale: xScale, 
-            yScale: yScale, 
-            data: d.values, 
-            xAccessor: props.xAccessor, 
-            yAccessor: props.yAccessor, 
-            interpolationType: interpolationType, 
+            key: idx,
+            seriesName: d.name,
+            fill: props.colors(props.colorAccessor(d, idx)),
+            index: idx,
+            xScale: xScale,
+            yScale: yScale,
+            data: d.values,
+            xAccessor: props.xAccessor,
+            yAccessor: props.yAccessor,
+            interpolationType: interpolationType,
             hoverAnimation: props.hoverAnimation}
           )
         );
       });
+      var renderLine = null;
+    if (this.props.lineData && this.props.lineData.length>0){
+        var flattenedData = utils.flattenData(props.lineData, props.xAccessor, props.yAccessor);
+
+        var allValues = flattenedData.allValues;
+
+        renderLine =
+        React.createElement(LineDataSeries, {
+          xScale: xScale,
+          yScale: yScale,
+          xAccessor: props.xAccessor,
+          yAccessor: props.yAccessor,
+          hoverAnimation: props.hoverAnimation,
+          circleRadius: props.circleRadius,
+          data: props.lineData,
+          value: allValues,
+          interpolationType: 'cardinal',
+          width: innerWidth,
+          height: innerHeight}
+        )
+    };
+
+    var flattenedData = utils.flattenData(props.data, props.xAccessor, props.yAccessor);
+    var allValues = flattenedData.allValues;
+
+    var voronoi = d3.geom.voronoi()
+      .x(function(d){ return xScale(d.coord.x); })
+      .y(function(d){ return yScale(d.coord.y); })
+      .clipExtent([[0, 0], [ innerWidth, innerHeight]]);
+
+    var cx, cy, circleFill;
+    var regions = voronoi(allValues).map(function(vnode, idx) {
+      var point = vnode.point.coord;
+      if (Object.prototype.toString.call(props.xAccessor(point)) === '[object Date]') {
+        cx = xScale(props.xAccessor(point).getTime());
+      } else {
+        cx = xScale(props.xAccessor(point));
+      }
+      if (Object.prototype.toString.call(props.yAccessor(point)) === '[object Date]') {
+        cy = yScale(props.yAccessor(point).getTime());
+      } else {
+        cy = yScale(props.yAccessor(point));
+      }
+      circleFill = vnode.color;
+
+      return (
+          React.createElement(VoronoiCircleContainer, {
+              key: idx,
+              circleFill: circleFill,
+              vnode: vnode,
+              cx: cx, cy: cy,
+              circleRadius: props.circleRadius}
+          )
+      );
+    }.bind(this));
+
 
     return (
       React.createElement(Chart, {
-        viewBox: this.getViewBox(), 
-        legend: props.legend, 
-        data: data, 
-        margins: props.margins, 
-        colors: props.colors, 
-        colorAccessor: props.colorAccessor, 
-        width: props.width, 
-        height: props.height, 
+        viewBox: this.getViewBox(),
+        legend: props.legend,
+        data: data,
+        margins: props.margins,
+        colors: props.colors,
+        colorAccessor: props.colorAccessor,
+        width: props.width,
+        height: props.height,
         title: props.title
-      }, 
-        React.createElement("g", {transform: trans, className: props.className}, 
+      },
+        React.createElement("g", {transform: trans, className: props.className},
           React.createElement(XAxis, {
-            xAxisClassName: "rd3-areachart-xaxis", 
-            xScale: xScale, 
-            xAxisTickValues: props.xAxisTickValues, 
-            xAxisTickInterval: props.xAxisTickInterval, 
-            xAxisTickCount: props.xAxisTickCount, 
-            xAxisLabel: props.xAxisLabel, 
-            xAxisLabelOffset: props.xAxisLabelOffset, 
-            tickFormatting: props.xAxisFormatter, 
-            xOrient: props.xOrient, 
-            yOrient: props.yOrient, 
-            margins: props.margins, 
-            width: innerWidth, 
-            height: innerHeight, 
-            gridVertical: props.gridVertical, 
-            gridVerticalStroke: props.gridVerticalStroke, 
-            gridVerticalStrokeWidth: props.gridVerticalStrokeWidth, 
+            xAxisClassName: "rd3-areachart-xaxis",
+            xScale: xScale,
+            xAxisTickValues: props.xAxisTickValues,
+            xAxisTickInterval: props.xAxisTickInterval,
+            xAxisTickCount: props.xAxisTickCount,
+            xAxisLabel: props.xAxisLabel,
+            xAxisLabelOffset: props.xAxisLabelOffset,
+            tickFormatting: props.xAxisFormatter,
+            xOrient: props.xOrient,
+            yOrient: props.yOrient,
+            margins: props.margins,
+            width: innerWidth,
+            height: innerHeight,
+            gridVertical: props.gridVertical,
+            gridVerticalStroke: props.gridVerticalStroke,
+            gridVerticalStrokeWidth: props.gridVerticalStrokeWidth,
             gridVerticalStrokeDash: props.gridVerticalStrokeDash}
-          ), 
+          ),
           React.createElement(YAxis, {
-            yAxisClassName: "rd3-areachart-yaxis", 
-            yScale: yScale, 
-            yAxisTickValues: props.yAxisTickValues, 
-            yAxisTickInterval: props.yAxisTickInterval, 
-            yAxisTickCount: props.yAxisTickCount, 
-            yAxisLabel: props.yAxisLabel, 
-            yAxisLabelOffset: props.yAxisLabelOffset, 
-            tickFormatting: props.yAxisFormatter, 
-            xOrient: props.xOrient, 
-            yOrient: props.yOrient, 
-            margins: props.margins, 
-            width: innerWidth, 
-            height: props.height, 
-            gridHorizontal: props.gridHorizontal, 
-            gridHorizontalStroke: props.gridHorizontalStroke, 
-            gridHorizontalStrokeWidth: props.gridHorizontalStrokeWidth, 
+            yAxisClassName: "rd3-areachart-yaxis",
+            yScale: yScale,
+            yAxisTickValues: props.yAxisTickValues,
+            yAxisTickInterval: props.yAxisTickInterval,
+            yAxisTickCount: props.yAxisTickCount,
+            yAxisLabel: props.yAxisLabel,
+            yAxisLabelOffset: props.yAxisLabelOffset,
+            tickFormatting: props.yAxisFormatter,
+            xOrient: props.xOrient,
+            yOrient: props.yOrient,
+            margins: props.margins,
+            width: innerWidth,
+            height: props.height,
+            gridHorizontal: props.gridHorizontal,
+            gridHorizontalStroke: props.gridHorizontalStroke,
+            gridHorizontalStrokeWidth: props.gridHorizontalStrokeWidth,
             gridHorizontalStrokeDash: props.gridHorizontalStrokeDash}
-          ), 
-          dataSeries
+          ),
+          dataSeries,
+          regions,
+          renderLine
         )
       )
     );
