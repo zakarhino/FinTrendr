@@ -15,18 +15,18 @@ class NewsList extends Component {
   renderArticles() {
     return this.props.news.map((article) => {
       return (
-        <li key={article.guid}>
-          <h4>{article.title}</h4>
-          <h5>{article.pubDate}</h5>
+        <li key={article.guid} className="list-group-item">
+          <p><a href="http://news.google.com">{article.title}</a></p>
+          <p>{article.pubDate}</p>
         </li>
       );
     });
   }
   render() {
     return (
-      <div>
-        Related News:
-        <ul>
+      <div className="news spacer">
+        <h3>Related News:</h3>
+        <ul className="list-group">
           {this.renderArticles()}
         </ul>
       </div>

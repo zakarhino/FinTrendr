@@ -39,7 +39,7 @@ export class Graph extends Component {
       height: 400
     };
     return (
-      <div>
+      <div className="graph spacer">
         <AreaChart data ={data} lineData={lineGraph} xAxisTickInterval={{
           unit: 'month',
           interval: 5
