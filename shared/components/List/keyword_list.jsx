@@ -1,12 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import  { getCorrelationInfo } from '../../actions/keyword';
-import { bindActionCreators} from 'redux';
-import { getValidationInfo } from '../../actions/keyword';
-import { getHotTrends } from '../../actions/hotTrends';
-import { saveKeywordInfo } from '../../actions/saveKeyword'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {getCorrelationInfo} from '../../actions/keyword';
+import {bindActionCreators} from 'redux';
+// import { getValidationInfo } from '../../actions/keyword';
+import {getHotTrends} from '../../actions/hotTrends';
+import {saveKeywordInfo} from '../../actions/saveKeyword'
+import {putToGraph} from '../../actions/linegraph';
 
 class KeywordList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      addedKeyword: ''
+    };
+    this.fetchKeyword = this.fetchKeyword.bind(this)
+    this.onInputChange = this.onInputChange.bind(this);
+  }
   componentWillMount() {
     this.props.getHotTrends();
     if (this.props.keyword) {
@@ -21,34 +30,42 @@ class KeywordList extends Component {
       }
     }
   }
-  getValidation(keyword, listItem) {
-    this.props.getValidationInfo(keyword, listItem);
+  // getValidation(keyword, listItem) {
+  //   this.props.getValidationInfo(keyword, listItem);
+  // }
+  fetchKeyword(event) {
+      event.preventDefault();
+      console.log('came once',this.state.addedKeyword);
+      this.props.saveKeywordInfo(this.state.addedKeyword, this.props.keyword);
   }
-  saveNewKeywordInfo(newKeyword) {
-    console.log('determining correlattion between ', newKeyword, " and ", this.props.keyword.Keyword);
-    this.props.saveKeywordInfo(newKeyword,this.props.keyword);
+
+  onInputChange(event) {
+    event.preventDefault();
+    this.setState({addedKeyword: event.target.value});
+  }
+
+  putToGraph(item)
+  {
+    console.log('put to graph trigger',this.state,item);
+    this.props.putToGraph();
   }
 
   renderList() {
     return this.props.list.items.map((listItem) => {
-      if(listItem.rel) {
-        let divStyle = {
-          color: 'green'
+      let color = 'black';
+      if (listItem.rel) {
+        color = 'green';
         };
+      let divStyle = {
+          color: color
+        }
         return (
-          <li className="list-group-item" style={divStyle} key={listItem.Keyword}>
+          <li className="list-group-item" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
             <span className="pull-xs-right">{listItem.Keyword}</span>
             <strong>{listItem.corr}</strong>
           </li>
         );
-      }
       // onClick={this.getValidation.bind(this,this.props.keyword.Keyword,listItem.Keyword)}
-      return (
-        <li className="list-group-item" key={listItem.Keyword}>
-          <span className="pull-xs-right">{listItem.Keyword}</span>
-          <strong>{listItem.corr}</strong>
-        </li>
-      );
     });
   }
   // renderStocks() {
@@ -65,12 +82,16 @@ class KeywordList extends Component {
   // }
   render() {
     const {list} = this.props;
-    if (!list||!list.items|| list.items.length ===0 ) {
+    if (!list || !list.items || list.items.length === 0) {
       return <div>Loading...</div>;
     }
     return (
       <div>
         Suggested Ideas
+        <form onSubmit={this.fetchKeyword}>
+            <input placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
+              <button type="submit">Add new Keyword</button>
+          </form>
         <ul>
           {this.renderList()}
         </ul>
@@ -79,17 +100,14 @@ class KeywordList extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {
-    list: state.list,
-    keyword: state.keyword.current,
-    saveKeyword: state.saveKeyword.items
-  };
+  return {list: state.list, keyword: state.keyword.current};
 }
 function mapDispatchToProps(dispatch) {
   let obj = {
     getCorrelationInfo: getCorrelationInfo,
     getHotTrends: getHotTrends,
-    saveKeywordInfo: saveKeywordInfo
+    saveKeywordInfo: saveKeywordInfo,
+    putToGraph : putToGraph
   };
   return bindActionCreators(obj, dispatch);
 };

@@ -19,7 +19,7 @@ module.exports = React.createClass({
     return {
       stroke: '#3182bd',
       fill: 'none',
-      strokeWidth: 1,
+      strokeWidth: 3,
       className: 'rd3-linechart-path'
     };
   },
@@ -28,11 +28,11 @@ module.exports = React.createClass({
     var props = this.props;
     return (
       React.createElement("path", {
-        d: props.path, 
-        stroke: props.stroke, 
-        strokeWidth: props.strokeWidth, 
-        strokeDasharray: props.strokeDashArray, 
-        fill: props.fill, 
+        d: props.path,
+        stroke: props.stroke,
+        strokeWidth: props.strokeWidth,
+        strokeDasharray: props.strokeDashArray,
+        fill: props.fill,
         className: props.className}
       )
     );

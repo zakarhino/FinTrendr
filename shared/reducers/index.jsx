@@ -5,7 +5,7 @@ import TweetReducer from './reducer_twitter';
 import List from './reducer_list';
 import getStocks from './reducer_stocks';
 import getHotTrends from './reducer_hotTrends';
-import saveKeyword from './reducer_saveKeyword';
+import putToGraph from './reducer_puttograph';
 
 
 export default combineReducers({
@@ -15,5 +15,5 @@ export default combineReducers({
   list: List,
   stocks: getStocks,
   hotTrends: getHotTrends,
-  saveKeyword: saveKeyword
+  linegraph: putToGraph
 });

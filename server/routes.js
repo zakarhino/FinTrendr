@@ -36,7 +36,6 @@ export default (app) => {
   app.get('/api/getNews/:keyword', KeywordController.getNews);
   app.post('/api/saveKeywordInfo/', SaveKeywordController.saveKeywordInfo);
 
-
   app.use((req, res) => {
     const location = createLocation(req.url);
     // Create redux store with middleware attached
