@@ -36,7 +36,7 @@ module.exports = React.createClass({
   _calculateScales: utils.calculateScales,
 
   render:function() {
-    console.log('hey i came here rendering area graph',this.props.lineData)
+
     var props = this.props;
 
     var data = props.data;
@@ -128,8 +128,6 @@ module.exports = React.createClass({
           data: props.lineData,
           value: allValues,
           interpolationType: 'cardinal',
-          colors: props.colors,
-          colorAccessor: props.colorAccessor,
           width: innerWidth,
           height: innerHeight}
         )

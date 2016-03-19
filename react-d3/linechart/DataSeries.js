@@ -7,7 +7,7 @@ var Line = require('./Line');
 
 module.exports = React.createClass({
 
-  displayName: 'DataSeries',
+  displayName: 'LineDataSeries',
 
   propTypes: {
     color: React.PropTypes.func,
@@ -20,6 +20,10 @@ module.exports = React.createClass({
 
   getDefaultProps:function() {
     return {
+      colors: d3.scale.category20c(),
+      colorAccessor: function(d, idx) {
+        return idx;
+      },
       data: [],
       xAccessor: function(d)  {return d.x;},
       yAccessor: function(d)  {return d.y;},
@@ -56,7 +60,7 @@ module.exports = React.createClass({
       return (
         React.createElement(Line, {
           path: interpolatePath(series.values),
-          stroke: series.color,
+          stroke: props.colors(props.colorAccessor(series,idx)),
           strokeWidth: series.strokeWidth,
           strokeDashArray: series.strokeDashArray,
           seriesName: series.name,
@@ -83,7 +87,7 @@ module.exports = React.createClass({
       } else {
         cy = props.yScale(yAccessor(point));
       }
-      console.log(vnode.point.series.values[idx]);
+
       circleFill = vnode.point.series.color;
 
       return (

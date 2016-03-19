@@ -150,17 +150,25 @@ let scaleResultToClient = (node) => {
     let max = Math.max.apply(Math, numberArray);
     // console.log('max is: ', max);
     updated.Keyword = node.Keyword;
-    updated.data = []
-
+    updated.data = [];
+    if (node.corr){
+      updated.corr = node.corr
+    }
+    if (node.rel !==undefined){
+      updated.rel = node.rel;
+    }
     for (var i = 0; i < numberArray.length; i++) {
       let value = .01;
       let resultDataObj = {};
       if (!Number.isNaN(numberArray[i] / max * 100)) {
         value = numberArray[i] / max * 100;
       }
+
       resultDataObj[keyArray[i]] = value
       updated.data.push(resultDataObj);
     }
+
+    console.log('in scaling data',updated.data);
   }
   return updated;
 };
@@ -208,12 +216,16 @@ module.exports = {
     let keyword = req.body.Keyword;
     //handle response if it already exists
     //important function that still needs to be written to handle cases where keyword already has been searched for/saved
+    console.log('getting relationship');
     db.getNamesOfRelationships({
       Keyword: keyword
     }).then((data) => {
       // console.log("results are: " + data, data.length);
       if (data.length > 0) {
-        res.send(data);
+         let result = data.map(function(item){
+           return scaleResultToClient(item);
+         })
+        res.send(result);
       } else if (data.length === 0) {
         db.getKeyword({
           Keyword: keyword

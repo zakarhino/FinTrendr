@@ -46,8 +46,8 @@ class KeywordList extends Component {
 
   putToGraph(item)
   {
-    console.log('put to graph trigger',this.state,item);
-    this.props.putToGraph();
+    console.log(item);
+    this.props.putToGraph(item);
   }
 
   renderList() {
