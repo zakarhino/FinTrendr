@@ -1,12 +1,12 @@
 import express from 'express';
 import path from 'path';
 import React from 'react';
-import {renderToString} from 'react-dom/server';
-import {RouterContext, match, browserHistory} from 'react-router';
+import { renderToString } from 'react-dom/server';
+import { RouterContext, match, browserHistory } from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import routes from '../shared/routes';
-import {createStore, combineReducers, applyMiddleware} from 'redux';
-import {Provider} from 'react-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import reducer from '../shared/reducers';
 
 // import {reducers} from '../shared/reducers';
@@ -22,10 +22,10 @@ import promise from 'redux-promise';
 
 //log state
 
-export default(app) => {
+export default (app) => {
 
-  app.all('/*',function(req,res,next){
-    console.log(req.method,' Request for URL ',req.url)
+  app.all('/*', function(req, res, next) {
+    console.log(req.method, ' Request for URL ', req.url)
     next();
   });
 
@@ -33,7 +33,7 @@ export default(app) => {
   app.post('/api/correlationInfo', KeywordController.getCorrelationInfo);
   app.post('/api/getStocksInfo', KeywordController.getStocksInfo);
   app.get('/api/getHotTrendsInfo', HotTrendsController.getHotTrendsInfo);
-  app.get('/api/getNews/:keyword',KeywordController.getNews);
+  app.get('/api/getNews/:keyword', KeywordController.getNews);
   app.post('/api/saveKeywordInfo/', SaveKeywordController.saveKeywordInfo);
 
 
@@ -57,9 +57,9 @@ export default(app) => {
           .status(404)
           .end('Not found');
       }
-      const InitComp = (
-        <Provider store={storeWithMiddleware}>
-          <RouterContext {...props}/>
+      const InitComp = ( 
+        < Provider store = { storeWithMiddleware } >
+          < RouterContext {...props }/>
         </Provider>
       );
       const componentHTML = renderToString(InitComp);
@@ -70,15 +70,17 @@ export default(app) => {
       <!DOCTYPE html>
       <html>
         <head>
-          <meta charset="utf-8">
+          <meta charset="utf-8"></meta>
           <title>Isomorphic Redux Demo</title>
           <link href="/styles/style.css" rel="stylesheet" />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
         </head>
         <body>
           <div id="container">${componentHTML}</div>
-          <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
-    </script>
+          <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
           <script src="/dist/bundle.js"> </script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
         </body>
       </html>
       `;

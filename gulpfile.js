@@ -4,6 +4,7 @@ const gulp = require('gulp'),
   mocha = require('gulp-mocha'),
   watch = require('gulp-watch'),
   env = require('gulp-env');
+// const babel = require('babel/register');
 
 gulp.task('lint', () => {
   gulp.src(['**/*.js', '**/*.test.js', '!node_modules/**', '!graph-db/**'])
@@ -18,6 +19,7 @@ gulp.task('test', () => {
     }
   });
   gulp.src('test/*.test.js')
+    // .pipe(babel())
     .pipe(mocha({ reporter: 'spec' }))
     .once('error', () => {
       process.exit(1);
