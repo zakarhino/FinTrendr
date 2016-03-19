@@ -87,7 +87,7 @@ class KeywordList extends Component {
     }
     return (
       <div>
-        Suggested Ideas
+        <h3>Suggested Ideas</h3>
         <form onSubmit={this.fetchKeyword}>
             <input placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
               <button type="submit">Add new Keyword</button>

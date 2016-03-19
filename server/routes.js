@@ -70,7 +70,8 @@ export default (app) => {
       <html>
         <head>
           <meta charset="utf-8"></meta>
-          <title>Isomorphic Redux Demo</title>
+          <title>Trendr</title>
+          <link rel="icon" href="/TrendrFavicon.ico" type="image/x-icon">
           <link href="/styles/style.css" rel="stylesheet" />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
         </head>
