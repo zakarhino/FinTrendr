@@ -14,9 +14,9 @@ class TweetList extends Component {
     return this.props.tweets.map((tweet) => {
     console.log("tweets", this.props.tweets);
       return (
-        <li key={tweet.guid} className="list-group-element">
-          <h4>{tweet.name}</h4>
-          <h5><a href={tweet.url}>{tweet.tweet_volume}</a></h5>
+        <li key={tweet.guid} className="list-group-item noRad">
+          <p>{tweet.name}</p>
+          <p><a href={tweet.url}>{tweet.tweet_volume}</a></p>
         </li>
       );
     });
@@ -24,9 +24,9 @@ class TweetList extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Trending Tweets:</h2>
-        <ul className="list-group">
+      <div className="tweets spacer">
+        <h3>Trending Tweets:</h3>
+        <ul className="list-group noRad">
           {this.renderTweets()}
         </ul>
       </div>

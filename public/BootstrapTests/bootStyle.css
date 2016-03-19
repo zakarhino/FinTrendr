@@ -1,13 +1,4 @@
-      body{
-        background-color: black;
-        color: white;
-        font-family: 'Homenaje', sans-serif;
-/* 
-        font-family: 'Squada One', cursive;
-        font-family: 'Teko', sans-serif;
-        font-family: 'Jockey One', sans-serif;
-*/
-      }
+
 
       #sideBar {
         margin-top: 45px;
@@ -18,7 +9,17 @@
         color: black;
         height: 500px;
       }
-
+      
+      body{
+        background-color: black;
+        color: white;
+        font-family: 'Homenaje', sans-serif;
+        /* 
+        font-family: 'Squada One', cursive;
+        font-family: 'Teko', sans-serif;
+        font-family: 'Jockey One', sans-serif;
+        */
+      }
       .centeredV {
         display: flex;
         flex-direction: column;
@@ -50,23 +51,6 @@
       .teamList {
         list-style-type: none;
       }
-
-      .chartImg {
-        max-width:800px;
-      /*
-        max-height:;
-        width: 100%;
-        height: auto;
-      */
-      }
-
-      .noPad {
-        padding:0px;
-      }
-
-      .grey {
-        background-color: grey;
-      }
       .topMargin {
         margin-top: 100px;
       }
@@ -90,10 +74,27 @@
       .search {
         margin-top: -55px;
       }
+      .chartImg {
+        max-width:800px;
+      /*
+        max-height:;
+        width: 100%;
+        height: auto;
+      */
+      }
 
-      .footer {
+      .noPad {
+        padding:0px;
+      }
+
+      .grey {
+        background-color: grey;
+      }
+
+
 /*         position: absolute;
 bottom: 0; */
+      .footer {
         width: 100%;
         background-color: #333;
         padding-top: 25px;

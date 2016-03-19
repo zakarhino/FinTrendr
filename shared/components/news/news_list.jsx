@@ -16,7 +16,7 @@ class NewsList extends Component {
     return this.props.news.map((article) => {
       return (
         <li key={article.guid} className="list-group-item">
-          <p><a href="news.google.com">{article.title}</a></p>
+          <p><a href="http://news.google.com">{article.title}</a></p>
           <p>{article.pubDate}</p>
         </li>
       );
@@ -24,7 +24,7 @@ class NewsList extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="news spacer">
         <h3>Related News:</h3>
         <ul className="list-group">
           {this.renderArticles()}
