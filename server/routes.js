@@ -76,7 +76,7 @@ export default (app) => {
           <link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
           <link href='https://fonts.googleapis.com/css?family=Homenaje' rel='stylesheet' type='text/css'>
 
-          <link rel="icon" href="/TrendrFavicon.ico" type="image/x-icon">
+          <link rel="icon" href="/TrendrFavicon2.ico" type="image/x-icon">
           <link href="/styles/style.css" rel="stylesheet" />
           <link href="/styles/darkStyle.css" rel="stylesheet" />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
