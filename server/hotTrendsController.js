@@ -17,6 +17,7 @@ module.exports = {
             let bodyParsed = JSON.parse(body);
             let twitsBodyParsed = JSON.parse(twitsBody);
             let twitSymbols = twitsBodyParsed.symbols.map((symbolObj) => {
+              // console.log(symbolObj);
               return symbolObj.symbol;
             });
             //console.log(bodyParsed[1]);

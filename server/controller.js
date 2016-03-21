@@ -203,6 +203,10 @@ module.exports = {
             //console.log('Saving to DB Complete');
           });
           res.send(responseObj);
+        }).
+        catch( (info) => {
+          console.log("Error with Google Trends");
+          res.send({})
         });
       }
     });

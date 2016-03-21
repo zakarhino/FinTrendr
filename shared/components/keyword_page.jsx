@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import NavBar from './nav_bar';
 import TweetList from './twitter/tweet_list';
+import LandingPage from './landing_page';
 import TreeMapView from './List/treemap_view';
 
 class KeywordPage extends Component {
@@ -63,7 +64,7 @@ class KeywordPage extends Component {
             </div>
 
             <div className="col-sm-6">
-              <TweetList/>
+              <LandingPage/>
             </div>
           </div>
           
