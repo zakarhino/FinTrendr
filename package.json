@@ -29,6 +29,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.15.0",
     "cheerio": "^0.20.0",
+    "d3": "^3.5.16",
     "express": "^4.13.4",
     "history": "^2.0.1",
     "html-webpack-plugin": "^2.10.0",

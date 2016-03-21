@@ -13,12 +13,6 @@ const seraph = require("seraph")({
   pass: config.neo4j.password
 });
 
-function wipeDB() {
-  seraph.query("MATCH (n) DETACH DELETE n", function(err, result) {
-    if (err) throw err;
-  });
-}
-
 const superRequest = require('supertest')
 const express = require('express');
 const app = express();
@@ -135,8 +129,8 @@ describe('Server Controller', function() {
   it('Should contain getResult and all utility functions for parsing', function(done) {
     controller.createResultsObject.should.be.a.Function();
     controller.getStocksInfo.should.be.a.Function();
-    controller.getKeywordInfo.should.be.a.Function(); 
-    controller.getCorrelationInfo.should.be.a.Function(); 
+    controller.getKeywordInfo.should.be.a.Function();
+    controller.getCorrelationInfo.should.be.a.Function();
     controller.getValidationInfo.should.be.a.Function();
     controller.sortObject.should.be.a.Function(); // x
     controller.parseKeywordDataToObject.should.be.a.Function();
@@ -211,55 +205,55 @@ describe('Server Controller', function() {
       var returnedExample = { steve:
          { Keyword: 'steve',
            data:
-            [ '{"February 2014":83.34333333333333}',
-              '{"March 2014":77.78777777777778}',
-              '{"April 2014":80.56555555555556}',
-              '{"May 2014":72.23222222222222}',
-              '{"June 2014":72.23222222222222}',
-              '{"July 2014":72.23222222222222}',
-              '{"August 2014":75.01}',
-              '{"September 2014":75.01}',
-              '{"October 2014":72.23222222222222}',
-              '{"November 2014":69.45444444444445}',
-              '{"December 2014":75.01}',
-              '{"January 2015":75.01}',
-              '{"February 2015":72.23222222222222}',
-              '{"March 2015":69.45444444444445}',
-              '{"April 2015":69.45444444444445}',
-              '{"May 2015":72.23222222222222}',
-              '{"June 2015":69.45444444444445}',
-              '{"July 2015":69.45444444444445}',
-              '{"August 2015":77.78777777777778}',
-              '{"September 2015":97.23222222222222}',
-              '{"October 2015":75.01}',
-              '{"November 2015":100.01}',
-              '{"December 2015":86.12111111111112}',
-              '{"January 2016":75.01}' ],
+            [ {"February 2014":83},
+              {"March 2014":77},
+              {"April 2014":80},
+              {"May 2014":72},
+              {"June 2014":72},
+              {"July 2014":72},
+              {"August 2014":75},
+              {"September 2014":75},
+              {"October 2014":72},
+              {"November 2014":69},
+              {"December 2014":75},
+              {"January 2015":75},
+              {"February 2015":72},
+              {"March 2015":69},
+              {"April 2015":69},
+              {"May 2015":72},
+              {"June 2015":69},
+              {"July 2015":69},
+              {"August 2015":77},
+              {"September 2015":97},
+              {"October 2015":75},
+              {"November 2015":100},
+              {"December 2015":86},
+              {"January 2016":75} ],
            dataScaled:
-            [ 83.33499983335,
-              77.77999977779999,
-              80.557499805575,
-              72.22499972224999,
-              72.22499972224999,
-              72.22499972224999,
-              75.002499750025,
-              75.002499750025,
-              72.22499972224999,
-              69.447499694475,
-              75.002499750025,
-              75.002499750025,
-              72.22499972224999,
-              69.447499694475,
-              69.447499694475,
-              72.22499972224999,
-              69.447499694475,
-              69.447499694475,
-              77.77999977779999,
-              97.222499972225,
-              75.002499750025,
+            [ 83,
+              77,
+              80,
+              72,
+              72,
+              72,
+              75,
+              75,
+              72,
+              69,
+              75,
+              75,
+              72,
+              69,
+              69,
+              72,
+              69,
+              69,
+              77,
+              97,
+              75,
               100,
-              86.112499861125,
-              75.002499750025 ] } };
+              86,
+              75 ] } };
       var returnData = controller.createResultsObject(sampleData);
     it('should return an object', function() {
       returnData.should.be.an.instanceOf(Object);
