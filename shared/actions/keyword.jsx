@@ -8,7 +8,7 @@ export function getKeyword(keyword) {
   //from the db.getkeyword function (keyword and data)
   // in /api/ route then pass that as the payload
   // //this will require a redux-promise
-  const url = 'http://localhost:3000/api/keywordInfo';
+  const url = '/api/keywordInfo';
   const request = axios.get(`${url}/${keyword}`);
 
   // const tempData = {Keyword: keyword,
@@ -21,7 +21,7 @@ export function getKeyword(keyword) {
 };
 
 export function getCorrelationInfo(keyword) {
-  const url = 'http://localhost:3000/api/correlationInfo';
+  const url = '/api/correlationInfo';
   const request = axios.post(url,keyword);
   // const tempData = [{
   //   Keyword: 'AAPL',
@@ -39,7 +39,7 @@ export function getValidationInfo(keyword,listItem) {
     keyword: keyword,
     listItem: listItem
   };
-  const url = 'http://localhost:3000/api/validationInfo';
+  const url = '/api/validationInfo';
   const request = axios.post(url,data);
 
   return {
