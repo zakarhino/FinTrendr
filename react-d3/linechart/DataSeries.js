@@ -7,7 +7,7 @@ var Line = require('./Line');
 
 module.exports = React.createClass({
 
-  displayName: 'DataSeries',
+  displayName: 'LineDataSeries',
 
   propTypes: {
     color: React.PropTypes.func,
@@ -20,13 +20,17 @@ module.exports = React.createClass({
 
   getDefaultProps:function() {
     return {
+      colors: d3.scale.category20c(),
+      colorAccessor: function(d, idx) {
+        return idx;
+      },
       data: [],
       xAccessor: function(d)  {return d.x;},
       yAccessor: function(d)  {return d.y;},
-      interpolationType: 'linear'
+      interpolationType: 'cardinal'
     };
   },
-  
+
   _isDate:function(d, accessor) {
       return Object.prototype.toString.call(accessor(d)) === '[object Date]';
   },
@@ -37,7 +41,7 @@ module.exports = React.createClass({
     var yScale = props.yScale;
     var xAccessor = props.xAccessor,
         yAccessor = props.yAccessor;
-    
+
     var interpolatePath = d3.svg.line()
         .y( function(d)  {return props.yScale(yAccessor(d));} )
         .interpolate(props.interpolationType);
@@ -55,11 +59,11 @@ module.exports = React.createClass({
     var lines = props.data.map(function(series, idx)  {
       return (
         React.createElement(Line, {
-          path: interpolatePath(series.values), 
-          stroke: props.colors(props.colorAccessor(series, idx)), 
-          strokeWidth: series.strokeWidth, 
-          strokeDashArray: series.strokeDashArray, 
-          seriesName: series.name, 
+          path: interpolatePath(series.values),
+          stroke: props.colors(props.colorAccessor(series,idx)),
+          strokeWidth: series.strokeWidth,
+          strokeDashArray: series.strokeDashArray,
+          seriesName: series.name,
           key: idx}
         )
       );
@@ -83,22 +87,23 @@ module.exports = React.createClass({
       } else {
         cy = props.yScale(yAccessor(point));
       }
-      circleFill = props.colors(props.colorAccessor(vnode, vnode.point.seriesIndex));
-      
+
+      circleFill = vnode.point.series.color;
+
       return (
           React.createElement(VoronoiCircleContainer, {
-              key: idx, 
-              circleFill: circleFill, 
-              vnode: vnode, 
-              cx: cx, cy: cy, 
+              key: idx,
+              circleFill: circleFill,
+              vnode: vnode,
+              cx: cx, cy: cy,
               circleRadius: props.circleRadius}
           )
       );
     }.bind(this));
 
     return (
-      React.createElement("g", null, 
-        React.createElement("g", null, regions), 
+      React.createElement("g", null,
+        React.createElement("g", null, regions),
         React.createElement("g", null, lines)
       )
     );

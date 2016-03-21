@@ -15,8 +15,16 @@ module.exports = {
           res.send(new Error('Error making a get request to google trends'));
           return reject(err);
         } else {
-          let info = this.convertGtrends(eval(body.slice(61)));
-          return resolve(info);
+          console.log(body.length);
+          let checkType = body.slice(0,1);
+          console.log("the info is of type: ", checkType);
+          if (checkType === '<' || checkType === 'g') {
+            return reject("Error with Google Trends");
+          } else {
+            let info = this.convertGtrends(eval(body.slice(61)));
+
+            return resolve(info);
+          }
         }
       });
     });

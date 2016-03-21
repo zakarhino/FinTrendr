@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "clear ; webpack --progress && nodemon",
-    "test": "mocha",
+    "test": "mocha --compilers js:babel-core/register --require ./test/reactSetup.js",
     "test:enzyme": "mocha --compilers js:babel-core/register --require ./test/reactSetup.js"
   },
   "license": "MIT",

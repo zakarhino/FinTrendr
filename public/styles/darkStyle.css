@@ -1,0 +1,122 @@
+* {
+margin: 0;
+  font-family: 'Homenaje', sans-serif;
+  /* 
+  font-family: 'Squada One', cursive;
+  font-family: 'Teko', sans-serif;
+  font-family: 'Jockey One', sans-serif;
+  */
+}
+
+html, body {
+height: 100%;
+}
+
+body{
+  background-color: #111 !important;
+  color: white;
+}
+
+.list-group {
+  border-radius: 0px;
+}
+.list-group-item {
+  border-radius: 0px;
+}
+
+.spacer {
+  padding: 15px;
+  margin-top: 15px; 
+}
+
+.noRad {
+  border-radius: 0px !important;
+}
+
+.graph {
+  background-color: grey;
+}
+
+.news {
+  background-color: white;
+  color: black;
+}
+
+.tweets {
+  background-color: #2b7bb9;
+  color: white;
+}
+
+.list {
+  background-color: #2cba73;
+  color: white;
+}
+
+.teamList {
+  list-style-type: none;
+}
+.topMargin {
+  margin-top: 100px;
+}
+
+.bottomGreen {
+  border-bottom: solid limegreen 1px;
+  height: 85px;
+}
+
+.mainTitle {
+  color: white;
+  margin-left: 30px;
+}
+
+.subTitle {
+  margin-top: -10px;
+  margin-left: 30px;
+  color: lightgrey;
+}
+
+.search {
+  margin-top: -40px;
+}
+.wrapper {
+min-height: 100%;
+height: auto !important;
+height: 100%;
+margin: 0 auto -4em;
+}
+
+.push{
+/*height: 4em;*/
+}
+.footer {
+/*height: 4em;*/
+  width: 100%;
+  background-color: #333;
+  color: lightgrey;
+  padding-top: 25px;
+  margin-top: 150px;
+  border-top: solid red 1px;
+}
+
+#inputBox {
+  color: black;
+}
+
+#newKeywordBox {
+  color: black;
+}
+
+/* 
+.centeredV {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 250px;
+}
+
+.centeredElement {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+ */
