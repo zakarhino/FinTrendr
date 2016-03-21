@@ -30,6 +30,7 @@ module.exports = React.createClass({
 
      return (
       React.createElement("g", {transform: t},
+
         React.createElement("rect", {
           className: "rd3-treemap-label",
           width: props.width,
@@ -37,16 +38,18 @@ module.exports = React.createClass({
           fill: props.fill,
           onMouseOver: props.handleMouseOver,
           onMouseLeave: props.handleMouseLeave}
-        ),
-        React.createElement("text", {
+        ),React.createElement("text", {
           x: 0,
           y: 0,
           dy: ".35em",
           style: textStyle,
-          className: "rd3-treemap-cell-text"
+          className: "rd3-treemap-cell-text",
+          onMouseOver: props.handleMouseOver,
+          onMouseLeave: props.handleMouseLeave
         },
           props.label
-        )
+        ),
+
       )
     );
   }
