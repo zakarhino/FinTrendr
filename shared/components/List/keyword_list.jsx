@@ -53,6 +53,7 @@ class KeywordList extends Component {
   renderList() {
     return this.props.list.items.map((listItem) => {
       let color = 'black';
+      let checkbox = 
       if (listItem.rel) {
         color = 'green';
         };
@@ -60,9 +61,9 @@ class KeywordList extends Component {
           color: color
         }
         return (
-          <li className="list-group-item" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
-            <span className="pull-xs-right">{listItem.Keyword}</span>
-            <strong>{listItem.corr}</strong>
+          <li className="row" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
+            <span className="col-md-4">{listItem.Keyword}</span>
+            <span className="col-md-4">{listItem.corr}</span>
           </li>
         );
       // onClick={this.getValidation.bind(this,this.props.keyword.Keyword,listItem.Keyword)}
