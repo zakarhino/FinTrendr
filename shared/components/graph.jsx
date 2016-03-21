@@ -22,6 +22,7 @@ export class Graph extends Component {
   render() {
     console.log('I am rerendering!!!', this.props.lineGraph);
     const {currentKeyword} = this.props;
+    console.log(currentKeyword);
     const {lineGraph} = this.props;
     if (!currentKeyword) {
       return (
@@ -29,6 +30,14 @@ export class Graph extends Component {
           Loading Grapha
         </div>
       )
+    }
+
+    if(!currentKeyword.Keyword) {
+      return (
+        <div>
+          There appears to be an issue with Google Trends, please try another search term or wait a few moments
+        </div>
+        );
     }
     const data = this.getDatum();
     //console.log(data);

@@ -97,6 +97,15 @@ margin: 0 auto -4em;
   margin-top: 150px;
   border-top: solid red 1px;
 }
+
+#inputBox {
+  color: black;
+}
+
+#newKeywordBox {
+  color: black;
+}
+
 /* 
 .centeredV {
   display: flex;

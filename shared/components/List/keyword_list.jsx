@@ -53,17 +53,20 @@ class KeywordList extends Component {
   renderList() {
     return this.props.list.items.map((listItem) => {
       let color = 'black';
-      let checkbox = 
+      let picLink = "/img/invalid.png"
+    
       if (listItem.rel) {
         color = 'green';
+        picLink = "/img/checkmark.png"
         };
       let divStyle = {
           color: color
         }
         return (
           <li className="row" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
-            <span className="col-md-4">{listItem.Keyword}</span>
-            <span className="col-md-4">{listItem.corr}</span>
+            <span className="col-md-5">{listItem.Keyword}</span>
+            <span className="col-md-5">{listItem.corr}</span>
+            <img src={picLink} className="col-md-2"/>
           </li>
         );
       // onClick={this.getValidation.bind(this,this.props.keyword.Keyword,listItem.Keyword)}
@@ -91,7 +94,7 @@ class KeywordList extends Component {
         <img src="/img/GraphWhite.png" width="40" className="pull-xs-left" />
         <h3>  Suggested Ideas</h3>
         <form onSubmit={this.fetchKeyword}>
-            <input placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
+            <input id="newKeywordBox" placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
               <button type="submit">Add new Keyword</button>
           </form>
         <ul>
