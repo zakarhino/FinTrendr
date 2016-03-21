@@ -25,7 +25,8 @@ class NewsList extends Component {
   render() {
     return (
       <div className="news spacer">
-        <h3>Related News:</h3>
+        <img src="/img/News.png" width="40" className="pull-xs-left" />
+        <h3>  Related News:</h3>
         <ul className="list-group">
           {this.renderArticles()}
         </ul>

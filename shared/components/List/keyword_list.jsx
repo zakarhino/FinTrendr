@@ -87,7 +87,8 @@ class KeywordList extends Component {
     }
     return (
       <div className="list spacer">
-        <h3>Suggested Ideas</h3>
+        <img src="/img/GraphWhite.png" width="40" className="pull-xs-left" />
+        <h3>  Suggested Ideas</h3>
         <form onSubmit={this.fetchKeyword}>
             <input placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
               <button type="submit">Add new Keyword</button>
