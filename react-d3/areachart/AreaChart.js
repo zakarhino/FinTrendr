@@ -47,6 +47,7 @@ module.exports = React.createClass({
     var innerWidth, innerHeight;
     innerWidth = this.getOuterDimensions().width - props.margins.left - props.margins.right;
     innerHeight = this.getOuterDimensions().height - props.margins.top - props.margins.bottom;
+    console.log(innerHeight);
 
     if (!Array.isArray(data)) {
       data = [data];
