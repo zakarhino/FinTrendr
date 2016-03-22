@@ -102,6 +102,7 @@ function loadCSV(filename) {
       if (error) return reject();
       if (file) {
         fs.readFile(filename, (err, data) => {
+          console.log('reading file')
           if (err) return reject();
           return resolve(csvtojson(data));
         });

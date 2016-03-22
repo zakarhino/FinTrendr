@@ -1,7 +1,7 @@
 * {
 margin: 0;
   font-family: 'Homenaje', sans-serif;
-  /* 
+  /*
   font-family: 'Squada One', cursive;
   font-family: 'Teko', sans-serif;
   font-family: 'Jockey One', sans-serif;
@@ -17,6 +17,21 @@ body{
   color: white;
 }
 
+.about-landing {
+  color: white;
+  padding-top: 10%;
+  text-align: center;
+}
+
+.about-landing h1 {
+  font-size: 7em;
+}
+
+.about-landing p {
+  margin: auto;
+  max-width: 30%;
+}
+
 .list-group {
   border-radius: 0px;
 }
@@ -26,7 +41,7 @@ body{
 
 .spacer {
   padding: 15px;
-  margin-top: 15px; 
+  margin-top: 15px;
 }
 
 .noRad {
@@ -48,6 +63,7 @@ body{
 }
 
 .list {
+  margin-top: 40%;
   background-color: #2cba73;
   color: white;
 }
@@ -106,7 +122,7 @@ margin: 0 auto -4em;
   color: black;
 }
 
-/* 
+/*
 .centeredV {
   display: flex;
   flex-direction: column;
