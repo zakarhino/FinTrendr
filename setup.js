@@ -5,15 +5,15 @@ const stockData = require('./setup/stockData/stockData.js');
 const request  = require('request');
 
 // loadcsv.loadCSV('./setup/goldenticket.csv')
-loadcsv.loadCSV('./setup/newdata6.csv')
-  .then((data) => {
-    for(var i =0; i<data.length; i++) {
-      db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
-    }
-  })
-  .catch(() => {
-    console.log('failed to parse data');
-  });
+// loadcsv.loadCSV('./setup/Companies1.csv')
+//   .then((data) => {
+//     for(var i =0; i<data.length; i++) {
+//       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
+//     }
+//   })
+//   .catch(() => {
+//     console.log('failed to parse data');
+//   });
 
 // let SPX = stockData.SPX;
 // let etfData = [];

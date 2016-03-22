@@ -61,7 +61,8 @@ module.exports = {
                 }
               });
               responseObj.corr = Correlation.calc(newKeyData, userKeywordData);
-              console.log(corr);
+              responseObj.rel = false;
+              console.log(responseObj);
               res.send(responseObj);
             });
           });
