@@ -44,16 +44,16 @@ export class Graph extends Component {
     const viewBoxOject = {
       x: 0,
       y: 0,
-      width: 1000,
-      height: 600,
+      width: 600,
+      height: 500,
     };
     return (
       <div className="graph spacer">
         <AreaChart data ={data} lineData={lineGraph} xAxisTickInterval={{
-          unit: 'month',
+          unit: 'Month',
           interval: 4
-        }} title="Area Chart" interpolate={true} interpolationType='cardinal' xAxisTickCount={24} yAxisLabel='Value' xAxisLabel='Month'
-        width='1000' height='600' viewBoxObject={viewBoxOject}/>
+        }} title={data[0].Key} interpolate={true} interpolationType='cardinal' yAxisTickCount={3} xAxisTickCount={24} yAxisLabel='Value'
+        width='100%' height='100%' viewBoxObject={viewBoxOject}/>
       </div>
     );
   }
