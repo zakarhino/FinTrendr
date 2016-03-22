@@ -1,6 +1,5 @@
 'use strict';
 
-
 require('babel-core/register')({});
 require('babel-polyfill');
 
@@ -8,10 +7,11 @@ const server = require('./server/server').default;
 const loadcsv = require('./utility/csvtojson.js');
 const db = require('./server/db/db-model.js');
 const stockData = require('./setup/stockData/stockData.js');
+const request = require('request');
 
 const PORT = process.env.PORT || 3000;
 
-// loadcsv.loadCSV('setup/goldenticket.csv')
+// loadcsv.loadCSV('setup/Companies3.csv')
 //   .then((data) => {
 //     for(var i =0; i<data.length; i++) {
 //       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
@@ -33,6 +33,7 @@ const PORT = process.env.PORT || 3000;
 //     request.get('https://www.quandl.com/api/v3/datasets/WIKI/' + symbol.Symbol + '/data.json?column_index=4&api_key=fiuzUjysoMY6y1FMEbBE&start_date=2014-02-28&end_date=2016-01-31&order=asc&collapse=monthly',
 //       (err, response, body) => {
 //         console.log('request response');
+//         console.log("body type:", typeof body);
 //         var parsedBody = JSON.parse(body);
 //         if (err) {
 //           reject(err);

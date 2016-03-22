@@ -13,12 +13,16 @@ height: 100%;
 }
 
 body{
-  background-color: #111 !important;
+  background-color: #ECF0F1 !important;
   color: white;
 }
 
+.container {
+  padding-top: 1%;
+}
+
 .about-landing {
-  color: white;
+  color: black;
   padding-top: 10%;
   text-align: center;
 }
@@ -40,8 +44,9 @@ body{
 }
 
 .spacer {
-  padding: 15px;
-  margin-top: 15px;
+  /*padding: 15px;
+  margin-top: 15px;*/
+  margin-top: 20px;
 }
 
 .noRad {
@@ -49,12 +54,24 @@ body{
 }
 
 .graph {
-  background-color: grey;
+  /*background-color: grey;*/
 }
 
 .news {
+  /*top: 75px;
+  right: 0;
+  height: 100%;
+  max-width: 360px;
+  background: #f00;*/
+  position: fixed;
+  overflow: auto;
   background-color: white;
+  max-height: 100%;
   color: black;
+}
+
+.news-wrapper {
+  padding-top: 7px;
 }
 
 .tweets {
@@ -76,7 +93,7 @@ body{
 }
 
 .bottomGreen {
-  border-bottom: solid limegreen 1px;
+  border-bottom: solid #E74C3C 1px;
   height: 85px;
 }
 
@@ -95,10 +112,10 @@ body{
   margin-top: -40px;
 }
 .wrapper {
-min-height: 100%;
-height: auto !important;
-height: 100%;
-margin: 0 auto -4em;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
 }
 
 .push{
@@ -142,7 +159,7 @@ margin: 0 auto -4em;
 
 .newsExample-appear {
   opacity: 0.01;
-  
+
 }
 
 .newsExample-appear.newsExample-appear-active {
@@ -150,7 +167,11 @@ margin: 0 auto -4em;
   transition: opacity .1s ease-in;
 }
 
-/* 
+.bg-inverse {
+  background-color: #2C3E50 !important;
+}
+
+/*
 .centeredV {
   display: flex;
   flex-direction: column;
@@ -163,4 +184,3 @@ margin: 0 auto -4em;
   top: 50%;
   transform: translateY(-50%);
 }
- 
