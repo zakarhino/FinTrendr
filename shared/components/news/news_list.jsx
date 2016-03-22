@@ -13,9 +13,11 @@ class NewsList extends Component {
     if (this.props.term.Keyword !== nextProps.term.Keyword) {
       this.props.getNews(nextProps.term);
     }
+      if(this.props.term.Keyword === nextProps.term.Keyword && this.props.linegraph[0] !== nextProps.linegraph[0]) {
+        this.props.getNews(nextProps.term,nextProps.linegraph[0].key);
+      }
   }
   renderArticles() {
-    console.log(this.props.news);
     let count = 0;
     return this.props.news.map((article) => {
       count++;
@@ -51,6 +53,6 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 };
 function mapStateToProps(state) {
-  return {news: state.news.all, term: state.keyword.current};
+  return {news: state.news.all, term: state.keyword.current, linegraph: state.linegraph.linegraph};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NewsList);
