@@ -57,10 +57,11 @@ module.exports = React.createClass({
         }
 
     var lines = props.data.map(function(series, idx)  {
+      console.log(props.data)
       return (
         React.createElement(Line, {
           path: interpolatePath(series.values),
-          stroke: props.colors(props.colorAccessor(series,idx)),
+          stroke: props.data[0].color,
           strokeWidth: series.strokeWidth,
           strokeDashArray: series.strokeDashArray,
           seriesName: series.name,
