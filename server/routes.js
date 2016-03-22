@@ -58,7 +58,7 @@ export default (app) => {
       }
       const InitComp = (
         <Provider store = { storeWithMiddleware }>
-          <RouterContext {...props }/>
+          <RouterContext {...props} />
         </Provider>
       );
       const componentHTML = renderToString(InitComp);
@@ -82,8 +82,8 @@ export default (app) => {
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
         </head>
         <body>
-          <div id="container" class="wrapper">${componentHTML}
-            <div class="push"></div>
+          <div id="container" class="wrapper">
+            ${componentHTML}
           </div>
           <footer class="footer">
             <div class="container">

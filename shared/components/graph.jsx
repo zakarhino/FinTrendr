@@ -20,9 +20,7 @@ export class Graph extends Component {
     ];
   }
   render() {
-    console.log('I am rerendering!!!', this.props.lineGraph);
     const {currentKeyword} = this.props;
-    console.log(currentKeyword);
     const {lineGraph} = this.props;
     if (!currentKeyword) {
       return (
@@ -52,7 +50,7 @@ export class Graph extends Component {
         <AreaChart data ={data} lineData={lineGraph} xAxisTickInterval={{
           unit: 'Month',
           interval: 4
-        }} title={data[0].Key} interpolate={true} interpolationType='cardinal' yAxisTickCount={3} xAxisTickCount={24} yAxisLabel='Value'
+        }} title={data[0].Key} interpolate={true} interpolationType='cardinal' yAxisTickCount={3} yAxisLabel='Value'
         width='100%' height='100%' viewBoxObject={viewBoxOject}/>
       </div>
     );

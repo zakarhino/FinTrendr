@@ -55,6 +55,11 @@ body {
   cursor: pointer;
   stroke: #EEEEEE;
 }
+
+.rd3-treemap-parent:hover .rd3-treemap-label { fill: #FFFFFF;}
+
+.rd3-treemap-parent:hover .rd3-treemap-cell-text { fill: #FFFFFF; }
+
 .news {
   margin-top: 10px !important;
   margin-bottom: 10px;

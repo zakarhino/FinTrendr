@@ -22,7 +22,6 @@ module.exports = React.createClass({
     };
   },
 
-
   render:function() {
 
     var props = this.props;
@@ -32,7 +31,9 @@ module.exports = React.createClass({
         props,
         {fill: this.state.fill,
         handleMouseOver: props.hoverAnimation ? this._animateCell : null,
-        handleMouseLeave: props.hoverAnimation ? this._restoreCell : null})
+        handleMouseLeave: props.hoverAnimation ? this._restoreCell : null,
+        handleClick : this._clickCell
+      })
       )
     );
   }
@@ -46,18 +47,20 @@ module.exports = React.createClass({
 ));
 }
 },
+_clickCell : function(){
 
+  window.open(
+  'http://finance.yahoo.com/q?s='+this.props.label,
+  '_blank'
+  );
+},
   _animateCell:function() {
-    if (this.state.fill ==='transparent'){
-    this.setState({
-      fill: shade('#d3d3d3',0.05)
-    });
-  }
-  else {
-    this.setState({
-      fill: shade(this.state.fill,0.05)
-    });
-  }
+    if (this.state.fill !=='transparent'){
+      this.setState({
+        fill: shade(this.state.fill,0.05)
+      });
+    }
+
   },
 
   _restoreCell:function() {
