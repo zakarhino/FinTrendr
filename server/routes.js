@@ -57,8 +57,8 @@ export default (app) => {
           .end('Not found');
       }
       const InitComp = (
-        < Provider store = { storeWithMiddleware } >
-          < RouterContext {...props }/>
+        <Provider store = { storeWithMiddleware }>
+          <RouterContext {...props }/>
         </Provider>
       );
       const componentHTML = renderToString(InitComp);

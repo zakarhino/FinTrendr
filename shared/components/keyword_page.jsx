@@ -48,16 +48,19 @@ class KeywordPage extends Component {
         <div className="container">
 
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-sm-12 col-md-8">
               <Graph/>
-              TreeMapView
             </div>
 
-            <div className="col-md-4">
+            <div className="col-sm-12 col-md-4">
               <KeywordList/>
             </div>
           </div>
-
+          <div className="row">
+              <div className="col-md-12">
+                <TreeMapView/>
+              </div>
+          </div>
           <div className="row">
             <div className="col-sm-6">
               <NewsList/>
@@ -67,7 +70,7 @@ class KeywordPage extends Component {
               <LandingPage/>
             </div>
           </div>
-          
+
         </div>
       </div>
     );
