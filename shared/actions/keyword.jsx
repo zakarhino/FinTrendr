@@ -38,7 +38,7 @@ export function getValidationInfo(keyword,listItem) {
     keyword: keyword,
     listItem: listItem
   };
-  const url = 'http://localhost:3000/api/validationInfo';
+  const url = '/api/validationInfo';
   const request = axios.post(url,data);
 
   return {
