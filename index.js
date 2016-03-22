@@ -5,10 +5,13 @@ require('babel-core/register')({});
 require('babel-polyfill');
 
 const server = require('./server/server').default;
+const loadcsv = require('./utility/csvtojson.js');
+const db = require('./server/db/db-model.js');
+const stockData = require('./setup/stockData/stockData.js');
 
 const PORT = process.env.PORT || 3000;
-//
-// loadcsv.loadCSV('goldenticket.csv')
+
+// loadcsv.loadCSV('setup/goldenticket.csv')
 //   .then((data) => {
 //     for(var i =0; i<data.length; i++) {
 //       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
@@ -16,6 +19,8 @@ const PORT = process.env.PORT || 3000;
 //   })
 //   .catch(() => {
 //     console.log('failed to parse data');
+//   }).then(function (){
+//     console.log("done all!");
 //   });
 
 // let SPX = stockData.SPX;
