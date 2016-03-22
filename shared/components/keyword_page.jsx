@@ -44,16 +44,14 @@ class KeywordPage extends Component {
     }
     return (
       <div>
-        Welcome to the keyword page of Trendr. Search for a term.
-        <div className="container">
+        <div className="info col-md-9">
 
           <div className="row">
-            <div className="col-sm-12 col-md-8">
-              <Graph/>
-            </div>
-
             <div className="col-sm-12 col-md-4">
               <KeywordList/>
+            </div>
+            <div className="col-sm-12 col-md-8">
+              <Graph/>
             </div>
           </div>
           <div className="row">
@@ -62,15 +60,12 @@ class KeywordPage extends Component {
               </div>
           </div>
           <div className="row">
-            <div className="col-sm-6">
-              <NewsList/>
-            </div>
-
-            <div className="col-sm-6">
-              <HotTrends />
-            </div>
+            <HotTrends />
           </div>
 
+        </div>
+        <div className="news-wrapper col-md-3">
+          <NewsList />
         </div>
       </div>
     );
