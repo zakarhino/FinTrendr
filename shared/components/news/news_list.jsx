@@ -16,13 +16,14 @@ class NewsList extends Component {
     return this.props.news.map((article) => {
       return (
         <li key={article.guid} className="list-group-item">
-          <p><a href="http://news.google.com">{article.title}</a></p>
+          <p><a href={article.link} target="_blank">{article.title}</a></p>
           <p>{article.pubDate}</p>
         </li>
       );
     });
   }
   render() {
+    console.log(this.props.news);
     return (
       <div className="news spacer">
         <img src="/img/News.png" width="40" className="pull-xs-left" />
