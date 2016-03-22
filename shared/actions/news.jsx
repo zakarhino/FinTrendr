@@ -3,9 +3,12 @@ import parser from 'xml2js';
 
 export const FETCH_NEWS = "FETCH_NEWS";
 
-export function getNews(keyword) {
+export function getNews(keyword,selectedKeyword) {
   const url = '/api/getNews';
-  const request = axios.get(`${url}/${keyword.Keyword}`);
+  let request = axios.get(`${url}/${keyword.Keyword}`);
+  if(selectedKeyword) {
+    request = axios.get(`${url}/"${keyword.Keyword}" "${selectedKeyword}"`);
+  }
 
   return {
     type: FETCH_NEWS,
