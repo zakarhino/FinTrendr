@@ -19,19 +19,19 @@ class NewsList extends Component {
   }
   alchemyInfo(articleLink) {
     if (this.props.linegraph[0]) {
-      this.props.getAlchemyInfo(this.props.term.Keyword, this.props.linegraph[0].key, articleLink)
+      this.props.getAlchemyInfo(this.props.term.Keyword, this.props.linegraph[0].key, articleLink);
     }
   }
   renderArticles() {
     let count = 0;
     return this.props.news.map((article) => {
-      let picLink = "/img/questionmark.png"
+      let picLink = "/img/questionmark.png";
       if (article.link === this.props.alchemy.url) {
         picLink = "/img/checkmark.png";
       }
       let popOver = (
         <Popover id="newsInfo" className="newsPopOver" title={article.title}>{article.contentSnippet}</Popover>
-      )
+      );
       return (
       // <li key={article.link}  className="list-group-item" onClick={this.alchemyInfo.bind(this,article.link)} data-tip data-for={`article-${count}`}>
       //   <p><a href={article.link} target="_blank">{article.title}</a></p>
