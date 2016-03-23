@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import { Link } from 'react-router'
 
 export class MainPanel extends Component {
@@ -16,7 +17,11 @@ export class MainPanel extends Component {
     return (
     <div>
       <div className="sidebar">
-
+         <ul className="nav nav-sideBar">
+            <li><Link to='/'>Dashboard</Link></li>
+            <li><Link to='/'>Stock View</Link></li>
+            <li>About us</li>
+          </ul>
       </div>
         <div>
           {this.props.children}
@@ -24,17 +29,11 @@ export class MainPanel extends Component {
       </div>
     )
   }
-
 }
 
-//  <ul className="nav nav-sideBar">
-  //   <li><Link to={`/k/${this.props.params.keyword}`}>Dashboard</Link></li>
-  //   <li><Link to={`/k/${this.props.params.keyword}/stock`}>Stock View</Link></li>
-  //   <li>About us</li>
-  // </ul>
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     setPage
-//   }, dispatch);
-// }
-// export default connect(null,mapDispatchToProps)(MainPanel);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    setPage
+  }, dispatch);
+}
+export default connect(null,mapDispatchToProps)(MainPanel);
