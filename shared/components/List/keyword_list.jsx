@@ -4,7 +4,7 @@ import {getCorrelationInfo} from '../../actions/keyword';
 import {bindActionCreators} from 'redux';
 // import { getValidationInfo } from '../../actions/keyword';
 import {getHotTrends} from '../../actions/hotTrends';
-import {saveKeywordInfo} from '../../actions/saveKeyword'
+import {saveKeywordInfo} from '../../actions/saveKeyword';
 import {putToGraph} from '../../actions/linegraph';
 
 class KeywordList extends Component {
@@ -13,7 +13,7 @@ class KeywordList extends Component {
     this.state = {
       addedKeyword: ''
     };
-    this.fetchKeyword = this.fetchKeyword.bind(this)
+    this.fetchKeyword = this.fetchKeyword.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
   componentWillMount() {
@@ -53,15 +53,15 @@ class KeywordList extends Component {
   renderList() {
     return this.props.list.items.map((listItem) => {
       let color = 'black';
-      let picLink = "/img/invalid.png"
-    
+      let picLink = "/img/invalid.png";
+
       if (listItem.rel) {
         color = 'green';
-        picLink = "/img/checkmark.png"
+        picLink = "/img/checkmark.png";
         };
       let divStyle = {
           color: color
-        }
+        };
         return (
           <li className="row" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
             <span className="col-md-5">{listItem.Keyword}</span>
