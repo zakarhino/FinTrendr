@@ -89,13 +89,13 @@ class KeywordList extends Component {
     const {list} = this.props;
     if (!list || !list.items || list.items.length === 0) {
       return (
-        <div className="text-xs-center graph spacer">
+        <div className="text-xs-center drop-shadow spacer">
           <Loading />
         </div>
       );
     }
     return (
-      <div className="graph spacer">
+      <div className="drop-shadow spacer">
         <img src="/img/Graph.png" width="40" className="pull-xs-left iconPadding" />
         <h3>  Suggested Ideas</h3>
         <form onSubmit={this.fetchKeyword}>
