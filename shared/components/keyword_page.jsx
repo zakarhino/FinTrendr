@@ -46,11 +46,11 @@ class KeywordPage extends Component {
       <div>
         <div className="info col-md-9">
 
-          <div className="row">
-            <div className="col-sm-12 col-md-4">
+          <div className="graph-info row">
+            <div className="col-sm-12 col-md-3">
               <KeywordList/>
             </div>
-            <div className="col-sm-12 col-md-8">
+            <div className="col-sm-12 col-md-9">
               <Graph/>
             </div>
           </div>

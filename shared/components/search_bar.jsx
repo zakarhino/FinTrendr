@@ -23,7 +23,7 @@ export class SearchBar extends Component {
   }
 
   onFormSubmit() {
-    return `/keywordPage/${this.state.term}`;
+    return `/k/${this.state.term}`;
   }
 
   render(){

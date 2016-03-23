@@ -9,7 +9,7 @@ export class Graph extends Component {
     let graphData = [];
     for (var item of currentKeyword.data) {
       let key = Object.keys(item)[0];
-      graphData.push({x: new Date(key), y: item[key]})
+      graphData.push({x: new Date(key), y: item[key]});
     }
     return [
       {
@@ -27,7 +27,7 @@ export class Graph extends Component {
         <div>
           Loading Grapha
         </div>
-      )
+      );
     }
 
     if(!currentKeyword.Keyword) {
@@ -35,7 +35,7 @@ export class Graph extends Component {
         <div>
           There appears to be an issue with Google Trends, please try another search term or wait a few moments
         </div>
-        );
+      );
     }
     const data = this.getDatum();
     //console.log(data);
