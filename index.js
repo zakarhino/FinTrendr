@@ -44,6 +44,7 @@ const PORT = process.env.PORT || 3000;
 //           });
 //           returnObj.Stock = symbol.Symbol;
 //           returnObj.Sector = symbol.Sector;
+//           returnObj.Name = symbol.Name;
 //           resolve(returnObj);
 //         }
 //       });
