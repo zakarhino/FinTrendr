@@ -23,7 +23,7 @@ body{
 
 .about-landing {
   color: black;
-  padding-top: 10%;
+  padding-top: 3%;
   text-align: center;
 }
 
@@ -85,6 +85,12 @@ body{
 
 .list {
   margin-top: 40%;
+  background-color: #2cba73;
+  color: white;
+}
+
+.listLanding {
+  /*margin-top: 2%;*/
   background-color: #2cba73;
   color: white;
 }

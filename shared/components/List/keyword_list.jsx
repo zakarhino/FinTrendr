@@ -57,7 +57,7 @@ class KeywordList extends Component {
 
       if (listItem.rel) {
         color = 'green';
-        picLink = "/img/YesBlack.png";
+        picLink = "/img/YesGreen.png";
         };
       let divStyle = {
           color: color
@@ -66,7 +66,7 @@ class KeywordList extends Component {
           <tr style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
             <td>{listItem.Keyword}</td>
             <td>{listItem.corr.toFixed(2)}</td>
-
+            <td><img className="veriImage" src={picLink} width="20" height="20"/></td>
           </tr>
         );
         //<td><img className="veriImage" src={picLink}/></td>

@@ -5,15 +5,15 @@ const stockData = require('./setup/stockData/stockData.js');
 const request  = require('request');
 
 //loadcsv.loadCSV('./setup/goldenticket.csv')
-loadcsv.loadCSV('./setup/Companies3.csv')
-  .then((data) => {
-    for(var i =0; i<data.length; i++) {
-      db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
-    }
-  })
-  .catch(() => {
-    console.log('failed to parse data');
-  });
+// loadcsv.loadCSV('./setup/Cashtags.csv')
+//   .then((data) => {
+//     for(var i =0; i<data.length; i++) {
+//       db.saveKeyword(data[i]).then((node)=> {console.log('done!');}).catch((err)=> {console.log(err);});
+//     }
+//   })
+//   .catch(() => {
+//     console.log('failed to parse data');
+//   });
 
 // let SPX = stockData.SPX;
 // let etfData = [];
@@ -24,7 +24,7 @@ loadcsv.loadCSV('./setup/Companies3.csv')
 //     console.log('promise in');
 //     console.log(symbol);
 //     mult++;
-//     setTimeout(function() {
+//     // setTimeout(function() {
 //     request.get('https://www.quandl.com/api/v3/datasets/WIKI/' + symbol.Symbol + '/data.json?column_index=4&api_key=fiuzUjysoMY6y1FMEbBE&start_date=2014-03-31&end_date=2016-02-29&order=asc&collapse=monthly',
 //       (err, response, body) => {
 //         console.log('request response');
@@ -43,23 +43,24 @@ loadcsv.loadCSV('./setup/Companies3.csv')
 //           resolve(returnObj);
 //         }
 //       });
-//     }, 400 * mult);
-//
+//     // }, 400 * mult);
+
 //   });
-//
+
 //   etfData.push(promise);
 // });
-//
+
 // Promise.all(etfData).then((results) => {
 //   results.forEach((stock) => {
-//     setTimeout(function() {  stock.data = JSON.stringify(stock.data);
-//
+//     // setTimeout(function() {  
+//       stock.data = JSON.stringify(stock.data);
+
 //     db.saveStock( stock ).then((node) => {
 //         console.log('done!');
 //       })
 //       .catch((err) => {
 //         console.log(err);
 //       });
-//     },400);
+//     // },400);
 //   });
 // });
