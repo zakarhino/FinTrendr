@@ -206,7 +206,7 @@ module.exports = {
         }).
         catch( (info) => {
           console.log("Error with Google Trends");
-          res.send({})
+          res.send("")
         });
       }
     });
