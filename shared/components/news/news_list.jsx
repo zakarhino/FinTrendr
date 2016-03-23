@@ -52,11 +52,11 @@ class NewsList extends Component {
       <div className="news spacer">
         <img src="/img/News.png" width="40" className="pull-xs-left" />
         <h3>Related News:</h3>
-          <ul className="list-group">
-          <ReactCSSTransitionGroup transitionName="newsExample" transitionEnterTimeout={500} transitionLeaveTimeout={300} transitionAppear={true}>
-            {this.renderArticles()}
-            </ReactCSSTransitionGroup>
-          </ul>
+        <ul className="list-group">
+        <ReactCSSTransitionGroup transitionName="newsExample" transitionEnterTimeout={500} transitionLeaveTimeout={300} transitionAppear={true}>
+          {this.renderArticles()}
+          </ReactCSSTransitionGroup>
+        </ul>
       </div>
 
     );
