@@ -36,7 +36,6 @@ class KeywordList extends Component {
   // }
   fetchKeyword(event) {
       event.preventDefault();
-      console.log('came once',this.state.addedKeyword);
       this.props.saveKeywordInfo(this.state.addedKeyword, this.props.keyword);
   }
 
@@ -64,12 +63,13 @@ class KeywordList extends Component {
           color: color
         };
         return (
-          <li className="row no-bullet even-padding" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
-            <span className="col-md-6">{listItem.Keyword}</span>
-            <span className="col-md-4">{listItem.corr}</span>
-            <img src={picLink} className="col-md-2"/>
-          </li>
+          <tr style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
+            <td>{listItem.Keyword}</td>
+            <td>{listItem.corr.toFixed(2)}</td>
+
+          </tr>
         );
+        //<td><img className="veriImage" src={picLink}/></td>
       // onClick={this.getValidation.bind(this,this.props.keyword.Keyword,listItem.Keyword)}
     });
   }
@@ -95,23 +95,27 @@ class KeywordList extends Component {
       );
     }
     return (
-      <div className="drop-shadow spacer">
+      <div className="drop-shadow container spacer">
         <img src="/img/Graph.png" width="40" className="pull-xs-left iconPadding" />
         <h3>  Suggested Ideas</h3>
-        <form onSubmit={this.fetchKeyword}>
-            <input id="newKeywordBox" placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
-              <button type="submit">Add new Keyword</button>
-          </form>
-        <ul className="even-padding">
-          <li className="row no-bullet even-padding">
-            <span className="col-md-6 list-header">Keyword</span>
-            <span className="col-md-4 list-header">Correlation</span>
-            <span className="col-md-2 list-header">Verified</span>
-          </li>
-        </ul>
-        <ul className="even-padding">
-          {this.renderList()}
-        </ul>
+        <div className="input-group" >
+            <input id="newKeywordBox" className="form-controler" placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
+            <div className="input-group-btn">
+              <button className="btn btn-default btn-sm" type="button" onClick={this.fetchKeyword} >Add new Keyword</button>
+            </div>
+          </div>
+          <table className="table table-hover">
+          <thead>
+            <tr>
+                <th>Keyword</th>
+                <th>Correlation</th>
+                <th>Verified</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderList()}
+            </tbody>
+          </table>
       </div>
     );
   }

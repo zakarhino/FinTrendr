@@ -10,61 +10,62 @@ import NavBar from './nav_bar';
 import TweetList from './twitter/tweet_list';
 import HotTrends from './hot_trends';
 import TreeMapView from './List/treemap_view';
+import {Panel} from 'react-bootstrap';
+import {MainPanel} from './main_panel';
 
 class KeywordPage extends Component {
   constructor(props) {
     super(props);
     //this.setState({keyword:this.props.params.keyword})
-    this.state = {listView: true};
-    console.log('In Keyword Page setting',this.state,this.props);
+    this.state = {
+      listView: true,
+      mainPage: 'keyword'
+    };
+    console.log('In Keyword Page setting', this.state, this.props);
   }
-
-  componentWillMount(){
-    if (this.props.params.keyword!==this.state.keyword){
-    this.props.getKeyword(this.props.params.keyword);
+  componentWillMount() {
+    if (this.props.params.keyword !== this.state.keyword) {
+      this.props.getKeyword(this.props.params.keyword);
     }
   }
-
-  switchView(){
-    if (this.state.listView)
-    {
-        this.setState({listView: false});
-    }
-    else {
-        this.setState({listView: true});
+  switchView() {
+    if (this.state.listView) {
+      this.setState({listView: false});
+    } else {
+      this.setState({listView: true});
     }
   };
-
   render() {
-    let keywordCorrView = {};
-    if (this.state.listView) {
-      keywordCorrView = <KeywordList/>;
-    } else {
-      keywordCorrView = <TreeMapView/>;
-    }
+    let keywordCorrView = (
+        <div>
+          <div className="info col-sm-12 col-md-10">
+            <div className="row">
+              <div className="col-sm-12 col-md-3">
+                <Panel>
+                  <KeywordList/>
+                </Panel>
+              </div>
+              <div className="col-sm-12 col-md-9">
+                <Panel>
+                  <Graph/>
+                </Panel>
+              </div>
+            </div>
+          </div>
+          <div className="col-sm-0 col-md-2">
+            <Panel>
+              <NewsList/>
+            </Panel>
+          </div>
+          <div>
+            <TreeMapView/>
+          </div>
+        </div >
+      )
     return (
       <div>
-        <div className="info col-md-9">
-          <div className="graph-info row">
-            <div className="col-sm-12 col-md-3">
-              <KeywordList/>
-            </div>
-            <div className="col-sm-12 col-md-9">
-              <Graph/>
-            </div>
-          </div>
-          <div className="row">
-              <div className="col-md-12">
-                <TreeMapView/>
-              </div>
-          </div>
-          <div className="row">
-            <HotTrends />
-          </div>
-        </div>
-        <div className="news-wrapper col-md-3">
-          <NewsList />
-        </div>
+        <div className="col-md-1"><MainPanel/></div>
+        <div className="col-md-11">{keywordCorrView}</div>
       </div>
     );
   }

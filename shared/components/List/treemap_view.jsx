@@ -6,8 +6,8 @@ import {getStocksInfo} from '../../actions/stocks';
 import d3 from 'd3';
 class TreeMap extends Component {
   componentWillMount() {
-    if (this.props.keyword) {
-      this.props.getStocksInfo(this.props.keyword);
+    if (this.props.param) {
+      this.props.getStocksInfo(this.props.param.keyword);
     }
   }
   componentWillReceiveProps(nextProps) {

@@ -2,6 +2,7 @@
 var React = require('react');
 var d3 = require('d3');
 var CellContainer = require('./CellContainer');
+
 module.exports = React.createClass({
   displayName: 'DataSeries',
   propTypes: {
@@ -49,7 +50,6 @@ module.exports = React.createClass({
     })
     var nodes = treemap(props.data);
     var parents = parents.map(function(node) {
-      //node.dy+=20;
       return (React.createElement(CellContainer, {
         key: node.name,
         x: node.x,
@@ -65,6 +65,8 @@ module.exports = React.createClass({
       }));
     }, this);
     var cells = children.map(function(node) {
+      if (node.label)
+      {
       return (React.createElement(CellContainer, {
         key: node.label,
         x: node.x,
@@ -73,11 +75,14 @@ module.exports = React.createClass({
         height: node.dy,
         fill: props.colors(props.colorAccessor(node)),
         label: node.label,
+        name: node.name,
+        corr: node.value,
         fontSize: props.fontSize,
         textColor: props.textColor,
         hoverAnimation: props.hoverAnimation,
         type: 'cell'
       }));
+    }
     }, this);
     var final = parents.concat(cells);
     return (React.createElement("g", {
