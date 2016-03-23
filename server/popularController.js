@@ -62,7 +62,7 @@ module.exports = {
           }
           let randomTen = [];
           for (var i = 0; i < 10; i++) {
-            randomTen.push(popularArray[Math.floor(Math.random() * popularArray.length)]);
+            randomTen.push(popularArray[i]);
           }
           //console.log(randomTen);
           resolve(randomTen);

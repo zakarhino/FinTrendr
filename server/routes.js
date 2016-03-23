@@ -15,6 +15,7 @@ import reducer from '../shared/reducers';
 import KeywordController from './controller.js';
 import HotTrendsController from './hotTrendsController.js';
 import SaveKeywordController from './saveKeywordController.js';
+import GetAlchemyInfo from './alchemyController.js';
 
 
 // Import redux middleware
@@ -35,6 +36,7 @@ export default (app) => {
   app.get('/api/getHotTrendsInfo', HotTrendsController.getHotTrendsInfo);
   app.get('/api/getNews/:keyword', KeywordController.getNews);
   app.post('/api/saveKeywordInfo/', SaveKeywordController.saveKeywordInfo);
+  app.post('/api/getAlchemyInfo/', GetAlchemyInfo.getAlchemyInfo);
 
   app.use((req, res) => {
     const location = createLocation(req.url);

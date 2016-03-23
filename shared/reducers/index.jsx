@@ -6,6 +6,7 @@ import List from './reducer_list';
 import getStocks from './reducer_stocks';
 import getHotTrends from './reducer_hotTrends';
 import putToGraph from './reducer_puttograph';
+import getAlchemyInfo from './reducer_alchemy';
 
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
   list: List,
   stocks: getStocks,
   hotTrends: getHotTrends,
-  linegraph: putToGraph
+  linegraph: putToGraph,
+  alchemy: getAlchemyInfo
 });

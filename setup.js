@@ -39,6 +39,7 @@ SPX.forEach((symbol) => {
           });
           returnObj.Stock = symbol.Symbol;
           returnObj.Sector = symbol.Sector;
+          returnObj.Name = symbol.Name;
           resolve(returnObj);
         }
       });
