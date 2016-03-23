@@ -59,6 +59,7 @@ _clickCell : function(){
       this.setState({
         fill: shade(this.state.fill,0.05)
       });
+
     }
 
   },

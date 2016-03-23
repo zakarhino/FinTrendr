@@ -115,6 +115,7 @@ let buildSectorObj = (stockList, scaledArray) => {
       let corr = 0;
       let adjustedStockObj = {};
       adjustedStockObj.label = stockObj.Stock;
+      adjustedStockObj.name = stockObj.Name;
       if (scaledArray.length === stockData.length) {
         corr = Correlation.calc(scaledArray, stockData);
       }

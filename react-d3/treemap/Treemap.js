@@ -12,8 +12,8 @@ module.exports = React.createClass({
   propTypes: {
     data:           React.PropTypes.object,
     margins:        React.PropTypes.object,
-    width:          React.PropTypes.string,
-    height:         React.PropTypes.string,
+    width:          React.PropTypes.node,
+    height:         React.PropTypes.node,
     title:          React.PropTypes.string,
     textColor:      React.PropTypes.string,
     fontSize:       React.PropTypes.oneOfType([

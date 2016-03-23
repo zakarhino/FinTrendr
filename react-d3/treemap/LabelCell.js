@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
     var textStyle = {
       'textAnchor': 'start',
-      'alignment-baseline' :'hanging',
+      'alignmentBaseline' :'hanging',
       'fill': props.textColor,
       'fontSize': props.fontSize
     };

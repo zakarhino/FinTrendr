@@ -19,6 +19,8 @@ module.exports = React.createClass({
     interpolate:       React.PropTypes.bool,
     interpolationType: React.PropTypes.string,
     hoverAnimation:    React.PropTypes.bool,
+    width:             React.PropTypes.node,
+    height:            React.PropTypes.node,
  },
 
   getDefaultProps:function() {
