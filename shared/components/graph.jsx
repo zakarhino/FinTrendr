@@ -46,9 +46,8 @@ export class Graph extends Component {
       height: 500,
     };
     return (
-      <div className="drop-shadow spacer">
-        <AreaChart data ={data} lineData={lineGraph} xAxisTickInterval={{
-          unit: 'Month',
+      <div className="drop-shadow spacer container">
+        <AreaChart data ={data} lineData={lineGraph} xAxisLabel='Month' xAxisTickInterval={{
           interval: 4
         }} title={data[0].Key} interpolate={true} interpolationType='cardinal' yAxisTickCount={3} yAxisLabel='Value'
         width='100%' height='100%' viewBoxObject={viewBoxOject}/>

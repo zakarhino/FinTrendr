@@ -8,7 +8,6 @@ import getHotTrends from './reducer_hotTrends';
 import putToGraph from './reducer_puttograph';
 import getAlchemyInfo from './reducer_alchemy';
 
-
 export default combineReducers({
   keyword: KeywordReducer,
   news: NewsReducer,
@@ -17,5 +16,5 @@ export default combineReducers({
   stocks: getStocks,
   hotTrends: getHotTrends,
   linegraph: putToGraph,
-  alchemy: getAlchemyInfo
+  alchemy: getAlchemyInfo,
 });
