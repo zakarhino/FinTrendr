@@ -112,6 +112,13 @@ body{
   color: lightgrey;
 }
 
+.title-link {
+  color: white;
+}
+.title-link:hover {
+  color: white;
+}
+
 .search {
   margin-top: -40px;
 }
@@ -136,6 +143,10 @@ body{
 .list-header {
   text-decoration: underline;
   font-weight: bold;
+}
+.drop-shadow {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .push{

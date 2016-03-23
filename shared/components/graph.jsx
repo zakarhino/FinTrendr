@@ -46,7 +46,7 @@ export class Graph extends Component {
       height: 500,
     };
     return (
-      <div className="graph spacer">
+      <div className="drop-shadow spacer">
         <AreaChart data ={data} lineData={lineGraph} xAxisTickInterval={{
           unit: 'Month',
           interval: 4
