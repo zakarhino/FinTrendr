@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
 import { Link } from 'react-router';
 
-export class SearchBar extends Component {
+class SearchBar extends Component {
 
   static contextTypes = {
     router: PropTypes.object
@@ -16,6 +16,7 @@ export class SearchBar extends Component {
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   onInputChange(event) {
@@ -26,6 +27,13 @@ export class SearchBar extends Component {
     return `/k/${this.state.term}`;
   }
 
+  handleKeyPress(e) {
+    if(e.key === 'Enter') {
+      document.getElementById('search-button').click();
+      // this.context.router.transitionTo(`/k/${this.state.term}`);
+    }
+  }
+
   render(){
     return (
       <div>
@@ -33,9 +41,10 @@ export class SearchBar extends Component {
           placeholder = "input a keyword"
           id="inputBox"
           value={this.state.term}
-          onChange={this.onInputChange} />
+          onChange={this.onInputChange}
+          onKeyPress={this.handleKeyPress} />
         <button>
-        <a href={this.onFormSubmit()}>
+        <a id="search-button" href={this.onFormSubmit()}>
             Search
         </a></button>
       </div>
