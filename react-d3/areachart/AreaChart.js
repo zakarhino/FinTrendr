@@ -133,39 +133,39 @@ module.exports = React.createClass({
         )
     };
 
-    var flattenedData = utils.flattenData(props.data, props.xAccessor, props.yAccessor);
-    var allValues = flattenedData.allValues;
-
-    var voronoi = d3.geom.voronoi()
-      .x(function(d){ return xScale(d.coord.x); })
-      .y(function(d){ return yScale(d.coord.y); })
-      .clipExtent([[0, 0], [ innerWidth, innerHeight]]);
-
-    var cx, cy, circleFill;
-    var regions = voronoi(allValues).map(function(vnode, idx) {
-      var point = vnode.point.coord;
-      if (Object.prototype.toString.call(props.xAccessor(point)) === '[object Date]') {
-        cx = xScale(props.xAccessor(point).getTime());
-      } else {
-        cx = xScale(props.xAccessor(point));
-      }
-      if (Object.prototype.toString.call(props.yAccessor(point)) === '[object Date]') {
-        cy = yScale(props.yAccessor(point).getTime());
-      } else {
-        cy = yScale(props.yAccessor(point));
-      }
-      circleFill = vnode.color;
-
-      return (
-          React.createElement(VoronoiCircleContainer, {
-              key: idx,
-              circleFill: circleFill,
-              vnode: vnode,
-              cx: cx, cy: cy,
-              circleRadius: props.circleRadius}
-          )
-      );
-    }.bind(this));
+    // var flattenedData = utils.flattenData(props.data, props.xAccessor, props.yAccessor);
+    // var allValues = flattenedData.allValues;
+    //
+    // var voronoi = d3.geom.voronoi()
+    //   .x(function(d){ return xScale(d.coord.x); })
+    //   .y(function(d){ return yScale(d.coord.y); })
+    //   .clipExtent([[0, 0], [ innerWidth, innerHeight]]);
+    //
+    // var cx, cy, circleFill;
+    // var regions = voronoi(allValues).map(function(vnode, idx) {
+    //   var point = vnode.point.coord;
+    //   if (Object.prototype.toString.call(props.xAccessor(point)) === '[object Date]') {
+    //     cx = xScale(props.xAccessor(point).getTime());
+    //   } else {
+    //     cx = xScale(props.xAccessor(point));
+    //   }
+    //   if (Object.prototype.toString.call(props.yAccessor(point)) === '[object Date]') {
+    //     cy = yScale(props.yAccessor(point).getTime());
+    //   } else {
+    //     cy = yScale(props.yAccessor(point));
+    //   }
+    //   circleFill = vnode.color;
+    //
+    //   return (
+    //       React.createElement(VoronoiCircleContainer, {
+    //           key: idx,
+    //           circleFill: circleFill,
+    //           vnode: vnode,
+    //           cx: cx, cy: cy,
+    //           circleRadius: props.circleRadius}
+    //       )
+    //   );
+    // }.bind(this));
 
 
     return (
@@ -212,15 +212,14 @@ module.exports = React.createClass({
             xOrient: props.xOrient,
             yOrient: props.yOrient,
             margins: props.margins,
-            width: innerWidth,
-            height: props.height,
+            width: innerWidth-10,
+            height: innerHeight,
             gridHorizontal: props.gridHorizontal,
             gridHorizontalStroke: props.gridHorizontalStroke,
             gridHorizontalStrokeWidth: props.gridHorizontalStrokeWidth,
             gridHorizontalStrokeDash: props.gridHorizontalStrokeDash}
           ),
           dataSeries,
-          regions,
           renderLine
         )
       )
