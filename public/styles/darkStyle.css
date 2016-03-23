@@ -57,6 +57,10 @@ body{
   /*background-color: grey;*/
 }
 
+.graph-info {
+  height: 100%;
+}
+
 .news {
   /*top: 75px;
   right: 0;

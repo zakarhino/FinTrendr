@@ -30,7 +30,6 @@ class SearchBar extends Component {
   handleKeyPress(e) {
     if(e.key === 'Enter') {
       document.getElementById('search-button').click();
-      // this.context.router.transitionTo(`/k/${this.state.term}`);
     }
   }
 

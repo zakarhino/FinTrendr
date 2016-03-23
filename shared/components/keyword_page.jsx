@@ -45,7 +45,6 @@ class KeywordPage extends Component {
     return (
       <div>
         <div className="info col-md-9">
-
           <div className="graph-info row">
             <div className="col-sm-12 col-md-3">
               <KeywordList/>
@@ -62,7 +61,6 @@ class KeywordPage extends Component {
           <div className="row">
             <HotTrends />
           </div>
-
         </div>
         <div className="news-wrapper col-md-3">
           <NewsList />
