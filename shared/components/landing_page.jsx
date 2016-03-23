@@ -14,7 +14,7 @@ class LandingPage extends Component {
         if (index < 6) {
           return (
             <div className="col-sm-4" key={index}>
-              <div className='card card-block card-success text-xs-center'>
+              <div className='card card-block card-warning text-xs-center'>
                 {item}
               </div>
             </div>
@@ -44,7 +44,7 @@ class LandingPage extends Component {
         if (index < 6) {
           return (
             <div className="col-sm-4" key={item}>
-              <div className='card card-block card-success text-xs-center'>
+              <div className='card card-block card-warning text-xs-center'>
                 {item}
               </div>
             </div>
@@ -70,24 +70,24 @@ class LandingPage extends Component {
           Culture drives business. Trendr's goal is simple: demonstrate this relationship by visualizing correlations in big data. By combining Google Trends and the historical returns of US Listed Stocks, Trendr uses the Alchemy API and Natural Language Processing to find correlations between popular Google Search terms and companies.
         </p>
       </div>
-      <div className="list spacer">
-          <h2>
-            Trends Last Month
-          </h2>
-          <div className="row">
-            {this.renderDBTrends()}
-          </div>
-          <h2>
-            Twitter Today
-          </h2>
-          <div className="row">
-            {this.renderTweets()}
-          </div>
+      <div className="listLanding spacer">
           <h2>
             Trends This Hour
           </h2>
           <div className="row">
             {this.renderKeywords()}
+          </div>
+          <h2>
+            Trends Today
+          </h2>
+          <div className="row">
+            {this.renderTweets()}
+          </div>
+          <h2>
+            Trends Last Month
+          </h2>
+          <div className="row">
+            {this.renderDBTrends()}
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ const request  = require('request');
 //     console.log('promise in');
 //     console.log(symbol);
 //     mult++;
-//     setTimeout(function() {
+//     // setTimeout(function() {
 //     request.get('https://www.quandl.com/api/v3/datasets/WIKI/' + symbol.Symbol + '/data.json?column_index=4&api_key=fiuzUjysoMY6y1FMEbBE&start_date=2014-03-31&end_date=2016-02-29&order=asc&collapse=monthly',
 //       (err, response, body) => {
 //         console.log('request response');
@@ -43,23 +43,24 @@ const request  = require('request');
 //           resolve(returnObj);
 //         }
 //       });
-//     }, 400 * mult);
-//
+//     // }, 400 * mult);
+
 //   });
-//
+
 //   etfData.push(promise);
 // });
-//
+
 // Promise.all(etfData).then((results) => {
 //   results.forEach((stock) => {
-//     setTimeout(function() {  stock.data = JSON.stringify(stock.data);
-//
+//     // setTimeout(function() {  
+//       stock.data = JSON.stringify(stock.data);
+
 //     db.saveStock( stock ).then((node) => {
 //         console.log('done!');
 //       })
 //       .catch((err) => {
 //         console.log(err);
 //       });
-//     },400);
+//     // },400);
 //   });
 // });
