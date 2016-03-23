@@ -30,6 +30,7 @@ Visit the site now : [www.trendr.xyz](http://www.trendr.xyz)
 - [ Alchemy ](http://www.alchemyapi.com)
 
 # Choice of Technologies
+![Tech Stack](/public/img/TechStack.png)
 - React
 - Redux
 - Express

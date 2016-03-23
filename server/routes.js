@@ -87,30 +87,6 @@ export default (app) => {
           <div id="container" class="wrapper">
             ${componentHTML}
           </div>
-          <footer class="footer">
-            <div class="container">
-              <div class="col-md-6">
-                description
-              </div>
-              <div class="col-md-6">
-                <p>who we are</p>
-                <ul class="teamList">
-                  <li>
-                    <span>Eric Mustin - </span><a href="https://github.com/ericmustin"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a> <a href="mailto:mustin.eric@gmail.com?Subject=Trendr"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
-                  </li>
-                  <li>
-                    <span>Zak Golding - </span><a href="https://github.com/zakarhino"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a> <a href="mailto:zak@0x7cf.com?Subject=Trend"> <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
-                  </li>
-                  <li>
-                    <span>Jason Cheung - </span><a href="https://github.com/JCheungX"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a> <a href="mailto:jasoncheungcf@gmail.com?Subject=Trendr"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
-                  </li>
-                  <li>
-                    <span>Arlen Neylon - </span><a href="https://github.com/aneylon"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a> <a href="mailto:arlen.m.neylon@gmail.com?Subject=Trendr"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </footer>
           <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
           <script src="/dist/bundle.js"> </script>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

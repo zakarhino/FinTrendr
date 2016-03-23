@@ -4,6 +4,8 @@ import SearchBar from './search_bar';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getHotTrends} from '../actions/hotTrends';
+import About from './about';
+
 class LandingPage extends Component {
   componentWillMount() {
     this.props.getHotTrends();
@@ -90,6 +92,9 @@ class LandingPage extends Component {
             {this.renderDBTrends()}
           </div>
         </div>
+
+        <About />
+
       </div>
     );
   }
