@@ -57,6 +57,7 @@ let createResultsObject = (nodeList) => {
 let sortObject = (obj) => {
   let arr = [];
   for (var prop in obj) {
+    console.log( obj[prop]['corr']);
     if (obj.hasOwnProperty(prop)) {
       arr.push({
         'key': prop,
@@ -212,7 +213,7 @@ module.exports = {
     });
   },
   /**
-   * Get correlationInfo
+   * Get correlationInfob
    */
   getCorrelationInfo: function(req, res) {
     //console.log('correlation info controller function invoked');
@@ -263,7 +264,7 @@ module.exports = {
               for (let i = 0; i < 10; i++) {
                 // console.log("sortedCorrelationsArray[" + i + "]: " + sortedCorrelationsArray[i]);
                 // console.log("got inside loop");
-                //
+
                 var promise = new Promise((resolve, reject) => {
                   validate(keyword, sortedCorrelationsArray[i]['key']).then((bool) => {
                   // console.log("at save, i is", i);
