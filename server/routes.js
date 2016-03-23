@@ -15,6 +15,7 @@ import reducer from '../shared/reducers';
 import KeywordController from './controller.js';
 import HotTrendsController from './hotTrendsController.js';
 import SaveKeywordController from './saveKeywordController.js';
+import GetAlchemyInfo from './alchemyController.js';
 
 
 // Import redux middleware
@@ -35,6 +36,7 @@ export default (app) => {
   app.get('/api/getHotTrendsInfo', HotTrendsController.getHotTrendsInfo);
   app.get('/api/getNews/:keyword', KeywordController.getNews);
   app.post('/api/saveKeywordInfo/', SaveKeywordController.saveKeywordInfo);
+  app.post('/api/getAlchemyInfo/', GetAlchemyInfo.getAlchemyInfo);
 
   app.use((req, res) => {
     const location = createLocation(req.url);
@@ -57,8 +59,8 @@ export default (app) => {
           .end('Not found');
       }
       const InitComp = (
-        < Provider store = { storeWithMiddleware } >
-          < RouterContext {...props }/>
+        <Provider store = { storeWithMiddleware }>
+          <RouterContext {...props} />
         </Provider>
       );
       const componentHTML = renderToString(InitComp);
@@ -82,8 +84,8 @@ export default (app) => {
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
         </head>
         <body>
-          <div id="container" class="wrapper">${componentHTML}
-            <div class="push"></div>
+          <div id="container" class="wrapper">
+            ${componentHTML}
           </div>
           <footer class="footer">
             <div class="container">

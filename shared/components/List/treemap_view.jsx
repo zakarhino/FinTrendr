@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Treemap} from '../../../react-d3/index';
 import {bindActionCreators} from 'redux';
 import {getStocksInfo} from '../../actions/stocks';
+import d3 from 'd3';
 class TreeMap extends Component {
   componentWillMount() {
     if (this.props.keyword) {

@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import NavBar from './nav_bar';
 import TweetList from './twitter/tweet_list';
-import LandingPage from './landing_page';
+import HotTrends from './hot_trends';
 import TreeMapView from './List/treemap_view';
 
 class KeywordPage extends Component {
@@ -44,30 +44,28 @@ class KeywordPage extends Component {
     }
     return (
       <div>
-        Welcome to the keyword page of Trendr. Search for a term.
-        <div className="container">
+        <div className="info col-md-9">
 
           <div className="row">
-            <div className="col-md-8">
-              <Graph/>
-              TreeMapView
-            </div>
-
-            <div className="col-md-4">
+            <div className="col-sm-12 col-md-4">
               <KeywordList/>
             </div>
+            <div className="col-sm-12 col-md-8">
+              <Graph/>
+            </div>
           </div>
-
           <div className="row">
-            <div className="col-sm-6">
-              <NewsList/>
-            </div>
-
-            <div className="col-sm-6">
-              <LandingPage/>
-            </div>
+              <div className="col-md-12">
+                <TreeMapView/>
+              </div>
           </div>
-          
+          <div className="row">
+            <HotTrends />
+          </div>
+
+        </div>
+        <div className="news-wrapper col-md-3">
+          <NewsList />
         </div>
       </div>
     );

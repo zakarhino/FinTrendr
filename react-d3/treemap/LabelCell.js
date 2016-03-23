@@ -29,7 +29,7 @@ module.exports = React.createClass({
     var t = ("translate(" + props.x + ", " + (props.y) + "  )");
 
      return (
-      React.createElement("g", {transform: t},
+      React.createElement("g", {transform: t, className:'rd3-treemap-parent'},
 
         React.createElement("rect", {
           className: "rd3-treemap-label",

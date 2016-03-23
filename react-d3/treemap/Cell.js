@@ -26,17 +26,18 @@ module.exports = React.createClass({
       'fontSize': props.fontSize
     };
 
-    var t = ("translate(" + props.x + ", " + (props.y) + "  )");
-
+    var t = ("translate(" + props.x + ", " + (props.y) + ")");
+    var link = 'http://finance.yahoo.com/q?s='+ props.label
     return (
-      React.createElement("g", {transform: t},
+      React.createElement("g", { className: 'rd3-treemap-child' , transform: t ,onClick:props.handleClick},
         React.createElement("rect", {
           className: "rd3-treemap-cell",
           width: props.width,
           height: props.height,
           fill: props.fill,
           onMouseOver: props.handleMouseOver,
-          onMouseLeave: props.handleMouseLeave}
+          onMouseLeave: props.handleMouseLeave},
+
         ),
         React.createElement("text", {
           x: 0,
