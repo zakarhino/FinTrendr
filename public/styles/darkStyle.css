@@ -118,6 +118,22 @@ body{
   margin: 0 auto -4em;
 }
 
+.iconPadding {
+  /*padding: 15px;*/
+  margin: 5px;
+}
+.no-bullet {
+  list-style-type: none;
+}
+.even-padding {
+  padding: 3px;
+  margin: 3px;
+}
+.list-header {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 .push{
 /*height: 4em;*/
 }
