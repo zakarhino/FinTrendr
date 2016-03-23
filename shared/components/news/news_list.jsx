@@ -52,11 +52,11 @@ class NewsList extends Component {
             <p class="list-group-item-text">{article.pubDate}</p>
          </div>
         <div class="col-md-5 pull-right">
-            
+
         </div>
         </a>
     </OverlayTrigger>
-    Click to Verify: 
+    Click to Verify:
     <img class="list-group-item-text" src={picLink} width="20" height="20" onClick={this.alchemyInfo.bind(this,article.link)}/>
     </li>
       );
@@ -74,7 +74,8 @@ class NewsList extends Component {
             </ReactCSSTransitionGroup>
           </ListGroup>
         </Panel>
-      </div >);
+      </div>
+    );
     }};
   function mapDispatchToProps(dispatch) {
     let obj = {
