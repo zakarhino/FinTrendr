@@ -25,7 +25,7 @@ class NewsList extends Component {
   renderArticles() {
     let count = 0;
     return this.props.news.map((article) => {
-      let picLink = ""
+      let picLink = "/img/questionmark.png"
       if (article.link === this.props.alchemy.url) {
         picLink = "/img/checkmark.png";
       }
