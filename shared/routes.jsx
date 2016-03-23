@@ -9,6 +9,6 @@ import KeywordList from './components/List/keyword_list';
 export default (
   <Route name="app" path="/" component={App}>
     <IndexRoute component={LandingPage} />
-    <Route path='keywordPage/:keyword' component={KeywordPage} />
+    <Route path='k/:keyword' component={KeywordPage} />
   </Route>
 );

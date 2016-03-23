@@ -12,8 +12,8 @@ export default class App extends Component {
       <div>
         <nav className="navbar navbar-dark navbar-fixed-top bg-inverse bottomGreen">
           <img src="/img/BarsWhite.png" className="pull-xs-left" width="70"/>
-          <h1 className="mainTitle">Trendr</h1>
-          <h6 className="subTitle">Lets Get Trending</h6>
+          <h1 className="mainTitle"><a href="/" className="title-link">Trendr</a></h1>
+          <h6 className="subTitle"><a href="/" className="title-link">Lets Get Trending</a></h6>
           <nav className="pull-xs-right search">
             <SearchBar />
           </nav>

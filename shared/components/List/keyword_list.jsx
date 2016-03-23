@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux';
 import {getHotTrends} from '../../actions/hotTrends';
 import {saveKeywordInfo} from '../../actions/saveKeyword';
 import {putToGraph} from '../../actions/linegraph';
+import Loading from '../loading';
 
 class KeywordList extends Component {
   constructor(props) {
@@ -53,19 +54,19 @@ class KeywordList extends Component {
   renderList() {
     return this.props.list.items.map((listItem) => {
       let color = 'black';
-      let picLink = "/img/invalid.png";
+      let picLink = "/img/NoBlack.png";
 
       if (listItem.rel) {
         color = 'green';
-        picLink = "/img/checkmark.png";
+        picLink = "/img/YesBlack.png";
         };
       let divStyle = {
           color: color
         };
         return (
-          <li className="row" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
-            <span className="col-md-5">{listItem.Keyword}</span>
-            <span className="col-md-5">{listItem.corr}</span>
+          <li className="row no-bullet even-padding" style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
+            <span className="col-md-6">{listItem.Keyword}</span>
+            <span className="col-md-4">{listItem.corr}</span>
             <img src={picLink} className="col-md-2"/>
           </li>
         );
@@ -87,17 +88,28 @@ class KeywordList extends Component {
   render() {
     const {list} = this.props;
     if (!list || !list.items || list.items.length === 0) {
-      return <div>Loading...</div>;
+      return (
+        <div className="text-xs-center drop-shadow spacer">
+          <Loading />
+        </div>
+      );
     }
     return (
-      <div className="list spacer">
-        <img src="/img/GraphWhite.png" width="40" className="pull-xs-left" />
+      <div className="drop-shadow spacer">
+        <img src="/img/Graph.png" width="40" className="pull-xs-left iconPadding" />
         <h3>  Suggested Ideas</h3>
         <form onSubmit={this.fetchKeyword}>
             <input id="newKeywordBox" placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
               <button type="submit">Add new Keyword</button>
           </form>
-        <ul>
+        <ul className="even-padding">
+          <li className="row no-bullet even-padding">
+            <span className="col-md-6 list-header">Keyword</span>
+            <span className="col-md-4 list-header">Correlation</span>
+            <span className="col-md-2 list-header">Verified</span>
+          </li>
+        </ul>
+        <ul className="even-padding">
           {this.renderList()}
         </ul>
       </div>

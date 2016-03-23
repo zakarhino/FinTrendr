@@ -57,6 +57,10 @@ body{
   /*background-color: grey;*/
 }
 
+.graph-info {
+  height: 100%;
+}
+
 .news {
   /*top: 75px;
   right: 0;
@@ -108,6 +112,13 @@ body{
   color: lightgrey;
 }
 
+.title-link {
+  color: white;
+}
+.title-link:hover {
+  color: white;
+}
+
 .search {
   margin-top: -40px;
 }
@@ -116,6 +127,26 @@ body{
   height: auto !important;
   height: 100%;
   margin: 0 auto -4em;
+}
+
+.iconPadding {
+  /*padding: 15px;*/
+  margin: 5px;
+}
+.no-bullet {
+  list-style-type: none;
+}
+.even-padding {
+  padding: 3px;
+  margin: 3px;
+}
+.list-header {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.drop-shadow {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .push{
