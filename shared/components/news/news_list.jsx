@@ -65,7 +65,7 @@ class NewsList extends Component {
   render() {
     return (
       <div className="news spacer container">
-        <img src="/img/News.png" width="40" className="pull-xs-left" />
+        <img src="/img/News.png" width="40" className="pull-xs-left iconPadding" />
         <h3>Related News:</h3>
         <Panel>
           <ListGroup fill>
