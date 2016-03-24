@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const GET_KEYWORD = 'GET_KEYWORD';
 export const GET_CORRELATIONINFO = 'GET_CORRELATIONINFO';
+export const RESET_CORRELATIONINFO = 'RESET_CORRELATIONINFO';
 
 export function getKeyword(keyword) {
   //add in the logic for getting  the return
@@ -32,6 +33,13 @@ return {
     payload: request
   };
 };
+
+export function resetCorrelationinfo(){
+  return {
+    type:RESET_CORRELATIONINFO,
+    payload: []
+  }
+}
 
 export function getValidationInfo(keyword,listItem) {
   const data = {
