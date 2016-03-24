@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router';
 import { Input } from 'react-bootstrap';
 import { ButtonInput } from 'react-bootstrap';
 
-import { Input,Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 class SearchBar extends Component {
    static contextTypes = {
