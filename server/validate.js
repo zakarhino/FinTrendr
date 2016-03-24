@@ -12,6 +12,9 @@ const validate = (keyword, item) => {
   const tfidf = new natural.TfIdf();
   return new Promise((resolve, reject) => {
     parser.parseURL(url, (err, parsed) => {
+      if(parsed.feed === undefined) {
+        resolve(false);
+      }
       parsed.feed.entries.forEach((item) => {
         let parsed = cheerio.load(item.content)('table').text();
         tfidf.addDocument(parsed);
