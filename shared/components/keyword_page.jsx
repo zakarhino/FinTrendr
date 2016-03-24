@@ -14,6 +14,7 @@ import {Panel} from 'react-bootstrap';
 import {MainPanel} from './main_panel';
 
 class KeywordPage extends Component {
+
   constructor(props) {
     super(props);
     //this.setState({keyword:this.props.params.keyword})

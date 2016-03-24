@@ -4,15 +4,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
 import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
+import { Input } from 'react-bootstrap';
+import { ButtonInput } from 'react-bootstrap';
 
-import { Input,Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 class SearchBar extends Component {
+   static contextTypes = {
+    router: PropTypes.object,
+    history: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
+    // this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
@@ -20,9 +28,10 @@ class SearchBar extends Component {
     this.setState({term: event.target.value});
   }
 
-  onFormSubmit() {
-    return `/k/${this.state.term}`;
-  }
+  // onFormSubmit(e) {
+  //   e.preventDefault();
+  //   `/k/${this.state.term}`);
+  // }
 
   handleKeyPress(e) {
     if(e.key === 'Enter') {
