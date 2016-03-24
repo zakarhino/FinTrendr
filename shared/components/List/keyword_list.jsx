@@ -18,10 +18,9 @@ class KeywordList extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
   componentWillMount() {
-    console.log('will mount in KeywordList');
-    this.props.getHotTrends();
     if (this.props.keyword&&this.props.list.items.length===0) {
       this.props.getCorrelationInfo(this.props.keyword);
+      this.setState({addedKeyword: ''});
       // {this.saveNewKeywordInfo('america')}
     }
   }
@@ -29,6 +28,7 @@ class KeywordList extends Component {
     if (nextProps.keyword !== this.props.keyword) {
       if (nextProps.keyword) {
         this.props.getCorrelationInfo(nextProps.keyword);
+        this.setState({addedKeyword: ''});
       }
     }
   }
@@ -47,8 +47,13 @@ class KeywordList extends Component {
 
   putToGraph(item)
   {
-    console.log(item);
-    this.props.putToGraph(item);
+    if (this.props.lineGraph[0].key  === item.Keyword)
+    {
+      this.props.putToGraph({});
+    }
+    else {
+      this.props.putToGraph(item);
+    }
   }
 
   renderList() {
@@ -64,7 +69,7 @@ class KeywordList extends Component {
           color: color
         };
         return (
-          <tr style={divStyle} key={listItem.Keyword} onClick={this.putToGraph.bind(this,listItem)}>
+          <tr style={divStyle} key={`keyword-${listItem.Keyword}`} onClick={this.putToGraph.bind(this,listItem)}>
             <td>{listItem.Keyword}</td>
             <td>{listItem.corr.toFixed(2)}</td>
             <td><img className="veriImage" src={picLink} width="20" height="20"/></td>
@@ -122,7 +127,7 @@ class KeywordList extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {list: state.list, keyword: state.keyword.current};
+  return {list: state.list, keyword: state.keyword.current, lineGraph : state.linegraph.linegraph};
 }
 function mapDispatchToProps(dispatch) {
   let obj = {

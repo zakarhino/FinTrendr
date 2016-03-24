@@ -9,9 +9,8 @@ import {getAlchemyInfo} from '../../actions/alchemy';
 import {OverlayTrigger, Popover, Panel, ListGroup, ListGroupItem} from 'react-bootstrap';
 class NewsList extends Component {
   componentWillMount() {
-    if (this.props.term&&this.props.news.length===0) {
-      this.props.getCorrelationInfo(this.props.keyword);
-      // {this.saveNewKeywordInfo('america')}
+    if (this.props.term.Keyword && this.props.news.length ===0) {
+      this.props.getNews(this.props.term.Keyword );
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -37,6 +36,7 @@ class NewsList extends Component {
       let popOver = (
         <Popover id="newsInfo" className="newsPopOver" title={article.title}>{article.contentSnippet}</Popover>
       );
+      count++;
       return (
       // <li key={article.link}  className="list-group-item" onClick={this.alchemyInfo.bind(this,article.link)} data-tip data-for={`article-${count}`}>
       //   <p><a href={article.link} target="_blank">{article.title}</a></p>
@@ -48,7 +48,7 @@ class NewsList extends Component {
       //   <img src={picLink} width="15" height="15"/>
       // </li
       <li>
-      <OverlayTrigger key={article.link} trigger = { ['focus', 'hover']
+      <OverlayTrigger key={`article${count}`} trigger = { ['focus', 'hover']
       }
       placement = "left" overlay = {popOver}>
         <a class="list-group-item" target="_blank"  href={article.link}>

@@ -45,7 +45,6 @@ module.exports = React.createClass({
     var children = nodes.filter(function(d) {
       return !d.children;
     })
-    console.log(children);
     var parents = nodes.filter(function(d) {
       return d.children && (d.name !== 'positive' && d.name !== 'negative' && d.name !== 'stock');
     })

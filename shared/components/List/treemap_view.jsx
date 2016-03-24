@@ -6,7 +6,6 @@ import {getStocksInfo} from '../../actions/stocks';
 import d3 from 'd3';
 class TreeMap extends Component {
   componentWillMount() {
-    console.log('at tree map',this.props);
     if (this.props.keyword&&!this.props.stocks.children) {
       this.props.getStocksInfo(this.props.keyword);
     }
@@ -30,7 +29,6 @@ class TreeMap extends Component {
     return result;
   }
   render() {
-    console.log(this.props);
     let {stocks} = this.props;
     //let graphData = this.convertToGraphData(stocks);
     let colorFunction = d3.scale.linear().domain([-1, 0, 1]).range(['red', 'white', 'green']);
