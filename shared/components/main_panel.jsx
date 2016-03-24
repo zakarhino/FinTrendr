@@ -16,6 +16,11 @@ class MainPanel extends Component {
     }
     console.log('will mount and trigger service',);
   }
+  componentWillReceiveProps(nextProps){
+   if (nextProps.params.keyword !== this.props.currentKeyword.Keyword){
+     this.props.getKeyword(this.props.params.keyword);
+   }
+}
 
   render(){
     const path = `/k/${this.props.params.keyword}`;
@@ -23,8 +28,8 @@ class MainPanel extends Component {
     <div>
       <div className="sidebar col-md-1">
          <ul className="nav nav-sideBar">
-            <li><Link to={path}>Dashboard</Link></li>
-            <li><Link to={path+'/stock'}>Stock View</Link></li>
+            <li><Link to={path} activeClassName='active'>Dashboard</Link></li>
+            <li><Link to={path+'/stock'}  activeClassName='active'>Stock View</Link></li>
             <li>About us</li>
           </ul>
       </div>
