@@ -14,10 +14,10 @@ class NewsList extends Component {
     }
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.term.Keyword !== nextProps.term.Keyword) {
+    if (this.props.term.Keyword !== nextProps.term.Keyword || this.props.linegraph.length>0 &&nextProps.linegraph.length===0) {
       this.props.getNews(nextProps.term);
     }
-    if (this.props.term.Keyword === nextProps.term.Keyword && this.props.linegraph[0] !== nextProps.linegraph[0]) {
+    else if (this.props.term.Keyword === nextProps.term.Keyword && this.props.linegraph[0] !== nextProps.linegraph[0]) {
       this.props.getNews(nextProps.term, nextProps.linegraph[0].key);
     }
   }
