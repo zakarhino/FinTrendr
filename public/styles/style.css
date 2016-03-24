@@ -5,13 +5,23 @@ body {
 
 .title-link {
   color: white;
+  text-decoration: none;
 }
 .title-link:hover {
   color: white;
+  text-decoration: none;
 }
 
 .bg-inverse {
   background-color: #2C3E50 !important;
+}
+
+.sidebar {
+  margin-top: 100px;
+}
+.sidebar nav {
+  padding : 5px;
+  background-color: #f5f5f5;
 }
 
 .spacer {
@@ -49,18 +59,13 @@ body {
   margin: 5px;
 }
 
-.table {
+.table tr td {
+  text-align: center;
   font-size: small;
-  padding: 3px;
-  margin: 3px;
+  padding: .5em !important;
 }
 
 .news {
-  /*top: 75px;
-  right: 0;
-  height: 100%;
-  max-width: 360px;
-  background: #f00;*/
   position: fixed;
   overflow: auto;
   background-color: white;

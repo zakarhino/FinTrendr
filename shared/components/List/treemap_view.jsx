@@ -40,7 +40,7 @@ class TreeMap extends Component {
       };
     }
     return (
-      <div className="drop-shadow container">
+      <div className="drop-shadow container spacer">
         <Treemap data={stocks} colors={colorFunction} colorAccessor={colorAccessor} width={1000} height={550} textColor="#484848" fontSize="12px" title="Treemap" hoverAnimation={true}/>
       </div>
     );

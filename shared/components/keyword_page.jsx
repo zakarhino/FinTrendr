@@ -9,15 +9,15 @@ export default class KeywordPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="spacer">
         <div className="info col-sm-12 col-md-10">
           <div className="row">
-            <div className="col-sm-12 col-md-3">
+            <div className="col-sm-12 col-md-4">
               <Panel>
                 <KeywordList/>
               </Panel>
             </div>
-            <div className="col-sm-12 col-md-9">
+            <div className="col-sm-12 col-md-8">
               <Panel>
                 <Graph/>
               </Panel>
