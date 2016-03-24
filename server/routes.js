@@ -84,6 +84,7 @@ export default (app) => {
 
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
           <link href="/styles/style.css" rel="stylesheet" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         </head>
         <body>
           <div id="container" class="wrapper">
