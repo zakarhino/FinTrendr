@@ -2,95 +2,117 @@ body {
   padding-top: 90px;
   font-family: 'Roboto', sans-serif;
 }
-.jumbotron {
-  background-color: gray !important;
-  height: 400px !important;
+
+.title-link {
+  color: white;
+  text-decoration: none;
 }
-.stockresult .keywordresult {
-  height: 200px;
-  margin-left: 10px;
-}
-.detailpanel {
-  max-height: 500px;
-}
-.newspanel {
-  font-size: 20px;
-  font-size: 1.00rem;
-  font-weight: 700;
-  font-style: italic;
-  font-family: "nyt-cheltenham", georgia, "times new roman", times, serif;
-  letter-spacing: .01em;
-  word-spacing: -0.1em;
+.title-link:hover {
+  color: white;
+  text-decoration: none;
 }
 
-.grapharea {
-  background-color: white !important;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #C0C0C0;
-  border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, .075);
-  height: 400px !important;
-  margin-bottom: 10px;
-}
-.resultheader {
-  font-size: 23px;
-}
-.btn-primary a {
-  color: white !important;
-}
-.newresult {
-  height: 460px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #C0C0C0;
-  border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, .075);
-}
-.caption {
-  font-size: 20px;
-  font-weight: bold;
-}
-.rd3-treemap-cell {
-  pointer-events: all;
-  cursor: pointer;
-  stroke: #EEEEEE;
+.bg-inverse {
+  background-color: #2C3E50 !important;
 }
 
-.rd3-treemap-parent:hover .rd3-treemap-label { fill: #FFFFFF;}
+.sidebar {
+  margin-top: 100px;
+}
+.sidebar nav {
+  padding : 5px;
+  background-color: #f5f5f5;
+}
 
-.rd3-treemap-parent:hover .rd3-treemap-cell-text { fill: #FFFFFF; }
+.spacer {
+  margin-top: 20px;
+}
 
-/*.news {
-  margin-top: 10px !important;
-  margin-bottom: 10px;
-}*/
-.hvr-fade:hover {
-  background-color: #F0F0F0;
+.search {
+  margin-top: -40px;
+}
+
+.about-landing {
+  color: black;
+  padding-top: 3%;
+  text-align: center;
+}
+
+.about-landing h1 {
+  font-size: 5em;
+}
+
+.about-landing p {
+  margin: auto;
+  max-width: 30%;
+}
+
+.left-banner {
+  text-align: right;
+}
+
+.right-banner {
+  text-align: left;
+}
+
+.iconPadding {
+  margin: 5px;
+}
+
+.table tr td {
+  text-align: center;
+  font-size: small;
+  padding: .5em !important;
+}
+
+.news {
+  position: fixed;
+  overflow: auto;
+  background-color: white;
+  max-height: 100%;
   color: black;
 }
-.searchbox {
-  height: 100%;
-  width: 100%;
-  text-align: center;
-  /* align the inline(-block) elements horizontally */
-}
-.plusicon {
-  margin-top: 7px;
+
+.newsExample-enter {
+  opacity: 0.01;
 }
 
-@media (min-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 40px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
-    border-right: 1px solid #eee;
-  }
+.newsExample-enter.newsExample-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.newsExample-leave {
+  opacity: 1;
+}
+
+.newsExample-leave.newsExample-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.newsExample-appear {
+  opacity: 0.01;
+}
+
+.newsExample-appear.newsExample-appear-active {
+  opacity: 1;
+  transition: opacity .1s ease-in;
+}
+
+.drop-shadow {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.news-item:hover {
+  background-color: #ddd;
+}
+
+.news-item-text {
+  font-size: small !important;
+}
+
+.news-item-date {
+  font-size: xx-small !important;
 }

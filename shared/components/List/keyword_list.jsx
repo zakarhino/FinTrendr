@@ -102,12 +102,12 @@ class KeywordList extends Component {
     }
     return (
       <div className="drop-shadow container spacer">
-        <img src="/img/Graph.png" width="40" className="pull-xs-left iconPadding" />
-        <h3>  Suggested Ideas</h3>
+        <img src="/img/Graph.png" width="20" className="pull-xs-left iconPadding" />
+        <h5>  Suggested Ideas</h5>
         <div className="input-group" >
-            <input id="newKeywordBox" className="form-controler" placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
+            <input id="newKeywordBox" className="form-controler" placeholder="add a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
             <div className="input-group-btn">
-              <button className="btn btn-default btn-sm" type="button" onClick={this.fetchKeyword} >Add new Keyword</button>
+              <button className="btn btn-default btn-sm" type="button" onClick={this.fetchKeyword} >Add</button>
             </div>
           </div>
           <table className="table table-hover">
