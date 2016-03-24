@@ -9,7 +9,6 @@ import {emptyStockInfo} from '../actions/stocks';
 class MainPanel extends Component {
   constructor(props){
     super(props);
-    console.log(props);
   }
   componentWillMount(){
      console.log('In Main Panel', this.props.currentKeyword,this.props.params.keyword )

@@ -25,8 +25,6 @@ class LandingPage extends Component {
   }
 
   generateWord() {
-    console.log("this.state:", this.state);
-    console.log("this.props:", this.props);
     if(this.props.hotTrends) {
       this.setState({currentTrend: this.props.hotTrends.keywords[Math.floor(Math.random() * this.props.hotTrends.keywords.length)]});
     }

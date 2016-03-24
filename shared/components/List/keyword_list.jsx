@@ -5,7 +5,7 @@ import {bindActionCreators} from 'redux';
 // import { getValidationInfo } from '../../actions/keyword';
 import {getHotTrends} from '../../actions/hotTrends';
 import {saveKeywordInfo} from '../../actions/saveKeyword';
-import {putToGraph} from '../../actions/linegraph';
+import {putToGraph,removeGraph} from '../../actions/linegraph';
 import Loading from '../loading';
 
 class KeywordList extends Component {
@@ -47,9 +47,9 @@ class KeywordList extends Component {
 
   putToGraph(item)
   {
-    if (this.props.lineGraph[0].key  === item.Keyword)
+    if ((this.props.lineGraph.length>0) && (this.props.lineGraph[0].key  === item.Keyword))
     {
-      this.props.putToGraph({});
+      this.props.removeGraph();
     }
     else {
       this.props.putToGraph(item);
@@ -134,7 +134,8 @@ function mapDispatchToProps(dispatch) {
     getCorrelationInfo: getCorrelationInfo,
     getHotTrends: getHotTrends,
     saveKeywordInfo: saveKeywordInfo,
-    putToGraph : putToGraph
+    putToGraph : putToGraph,
+    removeGraph : removeGraph
   };
   return bindActionCreators(obj, dispatch);
 };

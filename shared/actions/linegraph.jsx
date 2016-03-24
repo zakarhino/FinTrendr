@@ -1,16 +1,15 @@
 import axios from 'axios';
 
 export const LINEGRAPH_DATA = 'LINEGRAPH_DATA';
+export const REMOVE_GRAPH = 'REMOVE_GRAPH';
 
 export function putToGraph(keywordItem) {
-  console.log('triggered');
   const resultSet = []
   keywordItem.data.forEach(function(item){
     for(var key in item){
       resultSet.push({x:new Date(key),y:item[key]})
     }
   })
-  console.log(resultSet);
   const result =  [
       {
         values: resultSet,
@@ -23,3 +22,10 @@ export function putToGraph(keywordItem) {
     payload: result
   };
 };
+
+export function removeGraph(){
+  return {
+    type : REMOVE_GRAPH,
+    payload : []
+  }
+}
