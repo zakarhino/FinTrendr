@@ -47,23 +47,20 @@ class NewsList extends Component {
       //   Click to check whether this article is relevant to you!
       //   <img src={picLink} width="15" height="15"/>
       // </li
-      <li>
-      <OverlayTrigger key={`article${count}`} trigger = { ['focus', 'hover']
+      <tr className="news-item">
+      <td>
+      <OverlayTrigger key={article.link} trigger = { ['focus', 'hover']
       }
       placement = "left" overlay = {popOver}>
-        <a class="list-group-item" target="_blank"  href={article.link}>
-          <div class="col-md-7">
-            <h5 class="list-group-item-heading">{article.title}</h5>
-            <p class="list-group-item-text">{article.pubDate}</p>
-         </div>
-        <div class="col-md-5 pull-right">
-
-        </div>
+        <a target="_blank"  href={article.link}>
+            <p className="news-item-text">{article.title}</p>
+            <p className="news-item-date">{article.pubDate}</p>
         </a>
     </OverlayTrigger>
     Click to Verify:
-    <img class="list-group-item-text" src={picLink} width="20" height="20" onClick={this.alchemyInfo.bind(this,article.link)}/>
-    </li>
+    <img className="news-item-text" src={picLink} width="20" height="20" onClick={this.alchemyInfo.bind(this,article.link)}/>
+    </td>
+    </tr>
       );
     });
   }
@@ -71,14 +68,12 @@ class NewsList extends Component {
     return (
       <div className="news spacer container">
         <img src="/img/News.png" width="40" className="pull-xs-left iconPadding" />
-        <h3>Related News:</h3>
-        <Panel>
-          <ListGroup fill>
+        <h5>Related News:</h5>
+          <table>
             <ReactCSSTransitionGroup transitionName="newsExample" transitionAppearTimeout={500} transitionLeaveTimeout={300} transitionAppear={true}>
               {this.renderArticles()}
             </ReactCSSTransitionGroup>
-          </ListGroup>
-        </Panel>
+          </table>
       </div>
     );
     }};

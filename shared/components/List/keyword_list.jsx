@@ -103,7 +103,7 @@ class KeywordList extends Component {
     return (
       <div className="drop-shadow container spacer">
         <img src="/img/Graph.png" width="40" className="pull-xs-left iconPadding" />
-        <h3>  Suggested Ideas</h3>
+        <h5>  Suggested Ideas</h5>
         <div className="input-group" >
             <input id="newKeywordBox" className="form-controler" placeholder="input a keyword" value={this.state.addedKeyword} onChange={this.onInputChange}/>
             <div className="input-group-btn">
