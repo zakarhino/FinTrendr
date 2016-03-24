@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getHotTrends} from '../actions/hotTrends';
 
-class LandingPage extends Component {
+class HotTrends extends Component {
   componentWillMount() {
     this.props.getHotTrends();
   }
@@ -37,7 +37,7 @@ class LandingPage extends Component {
       if(index < 6) {
       return (
         <div className="col-sm-4" key={item}>
-          <div className='card card-block card-error text-xs-center'> {item} </div>
+          <div className='card card-block card-success text-xs-center'> {item} </div>
         </div>
       );
     }
@@ -53,10 +53,10 @@ class LandingPage extends Component {
 
     return (
       <div className="list spacer">
-        <h2> Trends This Hour </h2>
+        {/*<h2> Trends This Hour </h2>
         <div className="row">
           {this.renderKeywords()}
-        </div>
+        </div>*/}
         <h2> Twitter Today </h2>
         <div className="row">
           {this.renderTweets()}
@@ -73,4 +73,4 @@ class LandingPage extends Component {
 function mapStatesToProps(state) {
   return {hotTrends: state.hotTrends.items};
 }
-export default connect(mapStatesToProps, {getHotTrends})(LandingPage);
+export default connect(mapStatesToProps, {getHotTrends})(HotTrends);
