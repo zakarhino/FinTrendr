@@ -11,11 +11,16 @@ import { ButtonInput } from 'react-bootstrap';
 import { Input,Button } from 'react-bootstrap';
 
 class SearchBar extends Component {
+   static contextTypes = {
+    router: PropTypes.object,
+    history: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
+    // this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
@@ -23,10 +28,10 @@ class SearchBar extends Component {
     this.setState({term: event.target.value});
   }
 
-  onFormSubmit(e) {
-    e.preventDefault();
-    this.context.router.push(`/k/${this.state.term}`);
-  }
+  // onFormSubmit(e) {
+  //   e.preventDefault();
+  //   `/k/${this.state.term}`);
+  // }
 
   handleKeyPress(e) {
     if(e.key === 'Enter') {
