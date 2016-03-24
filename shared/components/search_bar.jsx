@@ -35,13 +35,13 @@ class SearchBar extends Component {
 
   handleKeyPress(e) {
     if(e.key === 'Enter') {
-      document.getElementById('search-button').click();
+      document.getElementById('search-button-link').click();
     }
   }
 
   render(){
     let path = `/k/${this.state.term}`;
-    let button = <Button className="btn btn-default" id='search-button'><Link to={path} {...this.props}> Go Get Trends!</Link></Button>;
+    let button = <Button className="btn btn-default" id='search-button'><Link to={path} {...this.props} id="search-button-link"> Go Get Trends!</Link></Button>;
     return (
     <div className="row">
       <div className="col-lg-4">
