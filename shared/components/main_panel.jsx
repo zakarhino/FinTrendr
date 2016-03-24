@@ -1,40 +1,47 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import { Link } from 'react-router'
+import {getKeyword} from '../actions/keyword';
+import {bindActionCreators} from 'redux';
 
-export class MainPanel extends Component {
+class MainPanel extends Component {
   constructor(props){
     super(props);
     console.log(props);
   }
   componentWillMount(){
-    console.log('will mount');
+     console.log('In Main Panel', this.props.currentKeyword,this.props.params.keyword )
+    if (!this.props.currentKeyword|| this.props.params.keyword!== this.props.currentKeyword) {
+      this.props.getKeyword(this.props.params.keyword);
+    }
+    console.log('will mount and trigger service',);
   }
-  componentDidMount(){
-    console.log('did mount');
-  }
+
   render(){
+    const path = `/k/${this.props.params.keyword}`;
     return (
     <div>
-      <div className="sidebar">
-
+      <div className="sidebar col-md-1">
+         <ul className="nav nav-sideBar">
+            <li><Link to={path}>Dashboard</Link></li>
+            <li><Link to={path+'/stock'}>Stock View</Link></li>
+            <li>About us</li>
+          </ul>
       </div>
-        <div>
+        <div className="col-md-11">
           {this.props.children}
         </div>
       </div>
     )
   }
-
+}
+function mapStatesToProps(state){
+  return {currentKeyword: state.keyword.current};
 }
 
-//  <ul className="nav nav-sideBar">
-  //   <li><Link to={`/k/${this.props.params.keyword}`}>Dashboard</Link></li>
-  //   <li><Link to={`/k/${this.props.params.keyword}/stock`}>Stock View</Link></li>
-  //   <li>About us</li>
-  // </ul>
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({
-//     setPage
-//   }, dispatch);
-// }
-// export default connect(null,mapDispatchToProps)(MainPanel);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    getKeyword
+  }, dispatch);
+}
+export default connect(mapStatesToProps,mapDispatchToProps)(MainPanel);

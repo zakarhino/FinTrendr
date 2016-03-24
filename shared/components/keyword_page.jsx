@@ -17,55 +17,36 @@ class KeywordPage extends Component {
   constructor(props) {
     super(props);
     //this.setState({keyword:this.props.params.keyword})
-    this.state = {
-      listView: true,
-      mainPage: 'keyword'
-    };
     console.log('In Keyword Page setting', this.state, this.props);
   }
   componentWillMount() {
-    if (this.props.params.keyword !== this.state.keyword) {
-      this.props.getKeyword(this.props.params.keyword);
-    }
+    // if (this.props.params.keyword !== this.state.keyword) {
+    //   this.props.getKeyword(this.props.params.keyword);
+    // }
+    console.log('component will mount brah');
   }
-  switchView() {
-    if (this.state.listView) {
-      this.setState({listView: false});
-    } else {
-      this.setState({listView: true});
-    }
-  };
   render() {
-    let keywordCorrView = (
-        <div>
-          <div className="info col-sm-12 col-md-10">
-            <div className="row">
-              <div className="col-sm-12 col-md-3">
-                <Panel>
-                  <KeywordList/>
-                </Panel>
-              </div>
-              <div className="col-sm-12 col-md-9">
-                <Panel>
-                  <Graph/>
-                </Panel>
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-0 col-md-2">
-            <Panel>
-              <NewsList/>
-            </Panel>
-          </div>
-          <div>
-            <TreeMapView/>
-          </div>
-        </div >
-      )
     return (
       <div>
-        <div className="col-md-1"><MainPanel/></div>
-        <div className="col-md-11">{keywordCorrView}</div>
+        <div className="info col-sm-12 col-md-10">
+          <div className="row">
+            <div className="col-sm-12 col-md-3">
+              <Panel>
+                <KeywordList/>
+              </Panel>
+            </div>
+            <div className="col-sm-12 col-md-9">
+              <Panel>
+                <Graph/>
+              </Panel>
+            </div>
+          </div>
+        </div>
+        <div className="col-sm-0 col-md-2">
+          <Panel>
+            <NewsList/>
+          </Panel>
+        </div>
       </div>
     );
   }

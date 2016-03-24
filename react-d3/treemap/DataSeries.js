@@ -40,14 +40,16 @@ module.exports = React.createClass({
     }).value(function(d) {
       return d.value;
     });
-    var tree = treemap(props.data);
+
     var nodes = treemap.nodes(props.data);
     var children = nodes.filter(function(d) {
       return !d.children;
     })
+    console.log(children);
     var parents = nodes.filter(function(d) {
       return d.children && (d.name !== 'positive' && d.name !== 'negative' && d.name !== 'stock');
     })
+
     var nodes = treemap(props.data);
     var parents = parents.map(function(node) {
       return (React.createElement(CellContainer, {
