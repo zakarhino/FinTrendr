@@ -72,6 +72,9 @@ class LandingPage extends Component {
           Culture drives business. Trendr's goal is simple: demonstrate this relationship by visualizing correlations in big data. By combining Google Trends and the historical returns of US Listed Stocks, Trendr uses the Alchemy API and Natural Language Processing to find correlations between popular Google Search terms and companies.
         </p>
       </div>
+      <div className="col-md-offset-5">
+      <SearchBar />
+      </div>
       <div className="listLanding spacer">
           <h2>
             Trends This Hour

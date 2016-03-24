@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
 import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
+import { Input } from 'react-bootstrap';
+import { ButtonInput } from 'react-bootstrap';
 
 import { Input,Button } from 'react-bootstrap';
 
@@ -20,8 +23,9 @@ class SearchBar extends Component {
     this.setState({term: event.target.value});
   }
 
-  onFormSubmit() {
-    return `/k/${this.state.term}`;
+  onFormSubmit(e) {
+    e.preventDefault();
+    this.context.router.push(`/k/${this.state.term}`);
   }
 
   handleKeyPress(e) {
