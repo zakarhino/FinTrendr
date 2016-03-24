@@ -73,6 +73,13 @@ body {
   color: black;
 }
 
+.news-list-item {
+  list-style-type: none;
+}
+.news-list-item:hover {
+  background-color: lightgrey;
+}
+
 .newsExample-enter {
   opacity: 0.01;
 }
@@ -103,10 +110,6 @@ body {
 .drop-shadow {
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.news-item:hover {
-  background-color: #ddd;
 }
 
 .news-item-text {
