@@ -73,6 +73,12 @@ body {
   color: black;
 }
 
+.info-icon {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
 .news-list-item {
   list-style-type: none;
 }

@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import HotTrends from './hot_trends';
 import { getHotTrends } from '../actions/hotTrends';
-import About from './about';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class LandingPage extends Component {
@@ -46,7 +45,6 @@ class LandingPage extends Component {
       <div className="listLanding spacer">
         <HotTrends />
       </div>
-      <About />
     </div>
     );
   }

@@ -6,6 +6,7 @@ import LandingPage from './components/landing_page';
 import KeywordPage from './components/keyword_page';
 import TreeMap from './components/List/treemap_view';
 import MainPanel from './components/main_panel';
+import About from './components/about';
 
 export default (
   <Route name="app" path="/" component={App}>
@@ -14,5 +15,6 @@ export default (
       <IndexRoute component={KeywordPage}/>
       <Route path='stock' component={TreeMap} />
     </Route>
+    <Route path='about' component={About} />
   </Route>
 );
