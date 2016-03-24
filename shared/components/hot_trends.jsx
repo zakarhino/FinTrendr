@@ -37,7 +37,7 @@ class LandingPage extends Component {
       if(index < 6) {
       return (
         <div className="col-sm-4" key={item}>
-          <div className='card card-block card-success text-xs-center'> {item} </div>
+          <div className='card card-block card-error text-xs-center'> {item} </div>
         </div>
       );
     }
@@ -53,17 +53,17 @@ class LandingPage extends Component {
 
     return (
       <div className="list spacer">
-        <h2> Trends Last Month </h2>
+        <h2> Trends This Hour </h2>
         <div className="row">
-          {this.renderDBTrends()}
+          {this.renderKeywords()}
         </div>
         <h2> Twitter Today </h2>
         <div className="row">
           {this.renderTweets()}
         </div>
-        <h2> Trends This Hour </h2>
+        <h2> Trends Last Month </h2>
         <div className="row">
-          {this.renderKeywords()}
+          {this.renderDBTrends()}
         </div>
       </div>
     );

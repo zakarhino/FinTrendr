@@ -84,12 +84,12 @@ body{
 }
 
 .tweets {
-  background-color: #2b7bb9;
+  background-color: #00BD9D;
   color: white;
 }
 
 .list {
-   margin-top: 40%; 
+   margin-top: 10%; 
   background-color: #2cba73;
   color: white;
 }
@@ -139,6 +139,10 @@ body{
   height: 100%;
   margin: 0 auto -4em;
 }
+
+.card-success {
+  background-color: #E84C3D;
+};
 
 .iconPadding {
   /*padding: 15px;*/

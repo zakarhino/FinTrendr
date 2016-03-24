@@ -6,11 +6,6 @@ import { getKeyword } from '../actions/keyword';
 import { Link } from 'react-router';
 
 class SearchBar extends Component {
-
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
   constructor(props) {
     super(props);
     this.state = { term: '' };

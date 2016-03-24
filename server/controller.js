@@ -42,7 +42,7 @@ let createResultsObject = (nodeList) => {
           value = numberArray[i] / max * 100;
         }
         updated[node.Keyword].dataScaled.push(value);
-        resultDataObj[keyArray[i]] = value
+        resultDataObj[keyArray[i]] = value;
         updated[node.Keyword].data.push(resultDataObj);
       }
     }
@@ -85,7 +85,7 @@ let parseStockToResult = (sectorObj) => {
     let correlationObj = {
       name: 'stock',
       children: []
-    }
+    };
     for (let key in sectorObj) {
       let keyChildren = [];
       if (sectorObj[key].negative) {
@@ -103,13 +103,13 @@ let parseStockToResult = (sectorObj) => {
       correlationObj.children.push({
         name: key,
         children: keyChildren
-      })
+      });
     }
-    return correlationObj
-  }
+    return correlationObj;
+  };
   //Build Sector Information for stockList
 let buildSectorObj = (stockList, scaledArray) => {
-    let sectorObj = {}
+    let sectorObj = {};
     stockList.forEach((stockObj) => {
       let stockData = JSON.parse(stockObj.data);
       let corr = 0;
@@ -132,7 +132,7 @@ let buildSectorObj = (stockList, scaledArray) => {
       }
     });
     return sectorObj;
-  }
+  };
   //scaled normal array for client side
 let scaleResultToClient = (node) => {
   // console.log('the nodelist is ', nodeList);
@@ -154,7 +154,7 @@ let scaleResultToClient = (node) => {
     updated.Keyword = node.Keyword;
     updated.data = [];
     if (node.corr){
-      updated.corr = node.corr
+      updated.corr = node.corr;
     }
     if (node.rel !==undefined){
       updated.rel = node.rel;
@@ -166,7 +166,7 @@ let scaleResultToClient = (node) => {
         value = numberArray[i] / max * 100;
       }
 
-      resultDataObj[keyArray[i]] = value
+      resultDataObj[keyArray[i]] = value;
       updated.data.push(resultDataObj);
     }
 
@@ -208,7 +208,7 @@ module.exports = {
         }).
         catch( (info) => {
           console.log("Error with Google Trends");
-          res.send("")
+          res.send("");
         });
       }
     });
@@ -230,7 +230,7 @@ module.exports = {
       if (data.length > 0) {
          let result = data.map(function(item){
            return scaleResultToClient(item);
-         })
+         });
         res.send(result);
       } else if (data.length === 0) {
         db.getKeyword({
@@ -261,7 +261,7 @@ module.exports = {
               }
               let sortedCorrelationsArray = sortObject(corrObj);
               let out = [];
-              let promiseArray = []
+              let promiseArray = [];
               for (let i = 0; i < 10; i++) {
                 // console.log("sortedCorrelationsArray[" + i + "]: " + sortedCorrelationsArray[i]);
                 // console.log("got inside loop");
@@ -291,14 +291,14 @@ module.exports = {
 
                 });
               });
-              promiseArray.push(promise)
+              promiseArray.push(promise);
               };
               Promise.all(promiseArray).then((data)=>{
                 if (out.length === 10) {
                 // console.log("Length is 10");
                 out.sort(function(a,b){
-                  return b.corr - a.corr
-                })
+                  return b.corr - a.corr;
+                });
                 res.send(out);
                 }
               });
@@ -381,6 +381,7 @@ module.exports = {
     parser.parseURL(url, (err, parsed) => {
       // console.log("Sending:", JSON.stringify(parsed.feed.entries));
       // console.log("The URL is:", url);
+      console.log("Parsed News:", parsed);
       res.send(JSON.stringify(parsed.feed.entries));
     });
   },
