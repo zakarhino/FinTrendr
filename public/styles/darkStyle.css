@@ -33,12 +33,20 @@ body{
 }
 
 .about-landing h1 {
-  font-size: 7em;
+  font-size: 5em;
 }
 
 .about-landing p {
   margin: auto;
   max-width: 30%;
+}
+
+.left-banner {
+  text-align: right;
+}
+
+.right-banner {
+  text-align: left;
 }
 
 .list-group {
@@ -89,7 +97,7 @@ body{
 }
 
 .list {
-   margin-top: 10%; 
+   margin-top: 10%;
   background-color: #2cba73;
   color: white;
 }
@@ -139,10 +147,6 @@ body{
   height: 100%;
   margin: 0 auto -4em;
 }
-
-.card-success {
-  background-color: #E84C3D;
-};
 
 .iconPadding {
   /*padding: 15px;*/
