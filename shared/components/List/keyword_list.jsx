@@ -18,8 +18,9 @@ class KeywordList extends Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
   componentWillMount() {
+    console.log('will mount in KeywordList');
     this.props.getHotTrends();
-    if (this.props.keyword) {
+    if (this.props.keyword&&this.props.list.items.length===0) {
       this.props.getCorrelationInfo(this.props.keyword);
       // {this.saveNewKeywordInfo('america')}
     }

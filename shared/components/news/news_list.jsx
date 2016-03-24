@@ -8,7 +8,12 @@ import ReactToolTip from 'react-tooltip';
 import {getAlchemyInfo} from '../../actions/alchemy';
 import {OverlayTrigger, Popover, Panel, ListGroup, ListGroupItem} from 'react-bootstrap';
 class NewsList extends Component {
-  componentWillMount() {}
+  componentWillMount() {
+    if (this.props.term&&this.props.news.length===0) {
+      this.props.getCorrelationInfo(this.props.keyword);
+      // {this.saveNewKeywordInfo('america')}
+    }
+  }
   componentWillReceiveProps(nextProps) {
     if (this.props.term.Keyword !== nextProps.term.Keyword) {
       this.props.getNews(nextProps.term);
