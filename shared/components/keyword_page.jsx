@@ -25,6 +25,10 @@ class KeywordPage extends Component {
     // }
     console.log('component will mount brah');
   }
+    componentWillReceiveProps(nextProps){
+      console.log('did i get anything');
+    }
+
   render() {
     return (
       <div>

@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
 import { Link } from 'react-router';
 
+import { Input,Button } from 'react-bootstrap';
+
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -29,19 +31,16 @@ class SearchBar extends Component {
   }
 
   render(){
+    let path = `/k/${this.state.term}`;
+    let button = <Button className="btn btn-default" id='search-button'><Link to={path} {...this.props}> Go Get Trends!</Link></Button>;
     return (
-      <div>
-        <input
-          placeholder = "input a keyword"
-          id="inputBox"
-          value={this.state.term}
-          onChange={this.onInputChange}
-          onKeyPress={this.handleKeyPress} />
-        <button>
-        <a id="search-button" href={this.onFormSubmit()}>
-            Search
-        </a></button>
-      </div>
+    <div className="row">
+      <div className="col-lg-4">
+        <form>
+          <Input type="text" className="form-control" placeholder="input a keyword" id="inputBox" value={this.state.term} onChange={this.onInputChange} onKeyPress={this.handleKeyPress} buttonAfter={button} />
+          </form>
+        </div>
+    </div>
     );
   }
 }
