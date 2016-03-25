@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
 import { getHotTrends } from '../actions/hotTrends';
 import { Link, browserHistory } from 'react-router';
-import { Input, ButtonInput } from 'react-bootstrap';
+import { Input, ButtonInput, OverlayTrigger, Popover, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class FancySearchBar extends Component {
