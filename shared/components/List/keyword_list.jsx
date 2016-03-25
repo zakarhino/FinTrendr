@@ -111,8 +111,6 @@ class KeywordList extends Component {
     return (
       <div className="drop-shadow container spacer">
         <hr/>
-        <img src="/img/Graph.png" width="20" className="pull-xs-left iconPadding" />
-        <h5 className="spacer">Suggested Comparisons</h5>
         <p>Select to visualize comparison</p>
         <div className="input-group">
           <input id="newKeywordBox" type="text" className="form-control" placeholder="New Comparison" value={this.state.addedKeyword} onChange={this.onInputChange}/>

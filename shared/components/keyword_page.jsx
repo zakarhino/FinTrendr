@@ -15,7 +15,7 @@ export default class KeywordPage extends Component {
           <div className="row">
             <div className="col-sm-12 col-md-4">
               <img src="/img/Graph.png" width="20" className="pull-xs-left iconPadding" />
-              <h4>Suggested Ideas</h4>
+              <h4 className="spacer">Suggested Comparisons</h4>
               <Panel>
                 <KeywordList/>
               </Panel>
