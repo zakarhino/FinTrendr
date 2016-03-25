@@ -55,8 +55,8 @@ class NewsList extends Component {
             <p className="news-item-date">{article.pubDate}</p>
         </a>
       </OverlayTrigger>
-      <span className="news-item-text">Click to Verify:</span>
-      <img src={picLink} width="20" height="20" onClick={this.alchemyInfo.bind(this, article.link)}/>
+      <button className="news-item-text" onClick={this.alchemyInfo.bind(this,article.link)}>Check Article Relevancy:</button>
+      <img src={picLink} width="20" height="20"/>
       </li>
       );
     });
