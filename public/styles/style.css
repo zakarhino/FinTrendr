@@ -32,9 +32,68 @@ body {
   margin-top: -40px;
 }
 
+.fancy-box {
+  margin: 50px auto;
+  width: 700px;
+  height: 75px;
+  text-align: left !important;
+}
+
+.fancy-search {
+  width: 700px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+
+.fancy-input {
+  width: 700px;
+  height: 75px;
+  background: #2b303b;
+  border: none;
+  font-size: 1.5em;
+  float: left;
+  color: #63717f;
+  padding-left: 17px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.fancy-search input.fancy-search::-webkit-input-placeholder {
+   color: #65737e;
+}
+
+.fancy-search input.fancy-search:-moz-placeholder { /* Firefox 18- */
+   color: #65737e;
+}
+
+.fancy-search input.fancy-search::-moz-placeholder {  /* Firefox 19+ */
+   color: #65737e;
+}
+
+.fancy-search input.fancy-search:-ms-input-placeholder {
+   color: #65737e;
+}
+
+.fancy-search .icon {
+  position: absolute;
+  top: 50%;
+  margin-left: 650px;
+  margin-top: 20px;
+  z-index: 1;
+  color: #4f5b66;
+}
+
+
+.fancy-button {
+  decoration: none;
+}
+
+
 .about-landing {
   color: black;
-  padding-top: 3%;
+  padding-top: 14%;
   text-align: center;
 }
 
@@ -48,11 +107,11 @@ body {
 }
 
 .left-banner {
-  text-align: right;
+  /*text-align: right;*/
 }
 
 .right-banner {
-  text-align: left;
+  /*text-align: left;*/
 }
 
 .iconPadding {
