@@ -40,7 +40,7 @@ class SearchBar extends Component {
   }
 
   render(){
-    let path = `/k/${this.state.term}`;
+    let path = `k/${this.state.term}`;
     let button = <Button className="btn btn-default" id='search-button'><Link to={path} {...this.props} id="search-button-link"> Go Get Trends!</Link></Button>;
     return (
     <div className="row">
