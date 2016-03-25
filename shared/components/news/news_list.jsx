@@ -20,23 +20,28 @@ class NewsList extends Component {
     else if (this.props.term.Keyword === nextProps.term.Keyword && this.props.linegraph[0] !== nextProps.linegraph[0]) {
       this.props.getNews(nextProps.term, nextProps.linegraph[0].key);
     }
-  }
-  alchemyInfo(articleLink) {
-    if (this.props.linegraph[0]) {
-      this.props.getAlchemyInfo(this.props.term.Keyword, this.props.linegraph[0].key, articleLink);
+    else if(this.props.term.Keyword === nextProps.term.Keyword && this.props.linegraph[0] && this.props.news !== nextProps.news) {
+      this.props.getAlchemyInfo(this.props.term.Keyword, this.props.linegraph[0].key, nextProps.news);
     }
   }
+
   renderArticles() {
     let count = 0;
     return this.props.news.map((article) => {
-      let picLink = "/img/questionmark.png";
-      if (article.link === this.props.alchemy.url) {
-        picLink = "/img/checkmark.png";
+
+      
+      let colorPicker = {'background-color': "white"};
+      if(this.props.alchemy.url) {
+
+        if (this.props.alchemy.url.indexOf(article.link) >= 0) {
+          colorPicker = {'background-color': "#e6ffe6"};
+        }
       }
       let popOver = (
         <Popover id="newsInfo" className="newsPopOver" title={article.title}>{article.contentSnippet}</Popover>
       );
       count++;
+
       return (
       // <li key={article.link}  className="list-group-item" onClick={this.alchemyInfo.bind(this,article.link)} data-tip data-for={`article-${count}`}>
       //   <p><a href={article.link} target="_blank">{article.title}</a></p>
@@ -47,7 +52,7 @@ class NewsList extends Component {
       //   Click to check whether this article is relevant to you!
       //   <img src={picLink} width="15" height="15"/>
       // </li>
-      <li key={article.link} className="news-list-item">
+      <li key={article.link} className="news-list-item" style={colorPicker}>
       <OverlayTrigger trigger ={['focus', 'hover']}
       placement="left" overlay ={popOver}>
         <a target="_blank"  href={article.link}>
@@ -55,8 +60,6 @@ class NewsList extends Component {
             <p className="news-item-date">{article.pubDate}</p>
         </a>
       </OverlayTrigger>
-      <button className="news-item-text" onClick={this.alchemyInfo.bind(this,article.link)}>Check Article Relevancy:</button>
-      <img src={picLink} width="20" height="20"/>
       </li>
       );
     });

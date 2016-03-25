@@ -6,7 +6,7 @@ export function getAlchemyInfo(keyword,item,url) {
   let reqObj = {};
   reqObj.keyword = keyword;
   reqObj.listItem = item;
-  reqObj.url = url;
+  reqObj.urls = url;
 
   let request = axios.post('/api/getAlchemyInfo', reqObj);
   return {
