@@ -46,7 +46,7 @@ export class Graph extends Component {
       height: 500,
     };
     return (
-      <div className="drop-shadow spacer container">
+      <div className="drop-shadow spacer heatmap">
         <AreaChart data ={data} lineData={lineGraph} xAxisLabel='Month' xAxisTickInterval={{
           interval: 4
         }} title={data[0].Key} interpolate={true} interpolationType='cardinal' yAxisTickCount={3} yAxisLabel='Value'

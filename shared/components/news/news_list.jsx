@@ -48,7 +48,7 @@ class NewsList extends Component {
       //   <img src={picLink} width="15" height="15"/>
       // </li>
       <li key={article.link} className="news-list-item">
-      <OverlayTrigger key={article.link} trigger ={['focus', 'hover']}
+      <OverlayTrigger trigger ={['focus', 'hover']}
       placement="left" overlay ={popOver}>
         <a target="_blank"  href={article.link}>
             <p className="news-item-text">{article.title}</p>
@@ -64,11 +64,9 @@ class NewsList extends Component {
   render() {
     return (
       <div className="news spacer container">
-      <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
-      <h5>Related News:</h5>
-        <Panel>
+          <Panel>
           <ListGroup fill className="news-list">
-          <ReactCSSTransitionGroup 
+          <ReactCSSTransitionGroup
             transitionName="newsExample"
             transitionEnterTimeout={500}
             transitionAppearTimeout={500}

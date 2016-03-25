@@ -1,5 +1,5 @@
 body {
-  padding-top: 90px;
+  padding-top: 100px;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -22,14 +22,6 @@ body {
 
 .bg-inverse {
   background-color: #2C3E50 !important;
-}
-
-.sidebar {
-  margin-top: 100px;
-}
-.sidebar nav {
-  padding : 5px;
-  background-color: #f5f5f5;
 }
 
 .spacer {
@@ -211,7 +203,19 @@ body {
 }
 
 .rd3-treemap-cell {
-    pointer-events: all;
-    cursor: pointer;
-    stroke: #EEEEEE;
+  pointer-events: all;
+  cursor: pointer;
+  stroke: #EEEEEE;
+}
+
+.nav-item{
+  width: 14vw;
+}
+
+.nav-pills .nav-link:hover {
+  background-color : lightgrey;
+}
+
+.heatmap {
+  height: 100%;
 }

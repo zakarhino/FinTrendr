@@ -129,7 +129,7 @@ module.exports = React.createClass({
           circleRadius: props.circleRadius,
           data: props.lineData,
           value: allValues,
-          interpolationType: 'cardinal',
+          interpolationType: props.interpolationType,
           width: innerWidth,
           height: innerHeight}
         )

@@ -77,10 +77,8 @@ export default (app) => {
           <link href='https://fonts.googleapis.com/css?family=Teko:400,600' rel='stylesheet' type='text/css'/>
           <link href='https://fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'/>
           <link href='https://fonts.googleapis.com/css?family=Homenaje' rel='stylesheet' type='text/css'/>
-          <link href="/styles/animate.css" rel='stylesheet' type='text/css' />
 
           <link rel="icon" href="/TrendrFavicon2.ico" type="image/x-icon"/>
-          <!-- <link href="/styles/darkStyle.css" rel="stylesheet" /> -->
 
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous" />
           <link href="/styles/style.css" rel="stylesheet" />
@@ -93,7 +91,8 @@ export default (app) => {
           <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
           <script src="/dist/bundle.js"> </script>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+          <script src="/dist/tether.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
         </body>
       </html>
       `;

@@ -27,7 +27,7 @@ module.exports = React.createClass({
       data: [],
       xAccessor: function(d)  {return d.x;},
       yAccessor: function(d)  {return d.y;},
-      interpolationType: 'cardinal'
+      interpolationType: 'linear'
     };
   },
 
@@ -57,7 +57,7 @@ module.exports = React.createClass({
         }
 
     var lines = props.data.map(function(series, idx)  {
-      console.log(props.data)
+      //console.log(props.data)
       return (
         React.createElement(Line, {
           path: interpolatePath(series.values),
