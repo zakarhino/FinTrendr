@@ -194,3 +194,9 @@ body {
   float: right;
   margin-right:3em;
 }
+
+.rd3-treemap-cell {
+    pointer-events: all;
+    cursor: pointer;
+    stroke: #EEEEEE;
+}
