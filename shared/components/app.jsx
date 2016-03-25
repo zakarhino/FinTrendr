@@ -38,14 +38,16 @@ export default class App extends Component {
             <h1 className="mainTitle">Trendr</h1>
             <div className="subTitle">Lets Get Trending</div>
           </a>
-          <div className="navbar-right">
-            <form className="navbar-form search" role="search">
+          <ul className="nav navbar-nav navbar-right">
+            <li><form className="navbar-form search" role="search">
                 {this.renderSearchBar()}
-            </form>
-            <a href="about" className="info-icon">
+            </form></li>
+          <li>
+            <Link to="/about" className="info-icon">
               <img src="/img/InfoWhite.png" width="30" />
-            </a>
-          </div>
+            </Link>
+            </li>
+          </ul>
         </nav>
           {this.props.children}
       </div>
