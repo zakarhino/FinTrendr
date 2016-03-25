@@ -43,9 +43,9 @@ export default class App extends Component {
             <form className="navbar-form search" role="search">
                 {this.renderSearchBar()}
             </form>
-            <a href="about" className="info-icon">
+            <Link to={"/about"} className="info-icon">
               <img src="/img/InfoWhite.png" width="30" />
-            </a>
+            </Link>
           </div>
         </nav>
           {this.props.children}

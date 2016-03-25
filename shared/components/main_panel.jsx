@@ -38,7 +38,6 @@ class MainPanel extends Component {
          <ul className="nav nav-sideBar">
             <li><Link to={path} activeClassName='active'>Dashboard</Link></li>
             <li><Link to={path+'/stock'}  activeClassName='active'>Stock View</Link></li>
-            <li>About us</li>
           </ul>
       </div>
         <div className="col-md-11">

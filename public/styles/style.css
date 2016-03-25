@@ -7,6 +7,14 @@ body {
   color: white;
   text-decoration: none;
 }
+.title-link:active {
+  color: white;
+  text-decoration: none;
+}
+.title-link:visited {
+  color: white;
+  text-decoration: none;
+}
 .title-link:hover {
   color: white;
   text-decoration: none;
@@ -141,10 +149,11 @@ body {
 .news-list-item {
   list-style-type: none;
 }
+/*
 .news-list-item:hover {
   background-color: lightgrey;
 }
-
+*/
 .newsExample-enter {
   opacity: 0.01;
 }
