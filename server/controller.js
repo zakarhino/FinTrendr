@@ -57,7 +57,7 @@ let createResultsObject = (nodeList) => {
 let sortObject = (obj) => {
   let arr = [];
   for (var prop in obj) {
-    console.log( obj[prop]['corr']);
+    //console.log( obj[prop]['corr']);
     if (obj.hasOwnProperty(prop)) {
       arr.push({
         'key': prop,
@@ -170,7 +170,7 @@ let scaleResultToClient = (node) => {
       updated.data.push(resultDataObj);
     }
 
-    console.log('in scaling data',updated.data);
+    //console.log('in scaling data',updated.data);
   }
   return updated;
 };
@@ -381,6 +381,10 @@ module.exports = {
     parser.parseURL(url, (err, parsed) => {
       // console.log("Sending:", JSON.stringify(parsed.feed.entries));
       // console.log("The URL is:", url);
+      if (err)
+      {
+        res.statusCode(500).send("Error in parsing data");
+      }
       console.log("Parsed News:", parsed);
       res.send(JSON.stringify(parsed.feed.entries));
     });

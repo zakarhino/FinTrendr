@@ -4,23 +4,24 @@ import Graph from './graph';
 import KeywordList from './List/keyword_list';
 import NewsList from './news/news_list';
 import {Panel} from 'react-bootstrap';
-import {NavBar} from './nav_bar';
 
 export default class KeywordPage extends Component {
 
   render() {
     return (
-      <div>
-        <NavBar />
+
       <div className="spacer">
         <div className="info col-sm-12 col-md-10">
           <div className="row">
             <div className="col-sm-12 col-md-4">
+              <img src="/img/Graph.png" width="20" className="pull-xs-left iconPadding" />
+              <h4>Suggested Ideas</h4>
               <Panel>
                 <KeywordList/>
               </Panel>
             </div>
             <div className="col-sm-12 col-md-8">
+              <span><h4>Search Volume for {this.props.params.keyword}</h4></span>
               <Panel>
                 <Graph/>
               </Panel>
@@ -29,11 +30,13 @@ export default class KeywordPage extends Component {
         </div>
         <div className="col-sm-0 col-md-2">
           <Panel>
+            <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
+            <h4>Related News:</h4>
             <NewsList/>
           </Panel>
         </div>
       </div>
-    </div>
+
 
     );
   }

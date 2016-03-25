@@ -211,3 +211,11 @@ body {
 .nav-item{
   width: 14vw;
 }
+
+.nav-pills .nav-link:hover {
+  background-color : lightgrey;
+}
+
+.heatmap {
+  height: 100%;
+}

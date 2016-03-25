@@ -6,6 +6,8 @@ import {resetNews} from '../actions/news';
 import {bindActionCreators} from 'redux';
 import {emptyStockInfo} from '../actions/stocks';
 import {Tabs, Tab} from 'react-bootstrap';
+import {NavBar} from './nav_bar';
+
 class MainPanel extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,7 @@ class MainPanel extends Component {
     console.log('In Main Panel', this.props.currentKeyword, this.props.params.keyword)
     if (!this.props.currentKeyword || this.props.params.keyword !== this.props.currentKeyword) {
       this.props.getKeyword(this.props.params.keyword);
+      console.log("will mount", this.props);
       this.props.emptyStockInfo();
       this.props.resetNews();
       this.props.resetCorrelationinfo();
@@ -21,7 +24,8 @@ class MainPanel extends Component {
     console.log('will mount and trigger service',);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.keyword !== this.props.currentKeyword.Keyword) {
+    if (nextProps.currentKeyword.Keyword !== this.props.params.keyword) {
+      console.log("will recieve props", this.props,nextProps);
       this.props.getKeyword(this.props.params.keyword);
       this.props.emptyStockInfo();
       this.props.resetNews();
@@ -32,6 +36,7 @@ class MainPanel extends Component {
     const path = `/k/${this.props.params.keyword}`;
     return (
       <div>
+        <NavBar />
         <ul className="nav nav-pills">
             <li className="nav-item"><IndexLink to={path} className="nav-link" activeClassName="active">Search Trend</IndexLink>
             </li>
@@ -40,17 +45,6 @@ class MainPanel extends Component {
           {this.props.children}
       </div>
     )
-    // <div>
-    //   <Tabs defaultActiveKey={1} tabWidth={3}>
-    //     <Link to={path}>
-    //       <Tab eventKey={1} title="Tab 1">Dashboard</Tab>
-    //     </Link>
-    //     <Link to={path + '/stock'}>
-    //       <Tab eventKey={2} title="Tab 2">Stock View</Tab>
-    //     </Link>
-    //   </Tabs>
-    //   {this.props.children}
-    // </div>
   }
 }
 function mapStatesToProps(state) {
