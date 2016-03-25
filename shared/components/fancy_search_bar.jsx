@@ -58,7 +58,7 @@ class FancySearchBar extends Component {
     let path = `/k/${this.state.term ? this.state.term : this.state.currentTrend}`;
     //<button className="fancy-button" id='search-button'><Link to={path} {...this.props} id="search-button-link"><span className="icon"><i className="fa fa-search fa-2x"></i></span></Link></button>
     return (
-    <div className="fancy-box">
+    <div className="fancy-box drop-shadow">
       <div className="fancy-search">
         <input type="text" className="fancy-input" placeholder={this.state.currentTrend} id="inputBox" value={this.state.term} onChange={this.onInputChange} onKeyPress={this.handleKeyPress} />
         <Link to={path} {...this.props} id="search-button-link"><span className="icon"><i className="fa fa-search fa-2x"></i></span></Link>

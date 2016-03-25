@@ -12,7 +12,7 @@ const validate = (keyword, item) => {
   const tfidf = new natural.TfIdf();
   return new Promise((resolve, reject) => {
     parser.parseURL(url, (err, parsed) => {
-      if(parsed.feed === undefined) {
+      if(parsed === undefined) {
         resolve(false);
       }
       parsed.feed.entries.forEach((item) => {
