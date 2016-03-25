@@ -16,7 +16,7 @@ class FancySearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { currentTrend: 'Trendr', term: '' };
+    this.state = { currentTrend: 'Trendr', term: '', intervalID: null };
     this.generateWord = this.generateWord.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -25,9 +25,16 @@ class FancySearchBar extends Component {
   componentWillMount() {
     let that = this;
     this.props.getHotTrends();
-    setInterval(function() {
+    var intervalID = setInterval(function() {
       that.generateWord();
     }, 4500);
+    this.setState({...this.state, intervalID: intervalID});
+  }
+
+  componentWillUnmount() {
+    if(this.state.intervalID) {
+      clearInterval(this.state.intervalID);
+    }
   }
 
   generateWord() {
