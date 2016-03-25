@@ -184,3 +184,12 @@ body {
 .news-item-date {
   font-size: xx-small !important;
 }
+
+.subTitle {
+  font-size :15px;
+}
+.search{
+  margin-top: 20px;
+  float: right;
+  width:300px;
+}
