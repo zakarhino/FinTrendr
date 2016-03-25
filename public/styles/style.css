@@ -7,6 +7,14 @@ body {
   color: white;
   text-decoration: none;
 }
+.title-link:active {
+  color: white;
+  text-decoration: none;
+}
+.title-link:visited {
+  color: white;
+  text-decoration: none;
+}
 .title-link:hover {
   color: white;
   text-decoration: none;
@@ -117,7 +125,13 @@ body {
 .iconPadding {
   margin: 5px;
 }
-
+.table tr {
+  cursor:pointer;
+}
+.table tr th {
+  font-size: small;
+  text-align: center;
+}
 .table tr td {
   text-align: center;
   font-size: small;
@@ -141,10 +155,11 @@ body {
 .news-list-item {
   list-style-type: none;
 }
+/*
 .news-list-item:hover {
   background-color: lightgrey;
 }
-
+*/
 .newsExample-enter {
   opacity: 0.01;
 }
