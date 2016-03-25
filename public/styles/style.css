@@ -135,7 +135,7 @@ body {
 .info-icon {
   position: absolute;
   right: 1em;
-  top: 1em;
+  margin-top: 1.4em;
 }
 
 .news-list-item {
@@ -183,4 +183,14 @@ body {
 
 .news-item-date {
   font-size: xx-small !important;
+}
+
+.subTitle {
+  font-size :15px;
+}
+.search{
+  margin-top: 1.4em;
+  width:300px;
+  float: right;
+  margin-right:3em;
 }
