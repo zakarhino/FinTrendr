@@ -9,7 +9,6 @@ export default class KeywordPage extends Component {
 
   render() {
     return (
-
       <div className="spacer">
         <div className="info col-sm-12 col-md-10">
           <div className="row">
@@ -36,8 +35,6 @@ export default class KeywordPage extends Component {
           </Panel>
         </div>
       </div>
-
-
     );
   }
 }
