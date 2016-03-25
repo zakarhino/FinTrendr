@@ -70,9 +70,8 @@ class KeywordList extends Component {
         };
         return (
           <tr style={divStyle} key={`keyword-${listItem.Keyword}`} onClick={this.putToGraph.bind(this,listItem)}>
-            <td><input type="radio" name="keyword" /></td>
             <td>{listItem.Keyword}</td>
-            <td>{listItem.corr.toFixed(2)}</td>
+            <td>{((listItem.corr * 100).toFixed()).toString() + "%" }</td>
             <td><img className="veriImage" src={picLink} width="20" height="20"/></td>
           </tr>
         );
@@ -113,8 +112,8 @@ class KeywordList extends Component {
       <div className="drop-shadow container spacer">
         <hr/>
         <img src="/img/Graph.png" width="20" className="pull-xs-left iconPadding" />
-        <h5 className="spacer">  Suggested Comparisons</h5>
-        <hr/>
+        <h5 className="spacer">Suggested Comparisons</h5>
+        <p>Select to visualize comparison</p>
         <div className="input-group">
           <input id="newKeywordBox" type="text" className="form-control" placeholder="New Comparison" value={this.state.addedKeyword} onChange={this.onInputChange}/>
           <span className="input-group-btn">
@@ -124,7 +123,6 @@ class KeywordList extends Component {
           <table className="table table-hover spacer">
           <thead>
             <tr>
-                <th></th>
                 <th>Keyword</th>
                 <th>Correlation</th>
                 <th>Verified</th>

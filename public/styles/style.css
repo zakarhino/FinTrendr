@@ -125,7 +125,13 @@ body {
 .iconPadding {
   margin: 5px;
 }
-
+.table tr {
+  cursor:pointer;
+}
+.table tr th {
+  font-size: small;
+  text-align: center;
+}
 .table tr td {
   text-align: center;
   font-size: small;
