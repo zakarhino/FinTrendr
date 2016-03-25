@@ -19,6 +19,9 @@ export default class App extends Component {
             <SearchBar />
           </div>
           </div>
+          <a href="about" className="info-icon">
+            <img src="/img/InfoWhite.png" width="30" />
+          </a>
         </nav>
           {this.props.children}
       </div>

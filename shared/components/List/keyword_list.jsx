@@ -59,11 +59,11 @@ class KeywordList extends Component {
   renderList() {
     return this.props.list.items.map((listItem) => {
       let color = 'black';
-      let picLink = "/img/NoBlack.png";
+      let picLink = "/img/NoRed.png";
 
       if (listItem.rel) {
         color = 'green';
-        picLink = "/img/YesGreen.png";
+        picLink = "/img/CheckGreen.png";
         };
       let divStyle = {
           color: color

@@ -46,34 +46,38 @@ class NewsList extends Component {
       //   </ReactToolTip>
       //   Click to check whether this article is relevant to you!
       //   <img src={picLink} width="15" height="15"/>
-      // </li
-      <tr className="news-item">
-      <td>
-      <OverlayTrigger key={article.link} trigger = { ['focus', 'hover']
-      }
-      placement = "left" overlay = {popOver}>
+      // </li>
+      <li key={article.link} className="news-list-item">
+      <OverlayTrigger key={article.link} trigger ={['focus', 'hover']}
+      placement="left" overlay ={popOver}>
         <a target="_blank"  href={article.link}>
             <p className="news-item-text">{article.title}</p>
             <p className="news-item-date">{article.pubDate}</p>
         </a>
       </OverlayTrigger>
       <span className="news-item-text">Click to Verify:</span>
-      <img src={picLink} width="20" height="20" onClick={this.alchemyInfo.bind(this,article.link)}/>
-      </td>
-      </tr>
+      <img src={picLink} width="20" height="20" onClick={this.alchemyInfo.bind(this, article.link)}/>
+      </li>
       );
     });
   }
   render() {
     return (
       <div className="news spacer container">
-        <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
-        <h5>Related News:</h5>
-          <table>
-            <ReactCSSTransitionGroup transitionName="newsExample" transitionAppearTimeout={500} transitionLeaveTimeout={300} transitionAppear={true}>
+      <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
+      <h5>Related News:</h5>
+        <Panel>
+          <ListGroup fill className="news-list">
+          <ReactCSSTransitionGroup 
+            transitionName="newsExample"
+            transitionEnterTimeout={500}
+            transitionAppearTimeout={500}
+            transitionLeaveTimeout={300}
+            transitionAppear={true}>
               {this.renderArticles()}
-            </ReactCSSTransitionGroup>
-          </table>
+          </ReactCSSTransitionGroup>
+          </ListGroup>
+        </Panel>
       </div>
     );
     }};
