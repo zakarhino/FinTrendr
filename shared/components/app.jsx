@@ -29,6 +29,7 @@ export default class App extends Component {
 
 
 
+
   render() {
     return (
       <div>
@@ -38,16 +39,14 @@ export default class App extends Component {
             <h1 className="mainTitle">Trendr</h1>
             <div className="subTitle">Lets Get Trending</div>
           </a>
-          <ul className="nav navbar-nav navbar-right">
-            <li><form className="navbar-form search" role="search">
+          <div className="navbar-right">
+            <form className="navbar-form search" role="search">
                 {this.renderSearchBar()}
-            </form></li>
-          <li>
-            <Link to="/about" className="info-icon">
+            </form>
+            <a href="about" className="info-icon">
               <img src="/img/InfoWhite.png" width="30" />
-            </Link>
-            </li>
-          </ul>
+            </a>
+          </div>
         </nav>
           {this.props.children}
       </div>
