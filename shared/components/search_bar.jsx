@@ -20,7 +20,6 @@ class SearchBar extends Component {
     super(props);
     this.state = { term: '' };
     this.onInputChange = this.onInputChange.bind(this);
-    // this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
@@ -40,17 +39,11 @@ class SearchBar extends Component {
   }
 
   render(){
+
     let path = `/k/${this.state.term}`;
-    let button = <Button className="btn btn-default" id='search-button'><Link to={path} {...this.props} id="search-button-link"> Go Get Trends!</Link></Button>;
+    let button = <Link to={path} {...this.props} id="search-button-link"><Button bsStyle="primary" bsSize="small" id='search-button'>Get Trends!</Button></Link>;
     return (
-    <div className="row">
-      <div className="col-lg-4">
-        <form>
-          <Input type="text" className="form-control" placeholder="input a keyword" id="inputBox" value={this.state.term} onChange={this.onInputChange} onKeyPress={this.handleKeyPress} buttonAfter={button} />
-          </form>
-        </div>
-    </div>
-    );
+        <Input type="text" bsSize="small" placeholder="input a keyword" id="inputBox" value={this.state.term} onChange={this.onInputChange} onKeyPress={this.handleKeyPress} buttonAfter={button} />    );
   }
 }
 
