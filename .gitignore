@@ -12,4 +12,5 @@ graph-db
 .eslintrc.json
 npm-debug.log.*
 public/dist/bundle.js
+public/dist/bundle.js.map
 config/env.json
