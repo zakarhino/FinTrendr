@@ -111,13 +111,13 @@ class KeywordList extends Component {
     return (
       <div className="keywordList">
         <hr/>
-        <p>Select to visualize comparison</p>
         <div className="input-group input-group-sm">
           <input id="newKeywordBox" type="text" className="form-control" placeholder="New Comparison" value={this.state.addedKeyword} onChange={this.onInputChange}/>
           <span className="input-group-btn">
             <button className="btn btn-default" type="button" onClick={this.fetchKeyword}>Add</button>
           </span>
         </div>
+        <p className="font-weight-bold text-xs-center spacer">Select to visualize comparison</p>
         <div className="table-responsive">
           <table className="table table-hover">
           <thead>
