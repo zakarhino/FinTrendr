@@ -12,5 +12,8 @@ graph-db
 .eslintrc.json
 npm-debug.log.*
 public/dist/bundle.js
+<<<<<<< 9e6d44d8ef9a9f5e7d96f8f728ca038aa804cf78
 public/dist/bundle.js.map
 config/env.json
+=======
+>>>>>>> Added env.json
