@@ -10,16 +10,29 @@ const parser = require('rss-parser');
 
 
 module.exports = {
-  getAlchemyInfo: function(req, res) {
-    keywords(req.body.keyword, req.body.listItem, req.body.url).then((result) => {
-      if (result > .1) {
-        if (result === 'rate limited') {
-          res.send({"result": result, "url": ""});
-        }
-        res.send({"result": result, "url": req.body.url});
-      } else {
-        res.send({"result": result, "url": ""});
-      }
-    });
-  }
-}
+    getAlchemyInfo: function(req, res) {
+        let urlList = [];
+        req.body.urls.forEach((url) => {
+            let promise = new Promise((resolve, reject) => {
+
+
+                keywords(req.body.keyword, req.body.listItem, url.link).then((result) => {
+                    if (result > .1) {
+                        if (result === 'rate limited') {
+                            resolve("");
+                        } else {
+                            resolve(url.link);
+                        }
+                    } else {
+                        resolve("");
+                    }
+                });
+            });
+            urlList.push(promise);
+        });
+
+        Promise.all(urlList).then((results) => {
+            res.send({ "result": results, "url": results })
+        });
+    }
+};
