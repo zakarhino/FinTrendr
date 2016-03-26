@@ -6,6 +6,7 @@ body {
 .main-landing {
   position: relative;
   padding-top: 0 !important;
+  z-index: -30;
 }
 
 .particles-js-canvas-el {
@@ -54,6 +55,7 @@ body {
   color: #2C3E50;
   top: 1.5em;
   left: 1.5em;
+  z-index: 1;
 }
 
 .blackTitle:hover {
@@ -129,6 +131,7 @@ body {
   color: black;
   padding-top: 14%;
   text-align: center;
+  z-index: 1;
 }
 
 .about-landing h1 {
@@ -178,6 +181,7 @@ body {
   position: fixed;
   right: 1.5em;
   top: 1.9em;
+  z-index: 1;
 }
 
 .news-list-item {
