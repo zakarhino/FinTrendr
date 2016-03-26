@@ -46,13 +46,13 @@ class MainPanel extends Component {
     return (
       <div>
         <NavBar />
+        <ul className="nav nav-pills">
+            <li className="nav-item"><IndexLink to={path} className="nav-link" activeClassName="active">Search Trend</IndexLink>
+            </li>
+            <li className="nav-item"><Link to={`${path}/stock`} className="nav-link" activeClassName="active">Stock Trend</Link></li>
+        </ul>
         <div className="container">
-          <ul className="nav nav-pills">
-              <li className="nav-item"><IndexLink to={path} className="nav-link" activeClassName="active">Search Trend</IndexLink>
-              </li>
-              <li className="nav-item"><Link to={`${path}/stock`} className="nav-link" activeClassName="active">Stock Trend</Link></li>
-          </ul>
-            {this.props.children}
+          {this.props.children}
         </div>
       </div>
     )

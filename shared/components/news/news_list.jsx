@@ -29,11 +29,8 @@ class NewsList extends Component {
   renderArticles() {
     let count = 0;
     return this.props.news.map((article) => {
-
-
       let colorPicker = {'background-color': "white"};
       if(this.props.alchemy.url) {
-
         if (this.props.alchemy.url.indexOf(article.link) >= 0) {
           colorPicker = {'background-color': "#e6ffe6"};
         }
@@ -53,15 +50,22 @@ class NewsList extends Component {
       //   Click to check whether this article is relevant to you!
       //   <img src={picLink} width="15" height="15"/>
       // </li>
-      <li key={article.link} className="news-list-item" style={colorPicker}>
-      <OverlayTrigger trigger ={['focus', 'hover']}
-      placement="left" overlay ={popOver}>
-        <a target="_blank"  href={article.link}>
-            <p className="news-item-text">{article.title}</p>
-            <p className="news-item-date">{article.pubDate}</p>
-        </a>
-      </OverlayTrigger>
-      </li>
+      <ReactCSSTransitionGroup
+        transitionName="newsExample"
+        transitionEnterTimeout={500}
+        transitionAppearTimeout={500}
+        transitionLeaveTimeout={300}
+        transitionAppear={true}>
+        <li key={article.link} className="news-list-item" style={colorPicker}>
+        <OverlayTrigger trigger ={['focus', 'hover']}
+        placement="left" overlay ={popOver}>
+          <a target="_blank"  href={article.link}>
+              <p className="news-item-text">{article.title}</p>
+              <p className="news-item-date">{article.pubDate}</p>
+          </a>
+        </OverlayTrigger>
+        </li>
+      </ReactCSSTransitionGroup>
       );
     });
   }
@@ -70,14 +74,7 @@ class NewsList extends Component {
       <div className="news spacer drop-shadow container">
           <Panel>
           <ListGroup fill className="news-list">
-          <ReactCSSTransitionGroup
-            transitionName="newsExample"
-            transitionEnterTimeout={500}
-            transitionAppearTimeout={500}
-            transitionLeaveTimeout={300}
-            transitionAppear={true}>
               {this.renderArticles()}
-          </ReactCSSTransitionGroup>
           </ListGroup>
         </Panel>
       </div>
