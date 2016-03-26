@@ -51,7 +51,9 @@ class MainPanel extends Component {
             </li>
             <li className="nav-item"><Link to={`${path}/stock`} className="nav-link" activeClassName="active">Stock Trend</Link></li>
         </ul>
+        <div className="container">
           {this.props.children}
+        </div>
       </div>
     )
   }

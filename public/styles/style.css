@@ -8,6 +8,16 @@ body {
   padding-top: 0 !important;
 }
 
+.container {
+  margin-left: 20px !important;
+  margin-right: 20px !important;
+  max-width: 12000px !important;
+}
+
+.keyword-highlight {
+  font-weight: bolder;
+}
+
 .title-link {
   color: white;
   text-decoration: none;
