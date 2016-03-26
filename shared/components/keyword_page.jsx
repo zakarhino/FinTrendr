@@ -3,7 +3,7 @@ import {Component} from 'react';
 import Graph from './graph';
 import KeywordList from './List/keyword_list';
 import NewsList from './news/news_list';
-import {Panel} from 'react-bootstrap';
+import {Panel, OverlayTrigger, Popover, Button} from 'react-bootstrap';
 
 export default class KeywordPage extends Component {
 
@@ -30,8 +30,13 @@ export default class KeywordPage extends Component {
         </div>
         <div className="col-sm-0 col-md-2">
           <Panel>
-            <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
-            <h5>Related News:</h5>
+            <div className="row">
+            <img src="/img/News.png" width="20" className="pull-xs-left col-md-3 iconPadding" />
+            <h5 className="col-md-6">Related News:</h5>
+            <OverlayTrigger className='col-md-3' trigger={["hover","focus","click"]} placement="left" overlay={<Popover id="heatmapInfo" title="Learn More"><strong>Our Process: </strong> Related News displays recent news articles and for the keyword and a selected search term. A <strong style={{'backgroundColor': '#e6ffe6"', color: 'white'}}>Green</strong> shading indicates that article is relevant to both the user keyword and the selected search term.</Popover>}>
+                <img src="/img/questionmark.png" width="30" circle/> 
+            </OverlayTrigger>
+            </div>
             <NewsList/>
           </Panel>
         </div>
