@@ -6,10 +6,11 @@ export class NavBar extends Component {
   render(){
   return (
     <nav className="navbar navbar-dark navbar-fixed-top bg-inverse bottomGreen">
-      <a href="/" className="title-link col-md-2 col-sm-4">
-        <img src="/img/BarsWhite.png" width="70" className="pull-xs-left" />
-        <h1 className="mainTitle">Trendr</h1>
-        <div className="subTitle">Lets Get Trending</div>
+      <a href="/" className="title-link">
+        <img src="/img/BarsWhite.png" height="70" className="pull-xs-left" />
+      </a>
+      <a href="/" className="title-link">
+        <img src="/img/TextWhite.png" height="60" className="pull-xs-left" />
       </a>
       <div className="navbar-right">
         <form className="navbar-form search" role="search">
