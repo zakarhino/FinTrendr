@@ -70,7 +70,7 @@ class KeywordList extends Component {
         };
         return (
           <tr style={divStyle} key={`keyword-${listItem.Keyword}`} onClick={this.putToGraph.bind(this,listItem)}>
-            <td>{listItem.Keyword}</td>
+            <td>{Caps(listItem.Keyword)}</td>
             <td>{((listItem.corr * 100).toFixed()).toString() + "%" }</td>
             <td><img className="veriImage" src={picLink} width="20" height="20"/></td>
           </tr>
@@ -136,6 +136,25 @@ class KeywordList extends Component {
     );
   }
 }
+
+function Caps(str){
+  var output = "";
+
+  for ( var i = 0; i < str.length; i++ ) {
+    if(i === 0){
+      output += (str[i]).toUpperCase();
+    } else if (str[i] === ' ') {
+        output += ' ';
+        i++;
+        output += (str[i]).toUpperCase();
+    } else {
+      output += (str[i]);
+    }
+  }
+
+  return output;
+}
+
 function mapStateToProps(state) {
   return {list: state.list, keyword: state.keyword.current, lineGraph : state.linegraph.linegraph};
 }
