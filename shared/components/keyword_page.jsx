@@ -11,7 +11,7 @@ export default class KeywordPage extends Component {
     return (
 
       <div className="spacer">
-        <div className="info col-sm-12 col-md-10">
+        <div className="info col-sm-12 col-md-9">
           <div className="row">
             <div className="col-sm-12 col-md-4">
               <img src="/img/Graph.png" width="20" className="pull-xs-left iconPadding" />
@@ -28,13 +28,15 @@ export default class KeywordPage extends Component {
             </div>
           </div>
         </div>
-        <div className="col-sm-0 col-md-2">
+        <div className="col-sm-0 col-md-3">
           <Panel>
             <div className="row">
-            <img src="/img/News.png" width="20" className="pull-xs-left col-md-3 iconPadding" />
-            <h5 className="col-md-6">Related News:</h5>
-            <OverlayTrigger className='col-md-3' trigger={["hover","focus","click"]} placement="left" overlay={<Popover id="heatmapInfo" title="Learn More"><strong>Our Process: </strong> Related News displays recent news articles and for the keyword and a selected search term. A <strong style={{'backgroundColor': '#e6ffe6"', color: 'white'}}>Green</strong> shading indicates that article is relevant to both the user keyword and the selected search term.</Popover>}>
-                <img src="/img/questionmark.png" width="30" circle/> 
+            <div className="col-md-10">
+              <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
+              <h5 >Related News:</h5>
+            </div>
+            <OverlayTrigger className='col-md-2' trigger={["hover","focus","click"]} placement="left" overlay={<Popover id="heatmapInfo" title="Learn More"><strong>Our Process: </strong> Related News displays recent news articles and for the keyword and a selected search term. A <strong style={{'backgroundColor': '#e6ffe6"', color: 'white'}}>Green</strong> shading indicates that article is relevant to both the user keyword and the selected search term.</Popover>}>
+                <img src="/img/questionmark.png" width="30" circle/>
             </OverlayTrigger>
             </div>
             <NewsList/>

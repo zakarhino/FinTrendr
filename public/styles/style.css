@@ -51,10 +51,6 @@ body {
   margin-top: 20px;
 }
 
-.search {
-  margin-top: -40px;
-}
-
 .fancy-box {
   margin: 50px auto;
   width: 700px;
@@ -155,7 +151,6 @@ body {
 }
 
 .news {
-  position: fixed;
   overflow: auto;
   background-color: white;
   max-height: 100%;
@@ -165,7 +160,7 @@ body {
 .info-icon {
   position: fixed;
   right: 1.5em;
-  top: 1.5em;
+  top: 1.9em;
 }
 
 .news-list-item {
@@ -227,22 +222,38 @@ body {
   margin-right:3em;
 }
 
+#search-button{
+  background-color: #2393D1;
+  border-color: #2393D1;
+}
+
 .rd3-treemap-cell {
   pointer-events: all;
   cursor: pointer;
   stroke: #EEEEEE;
 }
 
+/*Nav Bar Item*/
 .nav-item{
   width: 14vw;
 }
+.nav-pills .nav-link{
+  background-color: #E3E6E8;
+}
+.nav-pills .nav-link.active {
+  background-color: #2393D1 !important;
+}
 
 .nav-pills .nav-link:hover {
-  background-color : lightgrey;
+  background-color : #2393D1;
+  color: white;
 }
 
 .heatmap {
   height: 100%;
+}
+.heatMapTitle{
+  margin-top: 10px;
 }
 
 .panel {

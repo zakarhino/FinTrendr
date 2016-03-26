@@ -30,7 +30,7 @@ class NewsList extends Component {
     let count = 0;
     return this.props.news.map((article) => {
 
-      
+
       let colorPicker = {'background-color': "white"};
       if(this.props.alchemy.url) {
 
@@ -67,7 +67,7 @@ class NewsList extends Component {
   }
   render() {
     return (
-      <div className="news spacer container">
+      <div className="news spacer drop-shadow container">
           <Panel>
           <ListGroup fill className="news-list">
           <ReactCSSTransitionGroup
