@@ -55,9 +55,9 @@ class TreeMap extends Component {
         </div>
       <div className="drop-shadow spacer">
         <div className="row">
-          <div className="col-md-offset-10">
+          <div className="col-md-offset-11">
             <OverlayTrigger trigger={["hover","focus","click"]} placement="left" overlay={<Popover id="heatmapInfo" title="Learn More"><strong>Our Process: </strong> The heatmap visualizes the Pearson Correlation Coefficient between the returns of each stock in the S&P 500 (organized by sector), and the historical search volume data of your keyword. <strong style={{'background-color': 'green', color: 'white'}}>Green</strong> indicates a positive correlation and <strong style={{'background-color': 'red', color: 'white'}}>Red</strong> indicates a negative correlation.  Brightness increases as correlation approaches -1/1. For reference, typically .4-.6 is moderate, .6-.8 is strong, and .8-1.0 is a very strong correlation.  Mouse over a box to see more details, and click to open up a Yahoo Finance window for the stock. Enjoy!</Popover>}>
-              <Button bsStyle="default">Want to Learn More?</Button>
+              <img src="/img/questionmark.png" width="25" circle/>
             </OverlayTrigger>
           </div>
         </div>
