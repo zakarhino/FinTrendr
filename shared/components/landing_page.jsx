@@ -9,7 +9,7 @@ export default class LandingPage extends Component {
   render() {
     return (
     <div className="main-landing">
-      <a href="/" className="title-link blackTitle col-md-2 col-sm-4">
+      <a href="/" className="title-link blackTitle col-md-3 col-sm-4">
         <img src="/img/Bars.png" width="70" className="pull-xs-left" />
         <h1 className="mainTitle">Trendr</h1>
       </a>
