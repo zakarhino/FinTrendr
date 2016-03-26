@@ -17,7 +17,7 @@ export function getNews(keyword,selectedKeyword) {
   };
 };
 
-export function resetNews (){
+export function resetNews(){
   return {
     type: RESET_NEWS,
     payload : []

@@ -15,13 +15,13 @@ export default class KeywordPage extends Component {
           <div className="row">
             <div className="col-sm-12 col-md-4">
               <img src="/img/Graph.png" width="20" className="pull-xs-left iconPadding" />
-              <h4 className="spacer">Suggested Comparisons</h4>
+              <h5>Suggested Comparisons</h5>
               <Panel>
                 <KeywordList/>
               </Panel>
             </div>
             <div className="col-sm-12 col-md-8">
-              <span><h4>Search Volume for {this.props.params.keyword}</h4></span>
+              <h5>Search Volume for {this.props.params.keyword}</h5>
               <Panel>
                 <Graph/>
               </Panel>
@@ -31,12 +31,11 @@ export default class KeywordPage extends Component {
         <div className="col-sm-0 col-md-2">
           <Panel>
             <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
-            <h4>Related News:</h4>
+            <h5>Related News:</h5>
             <NewsList/>
           </Panel>
         </div>
       </div>
-
 
     );
   }

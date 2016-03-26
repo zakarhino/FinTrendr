@@ -117,6 +117,7 @@ body {
 .iconPadding {
   margin: 5px;
 }
+
 .table tr {
   cursor:pointer;
 }
@@ -218,4 +219,12 @@ body {
 
 .heatmap {
   height: 100%;
+}
+
+.panel {
+  height:500px;
+}
+
+.keywordList{
+ line-height: 1px;
 }

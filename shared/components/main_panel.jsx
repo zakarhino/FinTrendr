@@ -5,6 +5,7 @@ import {getKeyword, resetCorrelationinfo} from '../actions/keyword';
 import {resetNews} from '../actions/news';
 import {bindActionCreators} from 'redux';
 import {emptyStockInfo} from '../actions/stocks';
+import {removeGraph} from '../actions/linegraph';
 import {Tabs, Tab} from 'react-bootstrap';
 import {NavBar} from './nav_bar';
 
@@ -14,23 +15,31 @@ class MainPanel extends Component {
   }
   componentWillMount() {
     console.log('In Main Panel', this.props.currentKeyword, this.props.params.keyword)
-    if (!this.props.currentKeyword || this.props.params.keyword !== this.props.currentKeyword) {
-      this.props.getKeyword(this.props.params.keyword);
-      console.log("will mount", this.props);
-      this.props.emptyStockInfo();
-      this.props.resetNews();
-      this.props.resetCorrelationinfo();
+    // If redux has no keyword information or when the page is being load with param
+    if (!this.props.currentKeyword || this.props.params.keyword !== this.props.currentKeyword.Keyword) {
+      this.setupKeyword(this.props.params.keyword);
     }
     console.log('will mount and trigger service',);
   }
   componentWillReceiveProps(nextProps) {
+    console.log('in recevie props', nextProps,this.props)
     if (nextProps.currentKeyword.Keyword !== this.props.params.keyword) {
       console.log("will recieve props", this.props,nextProps);
-      this.props.getKeyword(this.props.params.keyword);
-      this.props.emptyStockInfo();
-      this.props.resetNews();
-      this.props.resetCorrelationinfo();
+        this.setupKeyword(this.props.params.keyword);
     }
+    // If new search from search bar while on search result page
+    // next param will be different from current keyword;
+    else if (nextProps.currentKeyword.Keyword !== nextProps.params.keyword){
+      this.setupKeyword(nextProps.params.keyword);
+    }
+  }
+
+  setupKeyword(keyword){
+    this.props.getKeyword(keyword);
+    this.props.emptyStockInfo();
+    this.props.resetNews();
+    this.props.resetCorrelationinfo();
+    this.props.removeGraph();
   }
   render() {
     const path = `/k/${this.props.params.keyword}`;
@@ -55,7 +64,8 @@ function mapDispatchToProps(dispatch) {
     resetCorrelationinfo,
     resetNews,
     getKeyword,
-    emptyStockInfo
+    emptyStockInfo,
+    removeGraph
   }, dispatch);
 }
 export default connect(mapStatesToProps, mapDispatchToProps)(MainPanel);
