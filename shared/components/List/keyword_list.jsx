@@ -95,7 +95,7 @@ class KeywordList extends Component {
     const {list} = this.props;
     if (!list || !list.items || list.items.length === 0) {
       return (
-        <div className="text-xs-center drop-shadow spacer">
+        <div className="text-xs-center spacer">
           <Loading />
         </div>
       );
@@ -109,7 +109,7 @@ class KeywordList extends Component {
     // </div>
 
     return (
-      <div className="drop-shadow container keywordList">
+      <div className="keywordList">
         <hr/>
         <p>Select to visualize comparison</p>
         <div className="input-group input-group-sm">
@@ -118,7 +118,7 @@ class KeywordList extends Component {
             <button className="btn btn-default" type="button" onClick={this.fetchKeyword}>Add</button>
           </span>
         </div>
-        <div class="table-responsive">
+        <div className="table-responsive">
           <table className="table table-hover">
           <thead>
             <tr>
