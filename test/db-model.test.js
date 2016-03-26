@@ -20,7 +20,7 @@ function wipeDB(done) {
 }
 
 // General DB model testing
-describe('DB Model', function() {
+xdescribe('DB Model', function() {
   // Define the slow time to be 1 second to account for DB delays
   this.slow(2000);
   this.timeout(8000);
