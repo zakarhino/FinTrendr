@@ -42,15 +42,15 @@ export class Graph extends Component {
     const viewBoxOject = {
       x: 0,
       y: 0,
-      width: 600,
-      height: 500,
+      width: 700,
+      height: 545,
     };
     return (
-      <div className="drop-shadow spacer heatmap">
+      <div className="drop-shadow spacer container">
         <AreaChart data ={data} lineData={lineGraph} xAxisLabel='Month' xAxisTickInterval={{
           interval: 4
         }} title={data[0].Key} interpolate={true} interpolationType='cardinal' yAxisTickCount={3} yAxisLabel='Value'
-        width='100%' height='100%' viewBoxObject={viewBoxOject}/>
+        width='100%' height='90%' viewBoxObject={viewBoxOject}/>
       </div>
     );
   }

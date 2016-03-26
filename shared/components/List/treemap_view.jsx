@@ -49,7 +49,7 @@ class TreeMap extends Component {
 
     return (
       <div>
-        <h2>"Heat Map of Correlations Between "+this.props.keyword.Keyword+" and S&P 500 Components"</h2>
+        <h3>Heat Map of Correlations Between {this.props.keyword.Keyword} and S&P 500 Components</h3>
       <div className="drop-shadow container spacer">
         <div className="row">
           <div className="col-md-offset-10">
@@ -58,7 +58,7 @@ class TreeMap extends Component {
             </OverlayTrigger>
           </div>
         </div>
-        <Treemap data={stocks} colors={colorFunction} colorAccessor={colorAccessor} width={1000} height={550} textColor="#484848" fontSize="12px" hoverAnimation={true}/>
+        <Treemap data={stocks} colors={colorFunction} colorAccessor={colorAccessor} width={1100} height={450} textColor="#484848" fontSize="12px" hoverAnimation={true}/>
       </div>
     </div>
 

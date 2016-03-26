@@ -109,16 +109,17 @@ class KeywordList extends Component {
     // </div>
 
     return (
-      <div className="drop-shadow container spacer">
+      <div className="drop-shadow container keywordList">
         <hr/>
         <p>Select to visualize comparison</p>
-        <div className="input-group">
+        <div className="input-group input-group-sm">
           <input id="newKeywordBox" type="text" className="form-control" placeholder="New Comparison" value={this.state.addedKeyword} onChange={this.onInputChange}/>
           <span className="input-group-btn">
             <button className="btn btn-default" type="button" onClick={this.fetchKeyword}>Add</button>
           </span>
         </div>
-          <table className="table table-hover spacer">
+        <div class="table-responsive">
+          <table className="table table-hover">
           <thead>
             <tr>
                 <th>Keyword</th>
@@ -130,6 +131,7 @@ class KeywordList extends Component {
               {this.renderList()}
             </tbody>
           </table>
+        </div>
       </div>
     );
   }
