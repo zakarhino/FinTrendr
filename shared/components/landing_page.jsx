@@ -8,7 +8,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 export default class LandingPage extends Component {
   render() {
     return (
-    <div>
+    <div className="main-landing">
+      <a href="/" className="title-link blackTitle col-md-2 col-sm-4">
+        <img src="/img/Bars.png" width="70" className="pull-xs-left" />
+        <h1 className="mainTitle">Trendr</h1>
+      </a>
+      <a href="about" className="info-icon">
+        <img src="/img/InfoBlack.png" width="30"/>
+      </a>
       <div className="about-landing">
         <div className="left-banner"><h1>What's trending?</h1></div>
         <div className="right-banner"><FancySearchBar /></div>

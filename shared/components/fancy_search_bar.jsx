@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { getKeyword } from '../actions/keyword';
 import { getHotTrends } from '../actions/hotTrends';
 import { Link, browserHistory } from 'react-router';
-import { Input, ButtonInput } from 'react-bootstrap';
+import { Input, ButtonInput, OverlayTrigger, Popover, Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class FancySearchBar extends Component {
@@ -16,7 +16,7 @@ class FancySearchBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { currentTrend: 'Trendr', term: '' };
+    this.state = { currentTrend: 'Trendr', term: '', intervalID: null };
     this.generateWord = this.generateWord.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -25,9 +25,16 @@ class FancySearchBar extends Component {
   componentWillMount() {
     let that = this;
     this.props.getHotTrends();
-    setInterval(function() {
+    var intervalID = setInterval(function() {
       that.generateWord();
     }, 4500);
+    this.setState({...this.state, intervalID: intervalID});
+  }
+
+  componentWillUnmount() {
+    if(this.state.intervalID) {
+      clearInterval(this.state.intervalID);
+    }
   }
 
   generateWord() {
