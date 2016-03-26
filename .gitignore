@@ -13,4 +13,4 @@ graph-db
 npm-debug.log.*
 public/dist/bundle.js
 public/dist/bundle.js.map
-config/env.json
+dummyfile
