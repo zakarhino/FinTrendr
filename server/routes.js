@@ -84,7 +84,7 @@ export default (app) => {
           <link href="/styles/style.css" rel="stylesheet" />
           <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
         </head>
-        <body>
+        <body id="particles-js">
           <div id="container" class="wrapper">
             ${componentHTML}
           </div>
@@ -92,7 +92,9 @@ export default (app) => {
           <script src="/dist/bundle.js"> </script>
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
           <script src="/dist/tether.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+          <script src="/dist/particles.min.js"></script>
+          <script src="/dist/particles.js"></script>
         </body>
       </html>
       `;

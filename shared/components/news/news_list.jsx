@@ -7,6 +7,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ReactToolTip from 'react-tooltip';
 import {getAlchemyInfo} from '../../actions/alchemy';
 import {OverlayTrigger, Popover, Panel, ListGroup, ListGroupItem} from 'react-bootstrap';
+
 class NewsList extends Component {
   componentWillMount() {
     if (this.props.term.Keyword && this.props.news.length ===0) {
