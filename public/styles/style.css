@@ -6,7 +6,6 @@ body {
 .main-landing {
   position: relative;
   padding-top: 0 !important;
-  z-index: -30;
 }
 
 .particles-js-canvas-el {
