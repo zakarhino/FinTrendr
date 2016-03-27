@@ -51,16 +51,19 @@ class TreeMap extends Component {
       <div>
       <div className="container">
         <div className="heatMapTitle">
-        <h3>Heat Map of Correlations Between {this.props.keyword.Keyword} and S&P 500 Components</h3>
+        <h3>Heat Map of Correlations Between {this.props.keyword.Keyword} and S&P 500 Components 
+        <OverlayTrigger trigger={["hover","focus","click"]} placement="left" overlay={
+          <Popover id="heatmapInfo" title="Learn More">
+            <strong>Our Process: </strong> The heatmap visualizes the Pearson Correlation Coefficient between the returns of each stock in the S&P 500 (organized by sector), and the historical search volume data of your keyword. 
+              <strong style={{'background-color': 'green', color: 'white'}}>Green</strong> 
+            indicates a positive correlation and 
+              <strong style={{'background-color': 'red', color: 'white'}}>Red</strong> 
+            indicates a negative correlation.  Brightness increases as correlation approaches -1/1. For reference, typically .4-.6 is moderate, .6-.8 is strong, and .8-1.0 is a very strong correlation.  Mouse over a box to see more details, and click to open up a Yahoo Finance window for the stock. Enjoy!
+          </Popover>}>
+              <img src="/img/questionmark.png" width="25" circle/>
+        </OverlayTrigger></h3>
         </div>
       <div className="drop-shadow spacer">
-        <div className="row">
-          <div className="col-md-offset-11">
-            <OverlayTrigger trigger={["hover","focus","click"]} placement="left" overlay={<Popover id="heatmapInfo" title="Learn More"><strong>Our Process: </strong> The heatmap visualizes the Pearson Correlation Coefficient between the returns of each stock in the S&P 500 (organized by sector), and the historical search volume data of your keyword. <strong style={{'background-color': 'green', color: 'white'}}>Green</strong> indicates a positive correlation and <strong style={{'background-color': 'red', color: 'white'}}>Red</strong> indicates a negative correlation.  Brightness increases as correlation approaches -1/1. For reference, typically .4-.6 is moderate, .6-.8 is strong, and .8-1.0 is a very strong correlation.  Mouse over a box to see more details, and click to open up a Yahoo Finance window for the stock. Enjoy!</Popover>}>
-              <img src="/img/questionmark.png" width="25" circle/>
-            </OverlayTrigger>
-          </div>
-        </div>
         <Treemap data={stocks} colors={colorFunction} colorAccessor={colorAccessor} width={1100} height={450} textColor="#484848" fontSize="12px" hoverAnimation={true}/>
       </div>
       </div>

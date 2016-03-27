@@ -29,10 +29,10 @@ class NewsList extends Component {
   renderArticles() {
     let count = 0;
     return this.props.news.map((article) => {
-      let colorPicker = {'background-color': "white"};
+      let colorPicker = {'backgroundColor': "white"};
       if(this.props.alchemy.url) {
         if (this.props.alchemy.url.indexOf(article.link) >= 0) {
-          colorPicker = {'background-color': "#e6ffe6"};
+          colorPicker = {'backgroundColor': "#e6ffe6"};
         }
       }
       let popOver = (
