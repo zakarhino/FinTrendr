@@ -71,12 +71,26 @@ class NewsList extends Component {
   }
   render() {
     return (
-      <div className="news spacer drop-shadow container">
+      <div className="drop-shadow container">
+        <div className="newsPanel">
+        </div>
+        <div className="row">
+
+          <div className="col-md-10">
+            <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
+            <h5 >Related News:</h5>
+          </div>
+          <OverlayTrigger className='col-md-2' trigger={["hover","focus","click"]} placement="left" overlay={<Popover id="heatmapInfo" title="Learn More"><strong>Our Process: </strong> Related News displays recent news articles for the user Search Term and a selected Keyword Suggestion. A <strong style={{'background-color': '#e6ffe6', color: 'black'}}>Green</strong> shading indicates that article is relevant to both the user Search Term and the selected Suggested Keyword.</Popover>}>
+              <img src="/img/questionmark.png" width="20" circle/>
+          </OverlayTrigger>
+          </div>
+          <div className="news spacer">
           <Panel>
           <ListGroup fill className="news-list">
               {this.renderArticles()}
           </ListGroup>
         </Panel>
+        </div>
       </div>
     );
     }};

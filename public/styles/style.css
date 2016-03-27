@@ -280,3 +280,11 @@ body {
 .keywordList{
  line-height: 1px;
 }
+
+.infoPanel{
+  margin-top:20px;
+}
+
+.newsPanel{
+  height:20px;
+}
