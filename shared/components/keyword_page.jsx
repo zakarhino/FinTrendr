@@ -11,7 +11,7 @@ export default class KeywordPage extends Component {
     return (
       <div className="spacer">
         <div className="info col-sm-12 col-md-9 drop-shadow">
-          <Panel>
+          <Panel className="infoPanel">
             <div className="row">
               <div className="col-sm-12 col-md-4">
                 <div className="row">
@@ -37,15 +37,6 @@ export default class KeywordPage extends Component {
         </div>
         <div className="col-sm-0 col-md-3">
           <Panel>
-            <div className="row">
-            <div className="col-md-10">
-              <img src="/img/News.png" width="20" className="pull-xs-left iconPadding" />
-              <h5 >Related News:</h5>
-            </div>
-            <OverlayTrigger className='col-md-2' trigger={["hover","focus","click"]} placement="left" overlay={<Popover id="heatmapInfo" title="Learn More"><strong>Our Process: </strong> Related News displays recent news articles for the user Search Term and a selected Keyword Suggestion. A <strong style={{'background-color': '#e6ffe6', color: 'black'}}>Green</strong> shading indicates that article is relevant to both the user Search Term and the selected Suggested Keyword.</Popover>}>
-                <img src="/img/questionmark.png" width="20" circle/>
-            </OverlayTrigger>
-            </div>
             <NewsList/>
           </Panel>
         </div>
