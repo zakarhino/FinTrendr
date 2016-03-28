@@ -25,7 +25,7 @@ export class Graph extends Component {
     if (!currentKeyword) {
       return (
         <div>
-          Loading Grapha
+          Loading Graph Data.  Please Note, if excessive wait times occur, this may be due to overuse of GoogleTrends API, which restricts number of queries per day.  We are an academic project for proof of concept only, and we apologize for any inconvienence this may cause.  Please try a different term or wait a few minutes and try again later.
         </div>
       );
     }
