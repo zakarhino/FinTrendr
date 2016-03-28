@@ -25,31 +25,31 @@ export default class About extends Component {
         <div className="row spacer">
           <div className="col-md-6">
             <h3>Tech Stack</h3>
-            <img src="/img/TechStack.png" className="center-block" width="90%" />
+            <img src="/img/TechStack-Min.png" className="center-block" width="90%" />
           </div>
           <div className="col-md-6">
             <h3>Team</h3>
             <p>We are a team of talented full stack engineers dedicated to creating flexible modern software which solves real world problems.</p>
             <div className="row text-xs-center spacer">
               <div className="col-md-6 spacer">
-                <span>Eric Mustin</span>
+                <h2>Eric Mustin</h2>
                 <a href="https://github.com/ericmustin"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a>
                 <a href="mailto:mustin.eric@gmail.com?Subject=Trendr"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
               </div>
               <div className="col-md-6 spacer">
-                <span>Zak Golding</span>
+                <h2>Zak Golding</h2>
                 <a href="https://github.com/zakarhino"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a>
                 <a href="mailto:zak@0x7cf.com?Subject=Trend"> <img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
               </div>
             </div>
             <div className="row text-xs-center spacer">
               <div className="col-md-6 spacer">
-                <span>Jason Cheung</span>
+                <h2>Jason Cheung</h2>
                 <a href="https://github.com/JCheungX"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a>
                 <a href="mailto:jasoncheungcf@gmail.com?Subject=Trendr"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
               </div>
               <div className="col-md-6 spacer">
-                <span>Arlen Neylon</span>
+                <h2>Arlen Neylon</h2>
                 <a href="https://github.com/aneylon"> <img src="http://cdn.flaticon.com/png/256/25231.png" width="20" /> </a>
                 <a href="mailto:arlen.m.neylon@gmail.com?Subject=Trendr"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519948-008_Mail-128.png" width="20" /> </a>
               </div>
