@@ -3,6 +3,8 @@
 require('babel-core/register')({});
 require('babel-polyfill');
 
+// hey this is cool
+
 const server = require('./server/server').default;
 const loadcsv = require('./utility/csvtojson.js');
 const db = require('./server/db/db-model.js');
